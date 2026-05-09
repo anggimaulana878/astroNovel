@@ -6,6 +6,5 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   adapter: vercel({
     maxDuration: 8,
-    includeFiles: ['public/novels/**/*.br'],
   }),
 });
