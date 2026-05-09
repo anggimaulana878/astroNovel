@@ -1,9 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from '../layouts/Layout.astro';
 import NovelCard from '../components/NovelCard.astro';
 import { getAllNovels } from '../lib/novel-loader';
 
 const novels = await getAllNovels();
+console.log('[Homepage] Rendering with', novels.length, 'novels');
 ---
 
 <Layout title="AstroNovel - My Novel Library" description="Personal web novel reader">

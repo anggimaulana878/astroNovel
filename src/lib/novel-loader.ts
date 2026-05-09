@@ -79,28 +79,29 @@ export async function loadChapterRange(
 
 export async function getAllNovels(): Promise<NovelMetadata[]> {
   const cacheKey = 'all-novels';
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey);
-  }
   
   try {
     const indexPath = join(process.cwd(), 'public', 'novels', 'index.json');
+    console.log('[getAllNovels] Reading index from:', indexPath);
     const indexData = JSON.parse(await readFile(indexPath, 'utf-8'));
+    console.log('[getAllNovels] Found novels:', indexData.novels.length);
     
     const novels: NovelMetadata[] = [];
     for (const novel of indexData.novels) {
       try {
         const metadata = await loadNovelMetadata(novel.slug);
         novels.push(metadata);
+        console.log('[getAllNovels] Loaded:', novel.slug);
       } catch (err) {
-        console.warn(`Failed to load novel ${novel.slug}:`, err);
+        console.warn(`[getAllNovels] Failed to load novel ${novel.slug}:`, err);
       }
     }
     
+    console.log('[getAllNovels] Total loaded:', novels.length);
     cache.set(cacheKey, novels);
     return novels;
   } catch (err) {
-    console.error('Failed to load novels index:', err);
+    console.error('[getAllNovels] Failed to load novels index:', err);
     return [];
   }
 }

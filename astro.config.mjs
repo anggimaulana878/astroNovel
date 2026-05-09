@@ -4,7 +4,6 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
   adapter: vercel({
     maxDuration: 8,
     includeFiles: ['public/novels/**/*.br'],

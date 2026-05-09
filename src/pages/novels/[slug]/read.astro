@@ -365,59 +365,69 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     }
   </style>
 
-  <script>
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const fontDecrease = document.getElementById('font-decrease');
-    const fontIncrease = document.getElementById('font-increase');
-    
-    darkModeToggle?.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('darkMode', String(isDark));
-    });
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      const fontDecrease = document.getElementById('font-decrease');
+      const fontIncrease = document.getElementById('font-increase');
+      
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          localStorage.setItem('darkMode', String(isDark));
+        });
+      }
 
-    let fontSize = parseInt(localStorage.getItem('fontSize') || '16', 10);
-    const readerContent = document.querySelector('.reader-content') as HTMLElement;
-    
-    function updateFontSize() {
-      if (readerContent) {
-        readerContent.style.fontSize = `${fontSize}px`;
-        localStorage.setItem('fontSize', String(fontSize));
+      let fontSize = parseInt(localStorage.getItem('fontSize') || '16', 10);
+      const readerContent = document.querySelector('.reader-content');
+      
+      function updateFontSize() {
+        if (readerContent) {
+          readerContent.style.fontSize = fontSize + 'px';
+          localStorage.setItem('fontSize', String(fontSize));
+        }
       }
-    }
-    
-    fontDecrease?.addEventListener('click', () => {
-      if (fontSize > 14) {
-        fontSize -= 2;
-        updateFontSize();
+      
+      if (fontDecrease) {
+        fontDecrease.addEventListener('click', () => {
+          if (fontSize > 14) {
+            fontSize -= 2;
+            updateFontSize();
+          }
+        });
       }
-    });
-    
-    fontIncrease?.addEventListener('click', () => {
-      if (fontSize < 24) {
-        fontSize += 2;
-        updateFontSize();
+      
+      if (fontIncrease) {
+        fontIncrease.addEventListener('click', () => {
+          if (fontSize < 24) {
+            fontSize += 2;
+            updateFontSize();
+          }
+        });
       }
-    });
-    
-    updateFontSize();
+      
+      updateFontSize();
 
-    const slug = window.location.pathname.split('/')[2];
-    const progressKey = `novel-progress:${slug}`;
-    const currentChapter = parseInt(document.querySelector('.batch-info')?.textContent?.match(/Chapters (\d+)/)?.[1] || '1', 10);
-    
-    let saveTimeout: number;
-    function saveProgress() {
-      clearTimeout(saveTimeout);
-      saveTimeout = window.setTimeout(() => {
-        localStorage.setItem(progressKey, JSON.stringify({
-          slug,
-          lastChapter: currentChapter,
-          lastUpdated: Date.now()
-        }));
-      }, 10000);
-    }
-    
-    saveProgress();
+      const slug = window.location.pathname.split('/')[2];
+      const progressKey = 'novel-progress:' + slug;
+      const batchInfo = document.querySelector('.batch-info');
+      const match = batchInfo ? batchInfo.textContent.match(/Chapters (\d+)/) : null;
+      const currentChapter = match ? parseInt(match[1], 10) : 1;
+      
+      let saveTimeout;
+      function saveProgress() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(() => {
+          localStorage.setItem(progressKey, JSON.stringify({
+            slug: slug,
+            lastChapter: currentChapter,
+            lastUpdated: Date.now()
+          }));
+        }, 10000);
+      }
+      
+      saveProgress();
+    });
   </script>
 </body>
 </html>
