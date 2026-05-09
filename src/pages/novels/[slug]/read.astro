@@ -209,7 +209,11 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     </div>
     
     <div class="batch-info">
-      <span>Reading: <strong>Chapters {batchStart}-{batchEnd}</strong> ({chapters.length} chapters, ~{Math.round(totalWords / 250)} min)</span>
+      {modeParam === 'chapters' ? (
+        <span>Reading: <strong>Chapters {batchStart}-{batchEnd}</strong> ({chapters.length} chapters, ~{Math.round(totalWords / 250)} min)</span>
+      ) : (
+        <span>Reading: <strong>Chapters {batchStart}-{batchEnd}</strong> ({chapters.length} chapters, <strong>{totalWords.toLocaleString()} words</strong>, ~{Math.round(totalWords / 250)} min)</span>
+      )}
     </div>
   </header>
 
