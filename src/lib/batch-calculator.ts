@@ -22,16 +22,18 @@ export function getWordCountBatch(
   chapters: Chapter[]
 ): { start: number; end: number; wordCount: number } {
   let wordCount = 0;
-  let endChapter = startChapter;
+  let chaptersProcessed = 0;
   
-  for (let i = startChapter - 1; i < chapters.length; i++) {
+  for (let i = 0; i < chapters.length; i++) {
     const chapterWords = countWords(chapters[i].body);
     if (wordCount + chapterWords > targetWords && wordCount > 0) {
       break;
     }
     wordCount += chapterWords;
-    endChapter = i + 1;
+    chaptersProcessed = i + 1;
   }
+  
+  const endChapter = startChapter + chaptersProcessed - 1;
   
   return { start: startChapter, end: endChapter, wordCount };
 }
