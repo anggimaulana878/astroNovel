@@ -224,7 +224,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       {chapters.map(chapter => (
         <section itemprop="articleBody" class="chapter-section">
           <h2 class="chapter-title">{chapter.title}</h2>
-          <div class="chapter-body" set:html={sanitizeChapterHTML(chapter.body)} />
+          <div class="chapter-body" set:html={sanitizeChapterHTML(chapter.body, chapter.title)} />
         </section>
       ))}
     </div>
