@@ -47,8 +47,10 @@ if (modeParam === 'chapters') {
 
 const totalWords = chapters.reduce((sum, ch) => sum + countWords(ch.body), 0);
 
-const prevBatchStart = Math.max(1, batchStart - batchSize);
-const nextBatchStart = Math.min(batchEnd + 1, novel.totalChapters);
+// Calculate navigation based on actual chapters read, not batchSize
+const chaptersRead = batchEnd - batchStart + 1;
+const prevBatchStart = Math.max(1, batchStart - chaptersRead);
+const nextBatchStart = batchEnd + 1;
 const hasPrev = batchStart > 1;
 const hasNext = batchEnd < novel.totalChapters;
 
@@ -244,7 +246,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       class={`nav-btn primary ${!hasNext ? 'disabled' : ''}`}
       aria-disabled={!hasNext}
     >
-      Next Batch ({nextBatchStart}-{Math.min(nextBatchStart + batchSize - 1, novel.totalChapters)}) →
+      Next Batch →
     </a>
   </nav>
 
