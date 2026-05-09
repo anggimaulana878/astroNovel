@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /novels/
+Allow: /novels/*/read
+
+Sitemap: https://your-domain.vercel.app/sitemap.xml

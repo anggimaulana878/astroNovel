@@ -1,0 +1,112 @@
+{
+  "slug": "super-gene",
+  "title": "Super Gene",
+  "description": "In the future, humans enter God's Sanctuary where they hunt creatures to gain geno points and evolve. Han Sen, a young man, enters the sanctuary and begins his journey to become the strongest.",
+  "author": "Twelve Winged Dark Burning Angel",
+  "coverImage": "/novels/super-gene/cover.jpg",
+  "totalChapters": 4000,
+  "publishDate": "2015-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [1, 200]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [201, 400]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [401, 600]
+    },
+    {
+      "id": 4,
+      "file": "vol-004.json.br",
+      "chapterRange": [601, 800]
+    },
+    {
+      "id": 5,
+      "file": "vol-005.json.br",
+      "chapterRange": [801, 1000]
+    },
+    {
+      "id": 6,
+      "file": "vol-006.json.br",
+      "chapterRange": [1001, 1200]
+    },
+    {
+      "id": 7,
+      "file": "vol-007.json.br",
+      "chapterRange": [1201, 1400]
+    },
+    {
+      "id": 8,
+      "file": "vol-008.json.br",
+      "chapterRange": [1401, 1600]
+    },
+    {
+      "id": 9,
+      "file": "vol-009.json.br",
+      "chapterRange": [1601, 1800]
+    },
+    {
+      "id": 10,
+      "file": "vol-010.json.br",
+      "chapterRange": [1801, 2000]
+    },
+    {
+      "id": 11,
+      "file": "vol-011.json.br",
+      "chapterRange": [2001, 2200]
+    },
+    {
+      "id": 12,
+      "file": "vol-012.json.br",
+      "chapterRange": [2201, 2400]
+    },
+    {
+      "id": 13,
+      "file": "vol-013.json.br",
+      "chapterRange": [2401, 2600]
+    },
+    {
+      "id": 14,
+      "file": "vol-014.json.br",
+      "chapterRange": [2601, 2800]
+    },
+    {
+      "id": 15,
+      "file": "vol-015.json.br",
+      "chapterRange": [2801, 3000]
+    },
+    {
+      "id": 16,
+      "file": "vol-016.json.br",
+      "chapterRange": [3001, 3200]
+    },
+    {
+      "id": 17,
+      "file": "vol-017.json.br",
+      "chapterRange": [3201, 3400]
+    },
+    {
+      "id": 18,
+      "file": "vol-018.json.br",
+      "chapterRange": [3401, 3600]
+    },
+    {
+      "id": 19,
+      "file": "vol-019.json.br",
+      "chapterRange": [3601, 3800]
+    },
+    {
+      "id": 20,
+      "file": "vol-020.json.br",
+      "chapterRange": [3801, 4000]
+    }
+  ]
+}
