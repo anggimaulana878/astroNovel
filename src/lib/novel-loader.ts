@@ -83,7 +83,24 @@ export async function getAllNovels(): Promise<NovelMetadata[]> {
     return cache.get(cacheKey);
   }
   
-  const novels = [await loadNovelMetadata('super-gene')];
-  cache.set(cacheKey, novels);
-  return novels;
+  try {
+    const indexPath = join(process.cwd(), 'public', 'novels', 'index.json');
+    const indexData = JSON.parse(await readFile(indexPath, 'utf-8'));
+    
+    const novels: NovelMetadata[] = [];
+    for (const novel of indexData.novels) {
+      try {
+        const metadata = await loadNovelMetadata(novel.slug);
+        novels.push(metadata);
+      } catch (err) {
+        console.warn(`Failed to load novel ${novel.slug}:`, err);
+      }
+    }
+    
+    cache.set(cacheKey, novels);
+    return novels;
+  } catch (err) {
+    console.error('Failed to load novels index:', err);
+    return [];
+  }
 }

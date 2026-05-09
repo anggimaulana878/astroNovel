@@ -1,0 +1,68 @@
+{
+  "slug": "god-and-devil-world",
+  "title": "God And Devil World",
+  "description": "Read God And Devil World online. 1216 chapters available.",
+  "author": "Unknown",
+  "coverImage": "/novels/god-and-devil-world/cover.jpg",
+  "totalChapters": 1216,
+  "publishDate": "2020-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [
+        1,
+        200
+      ]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [
+        201,
+        400
+      ]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [
+        401,
+        600
+      ]
+    },
+    {
+      "id": 4,
+      "file": "vol-004.json.br",
+      "chapterRange": [
+        601,
+        800
+      ]
+    },
+    {
+      "id": 5,
+      "file": "vol-005.json.br",
+      "chapterRange": [
+        801,
+        1000
+      ]
+    },
+    {
+      "id": 6,
+      "file": "vol-006.json.br",
+      "chapterRange": [
+        1001,
+        1200
+      ]
+    },
+    {
+      "id": 7,
+      "file": "vol-007.json.br",
+      "chapterRange": [
+        1201,
+        1216
+      ]
+    }
+  ]
+}

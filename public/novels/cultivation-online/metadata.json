@@ -1,10 +1,10 @@
 {
-  "slug": "super-gene",
-  "title": "Super Gene",
-  "description": "Read Super Gene online. 3461 chapters available.",
+  "slug": "cultivation-online",
+  "title": "Cultivation Online",
+  "description": "Read Cultivation Online online. 2442 chapters available.",
   "author": "Unknown",
-  "coverImage": "/novels/super-gene/cover.jpg",
-  "totalChapters": 3461,
+  "coverImage": "/novels/cultivation-online/cover.jpg",
+  "totalChapters": 2442,
   "publishDate": "2020-01-01",
   "language": "en",
   "volumes": [
@@ -109,47 +109,7 @@
       "file": "vol-013.json.br",
       "chapterRange": [
         2401,
-        2600
-      ]
-    },
-    {
-      "id": 14,
-      "file": "vol-014.json.br",
-      "chapterRange": [
-        2601,
-        2800
-      ]
-    },
-    {
-      "id": 15,
-      "file": "vol-015.json.br",
-      "chapterRange": [
-        2801,
-        3000
-      ]
-    },
-    {
-      "id": 16,
-      "file": "vol-016.json.br",
-      "chapterRange": [
-        3001,
-        3200
-      ]
-    },
-    {
-      "id": 17,
-      "file": "vol-017.json.br",
-      "chapterRange": [
-        3201,
-        3400
-      ]
-    },
-    {
-      "id": 18,
-      "file": "vol-018.json.br",
-      "chapterRange": [
-        3401,
-        3461
+        2442
       ]
     }
   ]
