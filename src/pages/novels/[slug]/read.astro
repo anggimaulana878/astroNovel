@@ -161,6 +161,50 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       </div>
     </div>
     
+    <div class="settings-dropdown" id="settings-dropdown">
+      <div class="settings-section">
+        <h3>Reading Mode</h3>
+        <div class="setting-item">
+          <label>
+            <input type="radio" name="mode" value="chapters" checked={modeParam === 'chapters'} />
+            By Chapters
+          </label>
+          <label>
+            <input type="radio" name="mode" value="words" checked={modeParam === 'words'} />
+            By Words
+          </label>
+        </div>
+      </div>
+      
+      <div class="settings-section">
+        <h3>Batch Size</h3>
+        <div class="setting-item">
+          <select id="batch-size-select">
+            <option value="3" selected={batchSize === 3}>3 chapters</option>
+            <option value="5" selected={batchSize === 5}>5 chapters</option>
+            <option value="10" selected={batchSize === 10}>10 chapters</option>
+            <option value="15" selected={batchSize === 15}>15 chapters</option>
+            <option value="custom" selected={![3, 5, 10, 15].includes(batchSize)}>Custom</option>
+          </select>
+        </div>
+        <div class="setting-item custom-input-container" id="custom-input-container" style="display: none;">
+          <input 
+            type="number" 
+            id="custom-batch-size" 
+            placeholder="Enter number"
+            min="1"
+            max="50"
+            value={![3, 5, 10, 15].includes(batchSize) ? batchSize : ''}
+          />
+          <small class="input-hint" id="custom-hint">Enter a number between 1-50</small>
+        </div>
+      </div>
+      
+      <div class="settings-section">
+        <button class="apply-btn" id="apply-settings">Apply Changes</button>
+      </div>
+    </div>
+    
     <div class="batch-info">
       <span>Reading: <strong>Chapters {batchStart}-{batchEnd}</strong> ({chapters.length} chapters, ~{Math.round(totalWords / 250)} min)</span>
     </div>
@@ -207,6 +251,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     }
 
     .header-content {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -261,6 +306,114 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       text-align: center;
       font-size: 0.9em;
       color: var(--text-secondary);
+    }
+
+    .settings-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 20px;
+      background: var(--bg-primary);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      min-width: 280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: none;
+      z-index: 1000;
+      margin-top: 8px;
+    }
+
+    .settings-dropdown.active {
+      display: block;
+    }
+
+    .settings-section {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .settings-section h3 {
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .setting-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .setting-item label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+
+    .setting-item input[type="radio"] {
+      cursor: pointer;
+    }
+
+    .setting-item select {
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.9em;
+      cursor: pointer;
+    }
+
+    .custom-input-container {
+      margin-top: 8px;
+    }
+
+    .custom-input-container input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 0.9em;
+    }
+
+    .custom-input-container input[type="number"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .input-hint {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.8em;
+      color: var(--text-secondary);
+    }
+
+    .apply-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .apply-btn:hover {
+      background: var(--accent-hover);
     }
 
     .reader-content {
@@ -370,14 +523,122 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       const darkModeToggle = document.getElementById('dark-mode-toggle');
       const fontDecrease = document.getElementById('font-decrease');
       const fontIncrease = document.getElementById('font-increase');
+      const settingsBtn = document.getElementById('settings-btn');
+      const settingsDropdown = document.getElementById('settings-dropdown');
+      const applySettingsBtn = document.getElementById('apply-settings');
+      const batchSizeSelect = document.getElementById('batch-size-select');
+      const customInputContainer = document.getElementById('custom-input-container');
+      const customBatchSizeInput = document.getElementById('custom-batch-size');
+      const customHint = document.getElementById('custom-hint');
+      const modeRadios = document.querySelectorAll('input[name="mode"]');
       
+      // Update hint text based on mode
+      function updateCustomHint(mode) {
+        if (!customHint) return;
+        if (mode === 'chapters') {
+          customHint.textContent = 'Enter number of chapters (1-50)';
+        } else {
+          customHint.textContent = 'Enter number in thousands (e.g., 7 for 7k words, max 50)';
+        }
+      }
+      
+      // Update batch size options based on selected mode
+      function updateBatchSizeOptions(mode) {
+        if (!batchSizeSelect) return;
+        
+        const currentValue = batchSizeSelect.value;
+        const unit = mode === 'chapters' ? 'chapters' : 'k words';
+        
+        // Preserve custom option if selected
+        const isCustom = currentValue === 'custom';
+        
+        batchSizeSelect.innerHTML = `
+          <option value="3" ${currentValue === '3' ? 'selected' : ''}>3 ${unit}</option>
+          <option value="5" ${currentValue === '5' ? 'selected' : ''}>5 ${unit}</option>
+          <option value="10" ${currentValue === '10' ? 'selected' : ''}>10 ${unit}</option>
+          <option value="15" ${currentValue === '15' ? 'selected' : ''}>15 ${unit}</option>
+          <option value="custom" ${isCustom ? 'selected' : ''}>Custom</option>
+        `;
+        
+        // Update hint text
+        updateCustomHint(mode);
+        
+        // Show/hide custom input based on selection
+        toggleCustomInput();
+      }
+      
+      // Toggle custom input visibility
+      function toggleCustomInput() {
+        if (!customInputContainer || !batchSizeSelect) return;
+        
+        const currentMode = document.querySelector('input[name="mode"]:checked')?.value || 'chapters';
+        
+        if (batchSizeSelect.value === 'custom') {
+          customInputContainer.style.display = 'block';
+          updateCustomHint(currentMode);
+          if (customBatchSizeInput) {
+            customBatchSizeInput.focus();
+          }
+        } else {
+          customInputContainer.style.display = 'none';
+        }
+      }
+      
+      // Initialize batch size options
+      const currentMode = document.querySelector('input[name="mode"]:checked')?.value || 'chapters';
+      updateBatchSizeOptions(currentMode);
+      
+      // Listen for batch size select changes
+      if (batchSizeSelect) {
+        batchSizeSelect.addEventListener('change', toggleCustomInput);
+      }
+      
+      // Listen for mode changes
+      modeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          updateBatchSizeOptions(e.target.value);
+        });
+      });
+      
+      // Toggle settings dropdown
+      if (settingsBtn && settingsDropdown) {
+        settingsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          settingsDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!settingsDropdown.contains(e.target) && e.target !== settingsBtn) {
+            settingsDropdown.classList.remove('active');
+          }
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        settingsDropdown.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+      
+      // Dark mode toggle
       if (darkModeToggle) {
         darkModeToggle.addEventListener('click', () => {
           const isDark = document.documentElement.classList.toggle('dark');
           localStorage.setItem('darkMode', String(isDark));
+          updateThemeIcon();
         });
       }
 
+      function updateThemeIcon() {
+        const isDark = document.documentElement.classList.contains('dark');
+        if (darkModeToggle) {
+          darkModeToggle.textContent = isDark ? '☀️' : '🌙';
+        }
+      }
+
+      updateThemeIcon();
+
+      // Font size management
       let fontSize = parseInt(localStorage.getItem('fontSize') || '16', 10);
       const readerContent = document.querySelector('.reader-content');
       
@@ -408,6 +669,39 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       
       updateFontSize();
 
+      // Apply settings button
+      if (applySettingsBtn) {
+        applySettingsBtn.addEventListener('click', () => {
+          const selectedMode = document.querySelector('input[name="mode"]:checked')?.value;
+          let selectedSize = batchSizeSelect?.value;
+          
+          // If custom is selected, get value from custom input
+          if (selectedSize === 'custom' && customBatchSizeInput) {
+            const customValue = parseInt(customBatchSizeInput.value, 10);
+            
+            if (customValue && customValue >= 1 && customValue <= 50) {
+              selectedSize = String(customValue);
+            } else {
+              if (selectedMode === 'chapters') {
+                alert('Please enter a valid number of chapters between 1 and 50');
+              } else {
+                alert('Please enter a valid number between 1 and 50 (in thousands of words)');
+              }
+              return;
+            }
+          }
+          
+          if (selectedMode && selectedSize) {
+            const currentUrl = new URL(window.location.href);
+            const currentStart = currentUrl.searchParams.get('start') || '1';
+            
+            // Redirect with new settings
+            window.location.href = `${currentUrl.pathname}?start=${currentStart}&mode=${selectedMode}&size=${selectedSize}`;
+          }
+        });
+      }
+
+      // Progress tracking
       const slug = window.location.pathname.split('/')[2];
       const progressKey = 'novel-progress:' + slug;
       const batchInfo = document.querySelector('.batch-info');
