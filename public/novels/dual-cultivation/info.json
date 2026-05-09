@@ -1,0 +1,57 @@
+{
+  "id": "dual-cultivation",
+  "title": "Dual Cultivation",
+  "authors": [
+    "Mylittlebrother"
+  ],
+  "synopsis": "What is the point of wealth and status if there’s nobody to share it with? Dual Cultivation explores the sensual side of the Cultivation world that is often filled with solitude! Su Yang was sentenced to life in prison within the Eternal Retribution Cliff, where only the universe’s most violent and evil criminals dwell. His crime? He seduced the Moon God’s wife, kidnapped the Dragon King’s sister, and even touched the Heavenly Emperor’s beloved daughter. He later meets a mysterious old man who would help him escape prison by reincarnating him. In his new life, Su Yang swears to reunite with his lovers and hold them in his embrace once again, all the while finding new ones along the way.",
+  "genres": [],
+  "source": "allnovelfull-com",
+  "sourceUrl": "https://allnovelfull.com/dual-cultivation-novel.html",
+  "totalChapters": 1146,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 352
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 299
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 298
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 281
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 284
+    },
+    {
+      "id": 6,
+      "range": "1001-1146",
+      "file": "vol-006.json.br",
+      "chapters": 146,
+      "sizeKB": 219
+    }
+  ]
+}

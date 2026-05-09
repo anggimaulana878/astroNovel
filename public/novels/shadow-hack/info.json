@@ -1,0 +1,78 @@
+{
+  "id": "shadow-hack",
+  "title": "Shadow Hack",
+  "totalChapters": 989,
+  "bundleSize": 100,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-100",
+      "file": "vol-001.json.br",
+      "chapters": 100,
+      "sizeKB": 226
+    },
+    {
+      "id": 2,
+      "range": "101-200",
+      "file": "vol-002.json.br",
+      "chapters": 100,
+      "sizeKB": 223
+    },
+    {
+      "id": 3,
+      "range": "201-300",
+      "file": "vol-003.json.br",
+      "chapters": 100,
+      "sizeKB": 207
+    },
+    {
+      "id": 4,
+      "range": "301-400",
+      "file": "vol-004.json.br",
+      "chapters": 100,
+      "sizeKB": 187
+    },
+    {
+      "id": 5,
+      "range": "401-500",
+      "file": "vol-005.json.br",
+      "chapters": 100,
+      "sizeKB": 79
+    },
+    {
+      "id": 6,
+      "range": "501-600",
+      "file": "vol-006.json.br",
+      "chapters": 100,
+      "sizeKB": 57
+    },
+    {
+      "id": 7,
+      "range": "601-700",
+      "file": "vol-007.json.br",
+      "chapters": 100,
+      "sizeKB": 22
+    },
+    {
+      "id": 8,
+      "range": "701-800",
+      "file": "vol-008.json.br",
+      "chapters": 100,
+      "sizeKB": 14
+    },
+    {
+      "id": 9,
+      "range": "801-900",
+      "file": "vol-009.json.br",
+      "chapters": 100,
+      "sizeKB": 91
+    },
+    {
+      "id": 10,
+      "range": "901-989",
+      "file": "vol-010.json.br",
+      "chapters": 89,
+      "sizeKB": 118
+    }
+  ]
+}

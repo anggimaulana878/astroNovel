@@ -1,0 +1,63 @@
+{
+  "id": "science-and-technology-library",
+  "title": "Science And Technology Library",
+  "authors": [
+    "Lonely_Ant"
+  ],
+  "synopsis": "Science and Technology Library: The supreme state of science is theology; an accidental rescue, let Chen Mo get a technology library that collects endless technology, the story begins…",
+  "genres": [
+    "Action",
+    "Army",
+    "AcceleratedGrowth",
+    "Sci-fi",
+    "Aliens"
+  ],
+  "source": "wuxiaspot-com",
+  "sourceUrl": "https://www.wuxiaspot.com/novel/science-library.html",
+  "totalChapters": 1129,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 400
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 428
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 466
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 199,
+      "sizeKB": 457
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 471
+    },
+    {
+      "id": 6,
+      "range": "1001-1129",
+      "file": "vol-006.json.br",
+      "chapters": 129,
+      "sizeKB": 312
+    }
+  ]
+}

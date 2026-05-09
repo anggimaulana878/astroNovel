@@ -1,0 +1,57 @@
+{
+  "id": "i-have-a-super-usb-drive",
+  "title": "I Have A Super Usb Drive",
+  "totalChapters": 645,
+  "bundleSize": 100,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-100",
+      "file": "vol-001.json.br",
+      "chapters": 100,
+      "sizeKB": 237
+    },
+    {
+      "id": 2,
+      "range": "101-200",
+      "file": "vol-002.json.br",
+      "chapters": 100,
+      "sizeKB": 236
+    },
+    {
+      "id": 3,
+      "range": "201-300",
+      "file": "vol-003.json.br",
+      "chapters": 100,
+      "sizeKB": 255
+    },
+    {
+      "id": 4,
+      "range": "301-400",
+      "file": "vol-004.json.br",
+      "chapters": 100,
+      "sizeKB": 318
+    },
+    {
+      "id": 5,
+      "range": "401-500",
+      "file": "vol-005.json.br",
+      "chapters": 100,
+      "sizeKB": 374
+    },
+    {
+      "id": 6,
+      "range": "501-600",
+      "file": "vol-006.json.br",
+      "chapters": 100,
+      "sizeKB": 391
+    },
+    {
+      "id": 7,
+      "range": "601-645",
+      "file": "vol-007.json.br",
+      "chapters": 45,
+      "sizeKB": 180
+    }
+  ]
+}

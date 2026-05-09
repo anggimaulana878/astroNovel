@@ -1,0 +1,85 @@
+{
+  "id": "bringing-the-farm-to-live-in-another-world",
+  "title": "Bringing The Farm To Live In Another World",
+  "totalChapters": 2073,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 467
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 561
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 535
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 470
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 482
+    },
+    {
+      "id": 6,
+      "range": "1001-1200",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 959
+    },
+    {
+      "id": 7,
+      "range": "1201-1400",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 474
+    },
+    {
+      "id": 8,
+      "range": "1401-1600",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 466
+    },
+    {
+      "id": 9,
+      "range": "1601-1800",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 468
+    },
+    {
+      "id": 10,
+      "range": "1801-2000",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 476
+    },
+    {
+      "id": 11,
+      "range": "2001-2073",
+      "file": "vol-011.json.br",
+      "chapters": 73,
+      "sizeKB": 180
+    }
+  ]
+}

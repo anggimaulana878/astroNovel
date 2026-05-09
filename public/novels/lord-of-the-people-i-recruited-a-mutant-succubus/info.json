@@ -1,0 +1,50 @@
+{
+  "id": "lord-of-the-people-i-recruited-a-mutant-succubus",
+  "title": "Lord Of The People I Recruited A Mutant Succubus",
+  "totalChapters": 578,
+  "bundleSize": 100,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-100",
+      "file": "vol-001.json.br",
+      "chapters": 100,
+      "sizeKB": 186
+    },
+    {
+      "id": 2,
+      "range": "101-200",
+      "file": "vol-002.json.br",
+      "chapters": 100,
+      "sizeKB": 295
+    },
+    {
+      "id": 3,
+      "range": "201-300",
+      "file": "vol-003.json.br",
+      "chapters": 100,
+      "sizeKB": 297
+    },
+    {
+      "id": 4,
+      "range": "301-400",
+      "file": "vol-004.json.br",
+      "chapters": 100,
+      "sizeKB": 292
+    },
+    {
+      "id": 5,
+      "range": "401-500",
+      "file": "vol-005.json.br",
+      "chapters": 100,
+      "sizeKB": 150
+    },
+    {
+      "id": 6,
+      "range": "501-578",
+      "file": "vol-006.json.br",
+      "chapters": 78,
+      "sizeKB": 118
+    }
+  ]
+}

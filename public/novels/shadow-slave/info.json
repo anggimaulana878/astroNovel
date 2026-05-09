@@ -1,0 +1,106 @@
+{
+  "id": "shadow-slave",
+  "title": "Shadow Slave",
+  "totalChapters": 2754,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 401
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 354
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 370
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 375
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 350
+    },
+    {
+      "id": 6,
+      "range": "1001-1200",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 366
+    },
+    {
+      "id": 7,
+      "range": "1201-1400",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 357
+    },
+    {
+      "id": 8,
+      "range": "1401-1600",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 359
+    },
+    {
+      "id": 9,
+      "range": "1601-1800",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 413
+    },
+    {
+      "id": 10,
+      "range": "1801-2000",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 386
+    },
+    {
+      "id": 11,
+      "range": "2001-2200",
+      "file": "vol-011.json.br",
+      "chapters": 200,
+      "sizeKB": 369
+    },
+    {
+      "id": 12,
+      "range": "2201-2400",
+      "file": "vol-012.json.br",
+      "chapters": 200,
+      "sizeKB": 370
+    },
+    {
+      "id": 13,
+      "range": "2401-2600",
+      "file": "vol-013.json.br",
+      "chapters": 200,
+      "sizeKB": 382
+    },
+    {
+      "id": 14,
+      "range": "2601-2754",
+      "file": "vol-014.json.br",
+      "chapters": 154,
+      "sizeKB": 278
+    }
+  ]
+}

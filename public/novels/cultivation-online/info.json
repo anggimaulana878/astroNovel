@@ -1,0 +1,99 @@
+{
+  "id": "cultivation-online",
+  "title": "Cultivation Online",
+  "totalChapters": 2442,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 334
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 296
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 297
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 293
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 299
+    },
+    {
+      "id": 6,
+      "range": "1001-1200",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 425
+    },
+    {
+      "id": 7,
+      "range": "1201-1400",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 422
+    },
+    {
+      "id": 8,
+      "range": "1401-1600",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 319
+    },
+    {
+      "id": 9,
+      "range": "1601-1800",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 329
+    },
+    {
+      "id": 10,
+      "range": "1801-2000",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 310
+    },
+    {
+      "id": 11,
+      "range": "2001-2200",
+      "file": "vol-011.json.br",
+      "chapters": 200,
+      "sizeKB": 316
+    },
+    {
+      "id": 12,
+      "range": "2201-2400",
+      "file": "vol-012.json.br",
+      "chapters": 200,
+      "sizeKB": 309
+    },
+    {
+      "id": 13,
+      "range": "2401-2442",
+      "file": "vol-013.json.br",
+      "chapters": 42,
+      "sizeKB": 74
+    }
+  ]
+}

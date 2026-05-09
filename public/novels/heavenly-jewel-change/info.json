@@ -1,0 +1,79 @@
+{
+  "id": "heavenly-jewel-change",
+  "title": "Heavenly Jewel Change",
+  "authors": [
+    "唐家三少",
+    "Tang Jia San Shao"
+  ],
+  "synopsis": "[Zen’s Synopsis] In a world where power means everything, and the strong trample the weak; there was a boy born from a Heavenly Jewel Master. Born in a small country which had to struggle to survive, the boy was expected to do great things. Alas he turned out to have blocked meridians and was unable to cultivate, ending up the trash of society. His father’s tarnished pride… his fianceé’s ultimate dishonour… Being almost accidentally killed and left for the dead, heaven finally smiles upon him as a miracle descends, awakening his potential as a Heavenly Jewel Master. Or… is it truly a gift? Join our dear rascally and shameless MC Zhou Weiqing in his exploits to reach the peak of the cultivation world, form an army, protect those he loves, and improve his country! [Author’s Synopsis] Every human has their Personal Jewel of power, when awakened it can either be an Elemental Jewel or Physical Jewel. They circle the right and left wrists like bracelets of power. Heavenly Jewels are like the twins born, meaning when both Elemental and Physical Jewels are Awakened for the same person, the pair is known as Heavenly Jewels. Those who have the Physical Jewels are known as Physical Jewel Masters, those with Elemental Jewels are Elemental Jewel Masters, and those who train with Heavenly Jewels are naturally called Heavenly Jewel Masters. Heavenly Jewel Masters have a highest level of 12 pairs of jewels, as such their training progress is known as Heavenly Jewels 12 Changes. Our MC here is an archer who has such a pair of Heavenly Jewels.",
+  "genres": [],
+  "source": "allnovelfull-com",
+  "sourceUrl": "https://allnovelfull.com/heavenly-jewel-change.html",
+  "totalChapters": 848,
+  "bundleSize": 100,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-100",
+      "file": "vol-001.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 2,
+      "range": "101-200",
+      "file": "vol-002.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 3,
+      "range": "201-300",
+      "file": "vol-003.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 4,
+      "range": "301-400",
+      "file": "vol-004.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 5,
+      "range": "401-500",
+      "file": "vol-005.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 6,
+      "range": "501-600",
+      "file": "vol-006.json.br",
+      "chapters": 100,
+      "sizeKB": 1
+    },
+    {
+      "id": 7,
+      "range": "601-700",
+      "file": "vol-007.json.br",
+      "chapters": 100,
+      "sizeKB": 96
+    },
+    {
+      "id": 8,
+      "range": "701-800",
+      "file": "vol-008.json.br",
+      "chapters": 100,
+      "sizeKB": 332
+    },
+    {
+      "id": 9,
+      "range": "801-848",
+      "file": "vol-009.json.br",
+      "chapters": 48,
+      "sizeKB": 172
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "id": "long-live-summons",
+  "title": "Long Live Summons",
+  "authors": [
+    "霞飞双颊",
+    "Xia Fei Shuang Jia"
+  ],
+  "synopsis": "The Soaring Dragon Continent is a world of summons, you can only become strong if you become a summoner! Yue Yang, an average high school boy, was suddenly kicked into this world. When he woke up, he was greeted with a lot of worried faces and found out that he had assumed another person’s identity. Turns out he’s the good-for-nothing third son of the Yue Family, who had just recently drowned himself because of a failed engagement. Unlike the third son of the Yue Family who was useless in summoning, Yue Yang succeeded in making a contract with a summoning grimoire on his first try, even when the other guy failed for the past fifteen years. Others would have a headache making contracts with beasts afterwards, but countless beasts tried to gain favour with Yue Yang instead, acting like a good kid before him. Yue Yang the brat, however, didn’t feel grateful at all: “Scram, Mythical Beasts! Do you think you are cool like that? Go away from me now, I only like beautiful summons!” Even when royal families approached him for his talents, the shameless brat replied, “I’m not interested in government stuff, I’m only interested in beauties!”",
+  "genres": [],
+  "source": "allnovelfull-net",
+  "sourceUrl": "https://allnovelfull.net/long-live-summons.html",
+  "totalChapters": 1054,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 774
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 773
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 706
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 565
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 550
+    },
+    {
+      "id": 6,
+      "range": "1001-1054",
+      "file": "vol-006.json.br",
+      "chapters": 54,
+      "sizeKB": 219
+    }
+  ]
+}

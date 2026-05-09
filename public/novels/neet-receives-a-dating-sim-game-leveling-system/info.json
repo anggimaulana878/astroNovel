@@ -1,0 +1,71 @@
+{
+  "id": "neet-receives-a-dating-sim-game-leveling-system",
+  "title": "Neet Receives A Dating Sim Game Leveling System",
+  "totalChapters": 841,
+  "bundleSize": 100,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-100",
+      "file": "vol-001.json.br",
+      "chapters": 100,
+      "sizeKB": 267
+    },
+    {
+      "id": 2,
+      "range": "101-200",
+      "file": "vol-002.json.br",
+      "chapters": 100,
+      "sizeKB": 241
+    },
+    {
+      "id": 3,
+      "range": "201-300",
+      "file": "vol-003.json.br",
+      "chapters": 100,
+      "sizeKB": 239
+    },
+    {
+      "id": 4,
+      "range": "301-400",
+      "file": "vol-004.json.br",
+      "chapters": 100,
+      "sizeKB": 234
+    },
+    {
+      "id": 5,
+      "range": "401-500",
+      "file": "vol-005.json.br",
+      "chapters": 100,
+      "sizeKB": 241
+    },
+    {
+      "id": 6,
+      "range": "501-600",
+      "file": "vol-006.json.br",
+      "chapters": 100,
+      "sizeKB": 225
+    },
+    {
+      "id": 7,
+      "range": "601-700",
+      "file": "vol-007.json.br",
+      "chapters": 100,
+      "sizeKB": 99
+    },
+    {
+      "id": 8,
+      "range": "701-800",
+      "file": "vol-008.json.br",
+      "chapters": 100,
+      "sizeKB": 34
+    },
+    {
+      "id": 9,
+      "range": "801-841",
+      "file": "vol-009.json.br",
+      "chapters": 41,
+      "sizeKB": 5
+    }
+  ]
+}
