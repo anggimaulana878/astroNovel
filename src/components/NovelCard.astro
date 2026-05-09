@@ -1,0 +1,82 @@
+---
+import type { NovelMetadata } from '../types/novel';
+
+interface Props {
+  novel: NovelMetadata;
+  lastChapter?: number;
+}
+
+const { novel, lastChapter } = Astro.props;
+---
+
+<a href={`/novels/${novel.slug}`} class="novel-card">
+  <div class="cover">
+    <img src={novel.coverImage} alt={`${novel.title} cover`} />
+  </div>
+  <div class="info">
+    <h3 class="title">{novel.title}</h3>
+    <div class="meta">
+      <span>{novel.volumes.length} volumes</span>
+      <span>•</span>
+      <span>{novel.totalChapters} chapters</span>
+    </div>
+    {lastChapter && (
+      <div class="progress">Last read: Ch. {lastChapter}</div>
+    )}
+  </div>
+</a>
+
+<style>
+  .novel-card {
+    display: block;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-primary);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .novel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .cover {
+    width: 100%;
+    height: 280px;
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .info {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .meta {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 8px;
+  }
+
+  .progress {
+    margin-top: 8px;
+    font-size: 0.85em;
+    color: var(--accent);
+  }
+</style>
