@@ -19,6 +19,9 @@ const sizeParam = url.searchParams.get('size') || '5';
 const startChapter = parseInt(startParam || '1', 10);
 const batchSize = parseInt(sizeParam, 10);
 
+// For display purposes, convert word count to thousands
+const displayBatchSize = modeParam === 'words' ? Math.round(batchSize / 1000) : batchSize;
+
 if (!validateBatchParams(modeParam, batchSize)) {
   return Astro.redirect(`/novels/${slug}`);
 }
@@ -180,11 +183,11 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
         <h3>Batch Size</h3>
         <div class="setting-item">
           <select id="batch-size-select">
-            <option value="3" selected={batchSize === 3}>3 chapters</option>
-            <option value="5" selected={batchSize === 5}>5 chapters</option>
-            <option value="10" selected={batchSize === 10}>10 chapters</option>
-            <option value="15" selected={batchSize === 15}>15 chapters</option>
-            <option value="custom" selected={![3, 5, 10, 15].includes(batchSize)}>Custom</option>
+            <option value="3" selected={displayBatchSize === 3}>3 chapters</option>
+            <option value="5" selected={displayBatchSize === 5}>5 chapters</option>
+            <option value="10" selected={displayBatchSize === 10}>10 chapters</option>
+            <option value="15" selected={displayBatchSize === 15}>15 chapters</option>
+            <option value="custom" selected={![3, 5, 10, 15].includes(displayBatchSize)}>Custom</option>
           </select>
         </div>
         <div class="setting-item custom-input-container" id="custom-input-container" style="display: none;">
@@ -194,7 +197,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
             placeholder="Enter number"
             min="1"
             max="50"
-            value={![3, 5, 10, 15].includes(batchSize) ? batchSize : ''}
+            value={![3, 5, 10, 15].includes(displayBatchSize) ? displayBatchSize : ''}
           />
           <small class="input-hint" id="custom-hint">Enter a number between 1-50</small>
         </div>
@@ -695,8 +698,15 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
             const currentUrl = new URL(window.location.href);
             const currentStart = currentUrl.searchParams.get('start') || '1';
             
+            // Convert to actual values for server
+            let finalSize = selectedSize;
+            if (selectedMode === 'words') {
+              // Convert k words to actual word count (7 -> 7000)
+              finalSize = String(parseInt(selectedSize, 10) * 1000);
+            }
+            
             // Redirect with new settings
-            window.location.href = `${currentUrl.pathname}?start=${currentStart}&mode=${selectedMode}&size=${selectedSize}`;
+            window.location.href = `${currentUrl.pathname}?start=${currentStart}&mode=${selectedMode}&size=${finalSize}`;
           }
         });
       }
