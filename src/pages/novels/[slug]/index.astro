@@ -145,18 +145,65 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
   }
 
   @media (max-width: 768px) {
+    .container {
+      padding: 20px 16px;
+    }
+
     .hero {
       flex-direction: column;
       align-items: center;
       text-align: center;
+      padding: 20px 16px;
+      gap: 20px;
+    }
+
+    .cover {
+      width: 160px;
+      height: 224px;
+    }
+
+    .info h1 {
+      font-size: 1.5em;
+    }
+
+    .description {
+      font-size: 0.95em;
+      text-align: left;
     }
 
     .actions {
       flex-direction: column;
+      width: 100%;
     }
 
     .btn {
       width: 100%;
+      padding: 14px 20px;
+      font-size: 0.95em;
+      min-height: 48px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 16px 12px;
+    }
+
+    .hero {
+      padding: 16px 12px;
+    }
+
+    .cover {
+      width: 140px;
+      height: 196px;
+    }
+
+    .info h1 {
+      font-size: 1.3em;
+    }
+
+    .meta {
+      font-size: 0.85em;
     }
   }
 </style>

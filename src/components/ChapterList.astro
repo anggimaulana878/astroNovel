@@ -131,6 +131,66 @@ for (let i = 0; i < chapters.length; i += 100) {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  @media (max-width: 768px) {
+    .chapter-list {
+      margin-top: 24px;
+    }
+
+    .chapter-list h3 {
+      font-size: 1.3em;
+      margin-bottom: 12px;
+    }
+
+    .tabs {
+      gap: 6px;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      padding: 10px 14px;
+      font-size: 0.85em;
+      min-width: 80px;
+      min-height: 44px;
+      flex-shrink: 0;
+    }
+
+    .chapter-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .chapter-item {
+      padding: 12px 10px;
+      min-height: 60px;
+    }
+
+    .chapter-number {
+      font-size: 0.9em;
+    }
+
+    .chapter-title {
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .chapter-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+
+    .chapter-item {
+      padding: 10px 8px;
+    }
+
+    .tab {
+      padding: 10px 12px;
+      font-size: 0.8em;
+      min-width: 70px;
+    }
+  }
 </style>
 
 <script>
