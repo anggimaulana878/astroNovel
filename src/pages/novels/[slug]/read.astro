@@ -235,18 +235,23 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       href={hasPrev ? `/novels/${slug}/read?start=${prevBatchStart}&mode=${modeParam}&size=${batchSize}` : '#'}
       class={`nav-btn ${!hasPrev ? 'disabled' : ''}`}
       aria-disabled={!hasPrev}
+      aria-label="Previous Batch"
     >
-      ← Previous Batch
+      <span class="nav-text-full">← Previous</span>
+      <span class="nav-text-short">←</span>
     </a>
     <div class="progress-info">
-      Chapters {batchStart}-{batchEnd} of {novel.totalChapters}
+      <span class="progress-full">Chapters {batchStart}-{batchEnd} of {novel.totalChapters}</span>
+      <span class="progress-short">Ch {batchStart}-{batchEnd}</span>
     </div>
     <a 
       href={hasNext ? `/novels/${slug}/read?start=${nextBatchStart}&mode=${modeParam}&size=${batchSize}` : '#'}
       class={`nav-btn primary ${!hasNext ? 'disabled' : ''}`}
       aria-disabled={!hasNext}
+      aria-label="Next Batch"
     >
-      Next Batch →
+      <span class="nav-text-full">Next →</span>
+      <span class="nav-text-short">→</span>
     </a>
   </nav>
 
@@ -509,7 +514,50 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       color: var(--text-secondary);
     }
 
+    .nav-text-short,
+    .progress-short {
+      display: none;
+    }
+
     @media (max-width: 768px) {
+      .nav-text-full {
+        display: none;
+      }
+
+      .nav-text-short {
+        display: inline;
+        font-size: 1.5em;
+      }
+
+      .progress-full {
+        display: none;
+      }
+
+      .progress-short {
+        display: inline;
+      }
+
+      .bottom-nav {
+        flex-direction: row;
+        gap: 8px;
+        padding: 8px 12px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-btn {
+        padding: 10px 16px;
+        font-size: 0.9em;
+        min-height: 44px;
+        flex: 0 0 auto;
+      }
+
+      .progress-info {
+        flex: 1;
+        text-align: center;
+        font-size: 0.85em;
+      }
+
       .header-content {
         flex-direction: column;
         gap: 8px;
@@ -575,7 +623,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       }
 
       .reader-content {
-        padding: 20px 16px 120px 16px;
+        padding: 20px 16px 80px 16px;
         font-size: 17px;
       }
 
@@ -588,27 +636,6 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
         margin-bottom: 32px;
         padding-bottom: 32px;
       }
-
-      .bottom-nav {
-        flex-direction: column;
-        gap: 6px;
-        padding: 8px 12px;
-      }
-
-      .nav-btn {
-        width: 100%;
-        text-align: center;
-        padding: 10px 16px;
-        font-size: 0.9em;
-        min-height: 44px;
-      }
-
-      .progress-info {
-        order: -1;
-        text-align: center;
-        padding: 4px 0;
-        font-size: 0.85em;
-      }
     }
 
     @media (max-width: 480px) {
@@ -618,21 +645,15 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
 
       .reader-content {
         font-size: 16px;
-        padding: 16px 12px 100px 12px;
+        padding: 16px 12px 70px 12px;
       }
 
       .chapter-title {
         font-size: 1.3em;
       }
 
-      .bottom-nav {
-        padding: 6px 10px;
-        gap: 4px;
-      }
-
       .nav-btn {
         padding: 8px 12px;
-        font-size: 0.85em;
         min-height: 40px;
       }
 
