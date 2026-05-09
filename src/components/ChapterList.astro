@@ -1,0 +1,148 @@
+---
+import type { Chapter } from '../types/novel';
+
+interface Props {
+  chapters: Chapter[];
+  novelSlug: string;
+}
+
+const { chapters, novelSlug } = Astro.props;
+
+const chapterGroups: { label: string; chapters: Chapter[] }[] = [];
+for (let i = 0; i < chapters.length; i += 100) {
+  const start = i + 1;
+  const end = Math.min(i + 100, chapters.length);
+  chapterGroups.push({
+    label: `${start}-${end}`,
+    chapters: chapters.slice(i, i + 100)
+  });
+}
+---
+
+<div class="chapter-list">
+  <h3>Chapters</h3>
+  
+  <div class="tabs">
+    {chapterGroups.map((group, index) => (
+      <button 
+        class={`tab ${index === 0 ? 'active' : ''}`}
+        data-tab={index}
+      >
+        {group.label}
+      </button>
+    ))}
+  </div>
+  
+  <div class="tab-content">
+    {chapterGroups.map((group, index) => (
+      <div class={`tab-panel ${index === 0 ? 'active' : ''}`} data-panel={index}>
+        <div class="chapter-grid">
+          {group.chapters.map(chapter => (
+            <a 
+              href={`/novels/${novelSlug}/read?start=${chapter.id}&mode=chapters&size=5`}
+              class="chapter-item"
+            >
+              <div class="chapter-number">Chapter {chapter.id}</div>
+              <div class="chapter-title">{chapter.title}</div>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .chapter-list {
+    margin-top: 32px;
+  }
+
+  .chapter-list h3 {
+    font-size: 1.5em;
+    margin-bottom: 16px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+
+  .tab {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.9em;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .tab.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .tab:hover:not(.active) {
+    background: var(--bg-secondary);
+  }
+
+  .tab-panel {
+    display: none;
+  }
+
+  .tab-panel.active {
+    display: block;
+  }
+
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .chapter-item {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    background: var(--bg-primary);
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .chapter-item:hover {
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+  }
+
+  .chapter-number {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .chapter-title {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const tabIndex = tab.getAttribute('data-tab');
+      
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      
+      tab.classList.add('active');
+      document.querySelector(`[data-panel="${tabIndex}"]`)?.classList.add('active');
+    });
+  });
+</script>
