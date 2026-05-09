@@ -1,0 +1,171 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ChapterList from '../../../components/ChapterList.astro';
+import { loadNovelMetadata, loadChapterRange } from '../../../lib/novel-loader';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/');
+}
+
+const novel = await loadNovelMetadata(slug);
+const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
+---
+
+<Layout title={`${novel.title} - AstroNovel`} description={novel.description}>
+  <main class="container">
+    <div class="hero">
+      <div class="cover">
+        <img src={novel.coverImage} alt={`${novel.title} cover`} />
+      </div>
+      
+      <div class="info">
+        <h1>{novel.title}</h1>
+        <p class="author">by {novel.author}</p>
+        <div class="meta">
+          <span>{novel.volumes.length} volumes</span>
+          <span>•</span>
+          <span>{novel.totalChapters} chapters</span>
+        </div>
+        <p class="description">{novel.description}</p>
+        
+        <div class="actions">
+          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5`} class="btn btn-primary">
+            Start from Beginning
+          </a>
+          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5`} class="btn btn-secondary" id="continue-btn">
+            Continue Reading
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <ChapterList chapters={allChapters} novelSlug={slug} />
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .hero {
+    display: flex;
+    gap: 32px;
+    padding: 32px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    margin-bottom: 40px;
+  }
+
+  .cover {
+    flex-shrink: 0;
+    width: 200px;
+    height: 280px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .info {
+    flex: 1;
+  }
+
+  .info h1 {
+    font-size: 2em;
+    margin-bottom: 8px;
+  }
+
+  .author {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .meta {
+    display: flex;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+  }
+
+  .btn-secondary:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const continueBtn = document.getElementById('continue-btn');
+  if (continueBtn) {
+    const slug = window.location.pathname.split('/')[2];
+    const progressKey = `novel-progress:${slug}`;
+    const progress = localStorage.getItem(progressKey);
+    
+    if (progress) {
+      const { lastChapter } = JSON.parse(progress);
+      const prefs = JSON.parse(localStorage.getItem('reader-preferences') || '{"batchMode":"chapters","batchSize":5}');
+      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${prefs.batchMode}&size=${prefs.batchSize}`;
+      continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
+    }
+  }
+</script>
