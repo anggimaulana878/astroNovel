@@ -155,7 +155,7 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
 </style>
 
 <script>
-  const continueBtn = document.getElementById('continue-btn');
+  const continueBtn = document.getElementById('continue-btn') as HTMLAnchorElement | null;
   if (continueBtn) {
     const slug = window.location.pathname.split('/')[2];
     const progressKey = `novel-progress:${slug}`;
