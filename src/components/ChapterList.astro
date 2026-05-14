@@ -41,9 +41,9 @@ for (let i = 0; i < chapters.length; i += 100) {
             <a 
               href={`/novels/${novelSlug}/read?start=${chapter.id}&mode=chapters&size=5`}
               class="chapter-item"
+              title={`${chapter.id} - ${chapter.title}`}
             >
-              <div class="chapter-number">Chapter {chapter.id}</div>
-              <div class="chapter-title">{chapter.title}</div>
+              <span class="chapter-compact">{chapter.id} - {chapter.title}</span>
             </a>
           ))}
         </div>
@@ -102,15 +102,18 @@ for (let i = 0; i < chapters.length; i += 100) {
   .chapter-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+    gap: 10px;
   }
 
   .chapter-item {
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 12px;
+    padding: 10px 12px;
     background: var(--bg-primary);
     transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   .chapter-item:hover {
@@ -118,18 +121,13 @@ for (let i = 0; i < chapters.length; i += 100) {
     transform: translateY(-2px);
   }
 
-  .chapter-number {
-    font-weight: 600;
-    margin-bottom: 4px;
+  .chapter-compact {
+    font-size: 0.9em;
     color: var(--text-primary);
-  }
-
-  .chapter-title {
-    font-size: 0.85em;
-    color: var(--text-secondary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 
   @media (max-width: 768px) {
@@ -157,32 +155,33 @@ for (let i = 0; i < chapters.length; i += 100) {
     }
 
     .chapter-grid {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 10px;
+      grid-template-columns: 1fr;
+      gap: 8px;
     }
 
     .chapter-item {
-      padding: 12px 10px;
-      min-height: 60px;
+      padding: 12px 14px;
+      min-height: 48px;
     }
 
-    .chapter-number {
-      font-size: 0.9em;
-    }
-
-    .chapter-title {
-      font-size: 0.8em;
+    .chapter-compact {
+      font-size: 0.85em;
     }
   }
 
   @media (max-width: 480px) {
     .chapter-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 8px;
+      grid-template-columns: 1fr;
+      gap: 6px;
     }
 
     .chapter-item {
-      padding: 10px 8px;
+      padding: 10px 12px;
+      min-height: 44px;
+    }
+
+    .chapter-compact {
+      font-size: 0.8em;
     }
 
     .tab {

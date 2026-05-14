@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import type { Chapter } from '../../../types/novel';
 import { loadNovelMetadata, loadChapterRange } from '../../../lib/novel-loader';
 import { getChapterBatch, getWordCountBatch, validateBatchParams, countWords } from '../../../lib/batch-calculator';
 import { sanitizeChapterHTML } from '../../../lib/html-sanitizer';
@@ -30,7 +31,7 @@ const novel = await loadNovelMetadata(slug);
 
 let batchStart: number;
 let batchEnd: number;
-let chapters;
+let chapters: Chapter[];
 
 if (modeParam === 'chapters') {
   const batch = getChapterBatch(startChapter, batchSize, novel.totalChapters);
@@ -38,14 +39,17 @@ if (modeParam === 'chapters') {
   batchEnd = batch.end;
   chapters = await loadChapterRange(slug, batchStart, batchEnd);
 } else {
-  const allChapters = await loadChapterRange(slug, startChapter, Math.min(startChapter + 50, novel.totalChapters));
-  const batch = getWordCountBatch(startChapter, batchSize, allChapters);
+  const allChaptersTemp = await loadChapterRange(slug, startChapter, Math.min(startChapter + 50, novel.totalChapters));
+  const batch = getWordCountBatch(startChapter, batchSize, allChaptersTemp);
   batchStart = batch.start;
   batchEnd = batch.end;
-  chapters = allChapters.slice(0, batchEnd - batchStart + 1);
+  chapters = allChaptersTemp.slice(0, batchEnd - batchStart + 1);
 }
 
 const totalWords = chapters.reduce((sum, ch) => sum + countWords(ch.body), 0);
+
+// Load all chapters for sidebar
+const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
 
 // Calculate navigation based on actual chapters read, not batchSize
 const chaptersRead = batchEnd - batchStart + 1;
@@ -227,12 +231,14 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     </div>
     <div class="sidebar-content">
       <div class="chapter-list-sidebar">
-        {Array.from({ length: novel.totalChapters }, (_, i) => i + 1).map(chapterNum => (
+        {allChapters.map(chapter => (
           <a 
-            href={`/novels/${slug}/read?start=${chapterNum}&mode=${modeParam}&size=${batchSize}`}
-            class={`chapter-item-sidebar ${chapterNum >= batchStart && chapterNum <= batchEnd ? 'active' : ''}`}
+            href={`/novels/${slug}/read?start=${chapter.id}&mode=${modeParam}&size=${batchSize}`}
+            class={`chapter-item-sidebar ${chapter.id >= batchStart && chapter.id <= batchEnd ? 'active' : ''}`}
+            data-chapter-id={chapter.id}
+            title={`${chapter.id} - ${chapter.title}`}
           >
-            Chapter {chapterNum}
+            <span class="chapter-compact-sidebar">{chapter.id} - {chapter.title}</span>
           </a>
         ))}
       </div>
@@ -595,17 +601,27 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     .chapter-list-sidebar {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
 
     .chapter-item-sidebar {
-      padding: 12px 16px;
+      padding: 10px 14px;
       border: 1px solid var(--border);
       border-radius: 6px;
       background: var(--bg-primary);
       color: var(--text-primary);
       transition: background-color 0.2s, transform 0.2s;
-      font-size: 0.95em;
+      font-size: 0.9em;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .chapter-compact-sidebar {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
     }
 
     .chapter-item-sidebar:hover {
@@ -653,12 +669,21 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       }
 
       .sidebar-content {
-        padding: 10px;
+        padding: 8px;
+      }
+
+      .chapter-list-sidebar {
+        gap: 4px;
       }
 
       .chapter-item-sidebar {
-        padding: 10px 14px;
-        font-size: 0.9em;
+        padding: 10px 12px;
+        font-size: 0.85em;
+        min-height: 44px;
+      }
+
+      .chapter-compact-sidebar {
+        font-size: 1em;
       }
 
       .nav-text-full {
@@ -780,6 +805,11 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
     }
 
     @media (max-width: 480px) {
+      .chapter-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+
       .novel-title {
         max-width: 150px;
       }
@@ -799,6 +829,11 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       }
 
       .progress-info {
+        font-size: 0.8em;
+      }
+
+      .chapter-item-sidebar {
+        padding: 10px;
         font-size: 0.8em;
       }
     }
@@ -827,6 +862,14 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
         chapterSidebar.classList.add('active');
         sidebarOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Auto-scroll to active chapter
+        setTimeout(() => {
+          const activeChapter = chapterSidebar.querySelector('.chapter-item-sidebar.active');
+          if (activeChapter) {
+            activeChapter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        }, 100);
       }
 
       function closeChapterSidebar() {
