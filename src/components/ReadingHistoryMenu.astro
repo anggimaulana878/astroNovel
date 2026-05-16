@@ -1,0 +1,525 @@
+---
+import type { NovelMetadata } from '../types/novel';
+
+interface Props {
+  novels: NovelMetadata[];
+}
+
+const { novels } = Astro.props;
+
+---
+
+<div class="history-container">
+  <button
+    class="history-trigger"
+    id="history-trigger"
+    type="button"
+    aria-label="Reading History"
+    aria-expanded="false"
+    aria-controls="history-panel"
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <polyline points="12 6 12 12 16 14"></polyline>
+    </svg>
+    <span>History</span>
+  </button>
+
+  <div class="history-panel" id="history-panel" role="dialog" aria-labelledby="history-title" aria-hidden="true">
+    <div class="history-header">
+      <h2 id="history-title">Reading History</h2>
+      <button class="close-btn" id="close-history" type="button" aria-label="Close">×</button>
+    </div>
+    <div class="history-content" id="history-content">
+      <p class="loading">Loading history...</p>
+    </div>
+  </div>
+  <script
+    type="application/json"
+    id="history-novel-seeds"
+    set:html={JSON.stringify(novels.map(n => ({
+      slug: n.slug,
+      title: n.title,
+      coverImage: n.coverImage,
+    })))}
+  ></script>
+</div>
+
+<style>
+  .history-container {
+    position: relative;
+  }
+
+  .history-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+
+  .history-trigger span {
+    display: none;
+  }
+
+  .history-trigger svg {
+    flex-shrink: 0;
+  }
+
+  .history-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    max-height: none;
+    background: var(--bg-primary);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    z-index: 100;
+  }
+
+  .history-panel[aria-hidden="false"] {
+    display: flex;
+  }
+
+  .history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .history-header h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+
+  .close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 1.5em;
+    color: var(--text-secondary);
+    padding: 0 8px;
+    line-height: 1;
+  }
+
+  .history-content {
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  :global(.loading),
+  :global(.empty-state) {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+
+  :global(.history-list) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  :global(.history-item) {
+    display: flex;
+    gap: 14px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background-color 0.2s;
+  }
+
+  :global(.history-item:last-child) {
+    border-bottom: none;
+  }
+
+  :global(.item-cover) {
+    display: block;
+    flex-shrink: 0;
+    width: 48px;
+    height: 64px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+  }
+
+  :global(.item-cover img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :global(.item-info) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  :global(.item-title) {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.item-chapter) {
+    font-size: 0.9em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  :global(.item-timestamp) {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .history-trigger {
+      padding: 8px 16px;
+      min-height: auto;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .history-trigger span {
+      display: inline;
+    }
+
+    .history-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      bottom: auto;
+      left: auto;
+      width: 400px;
+      max-height: 500px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+    }
+  }
+
+  @media (min-width: 768px) and (hover: hover) {
+    .history-trigger:hover {
+      background: var(--bg-secondary);
+      transform: translateY(-2px);
+    }
+
+    .close-btn:hover {
+      color: var(--text-primary);
+    }
+
+    :global(.history-item:hover) {
+      background: var(--bg-secondary);
+    }
+
+    :global(.item-title:hover) {
+      color: var(--accent-hover);
+    }
+  }
+
+  @media (max-width: 420px) {
+    .history-panel {
+      box-shadow: none;
+    }
+
+    .history-trigger {
+      padding: 10px 16px;
+    }
+
+    .history-header {
+      padding: 14px 12px;
+    }
+
+    :global(.history-item) {
+      gap: 10px;
+      padding: 12px 14px;
+    }
+  }
+</style>
+
+<script>
+  interface NovelSeed {
+    slug: string;
+    title: string;
+    coverImage: string;
+  }
+
+  interface NovelProgress {
+    slug: string;
+    lastChapter: number;
+    lastUpdated: number;
+  }
+
+  interface ReaderPreferences {
+    batchMode: 'chapters' | 'words';
+    batchSize: number;
+  }
+
+  interface HistoryItem {
+    slug: string;
+    title: string;
+    coverImage: string;
+    lastChapter: number;
+    lastUpdated: number;
+  }
+
+  const DEFAULT_PREFERENCES: ReaderPreferences = {
+    batchMode: 'chapters',
+    batchSize: 5,
+  };
+  const DEFAULT_WORDS_BATCH_SIZE = 5000;
+
+  const trigger = document.getElementById('history-trigger');
+  const panel = document.getElementById('history-panel');
+  const closeBtn = document.getElementById('close-history');
+  const content = document.getElementById('history-content');
+  const seedsElement = document.getElementById('history-novel-seeds');
+
+  function setPanelOpen(isOpen: boolean) {
+    if (!trigger || !panel) {
+      return;
+    }
+
+    panel.setAttribute('aria-hidden', String(!isOpen));
+    trigger.setAttribute('aria-expanded', String(isOpen));
+
+    if (isOpen) {
+      closeBtn?.focus();
+    } else {
+      trigger.focus();
+    }
+  }
+
+  function createMessage(className: 'empty-state' | 'loading', text: string) {
+    const paragraph = document.createElement('p');
+    paragraph.className = className;
+    paragraph.textContent = text;
+    return paragraph;
+  }
+
+  function parseNovelSeeds(): NovelSeed[] {
+    if (!seedsElement?.textContent) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(seedsElement.textContent) as unknown;
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+
+      return parsed.filter((item): item is NovelSeed => {
+        return Boolean(
+          item &&
+          typeof item === 'object' &&
+          typeof (item as NovelSeed).slug === 'string' &&
+          typeof (item as NovelSeed).title === 'string' &&
+          typeof (item as NovelSeed).coverImage === 'string',
+        );
+      });
+    } catch (error) {
+      console.warn('[ReadingHistory] Failed to parse novel seeds', error);
+      return [];
+    }
+  }
+
+  function getReaderPreferences(): ReaderPreferences {
+    try {
+      const raw = localStorage.getItem('reader-preferences');
+      if (!raw) {
+        return DEFAULT_PREFERENCES;
+      }
+
+      const parsed = JSON.parse(raw) as Partial<ReaderPreferences>;
+      const batchMode = parsed.batchMode === 'words' ? 'words' : 'chapters';
+      const defaultBatchSize = batchMode === 'words'
+        ? DEFAULT_WORDS_BATCH_SIZE
+        : DEFAULT_PREFERENCES.batchSize;
+      const rawBatchSize = typeof parsed.batchSize === 'number' && Number.isFinite(parsed.batchSize)
+        ? parsed.batchSize
+        : defaultBatchSize;
+      const batchSize = batchMode === 'words'
+        ? (rawBatchSize >= 1000 && rawBatchSize <= 25000 ? rawBatchSize : DEFAULT_WORDS_BATCH_SIZE)
+        : (rawBatchSize >= 1 && rawBatchSize <= 12 ? rawBatchSize : DEFAULT_PREFERENCES.batchSize);
+
+      return {
+        batchMode,
+        batchSize,
+      };
+    } catch (error) {
+      console.warn('[ReadingHistory] Failed to load preferences, using defaults', error);
+      return DEFAULT_PREFERENCES;
+    }
+  }
+
+  function formatTimestamp(timestamp: number) {
+    return new Date(timestamp).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  function createHistoryItemElement(item: HistoryItem, preferences: ReaderPreferences) {
+    const resumeUrl = `/novels/${item.slug}/read?start=${item.lastChapter}&mode=${preferences.batchMode}&size=${preferences.batchSize}`;
+
+    const listItem = document.createElement('li');
+    listItem.className = 'history-item';
+
+    const coverLink = document.createElement('a');
+    coverLink.className = 'item-cover';
+    coverLink.href = resumeUrl;
+
+    const coverImage = document.createElement('img');
+    coverImage.src = item.coverImage;
+    coverImage.alt = `${item.title} cover`;
+    coverLink.appendChild(coverImage);
+
+    const info = document.createElement('div');
+    info.className = 'item-info';
+
+    const titleLink = document.createElement('a');
+    titleLink.className = 'item-title';
+    titleLink.href = resumeUrl;
+    titleLink.textContent = item.title;
+
+    const chapter = document.createElement('div');
+    chapter.className = 'item-chapter';
+    chapter.textContent = `Chapter ${item.lastChapter}`;
+
+    const timestamp = document.createElement('div');
+    timestamp.className = 'item-timestamp';
+    timestamp.textContent = `Last read ${formatTimestamp(item.lastUpdated)}`;
+
+    info.append(titleLink, chapter, timestamp);
+    listItem.append(coverLink, info);
+
+    return listItem;
+  }
+
+  if (!trigger || !panel || !closeBtn || !content || !seedsElement) {
+    console.error('[ReadingHistory] Required elements not found');
+  } else {
+    // Toggle panel
+    trigger.addEventListener('click', () => {
+      const isHidden = panel.getAttribute('aria-hidden') === 'true';
+      setPanelOpen(isHidden);
+      if (isHidden) {
+        loadHistory();
+      }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      setPanelOpen(false);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      if (panel.getAttribute('aria-hidden') === 'false' && 
+          !panel.contains(target) && 
+          !trigger.contains(target)) {
+        setPanelOpen(false);
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.getAttribute('aria-hidden') === 'false') {
+        setPanelOpen(false);
+      }
+    });
+
+    function loadHistory() {
+      try {
+        const seeds = parseNovelSeeds();
+        const progressEntries: HistoryItem[] = [];
+
+        // Collect all progress entries
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('novel-progress:')) {
+            try {
+              const raw = localStorage.getItem(key);
+              if (!raw) continue;
+
+               const progress: NovelProgress = JSON.parse(raw);
+               
+               // Validate progress structure
+               if (!progress.slug || 
+                   typeof progress.lastChapter !== 'number' || 
+                   typeof progress.lastUpdated !== 'number' ||
+                   !Number.isInteger(progress.lastChapter) ||
+                   progress.lastChapter < 1 ||
+                   !Number.isFinite(progress.lastUpdated) ||
+                   progress.lastUpdated < 0) {
+                 console.warn('[ReadingHistory] Invalid progress entry:', key);
+                 continue;
+               }
+
+              // Match against known novels
+              const seed = seeds.find(n => n.slug === progress.slug);
+              if (seed) {
+                progressEntries.push({
+                  slug: seed.slug,
+                  title: seed.title,
+                  coverImage: seed.coverImage,
+                  lastChapter: progress.lastChapter,
+                  lastUpdated: progress.lastUpdated
+                });
+              }
+            } catch (err) {
+              console.warn('[ReadingHistory] Failed to parse progress:', key, err);
+            }
+          }
+        }
+
+        // Sort by lastUpdated descending
+        progressEntries.sort((a, b) => b.lastUpdated - a.lastUpdated);
+
+        renderHistory(progressEntries);
+      } catch (err) {
+        console.error('[ReadingHistory] Failed to load history:', err);
+        content.replaceChildren(createMessage('empty-state', 'Failed to load history'));
+      }
+    }
+
+    function renderHistory(items: HistoryItem[]) {
+      if (items.length === 0) {
+        content.replaceChildren(createMessage('empty-state', 'No reading history yet'));
+        return;
+      }
+
+      const prefs = getReaderPreferences();
+
+      const list = document.createElement('ul');
+      list.className = 'history-list';
+
+      items.forEach(item => {
+        list.appendChild(createHistoryItemElement(item, prefs));
+      });
+
+      content.replaceChildren(list);
+    }
+  }
+</script>

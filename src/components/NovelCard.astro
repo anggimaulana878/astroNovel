@@ -28,26 +28,34 @@ const { novel, lastChapter } = Astro.props;
 
 <style>
   .novel-card {
-    display: block;
-    border: 2px solid var(--border);
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    overflow: hidden;
     background: var(--bg-primary);
-    transition: transform 0.2s, box-shadow 0.2s;
+    padding: 12px;
+    min-height: 112px;
+    transition: background-color 0.2s, box-shadow 0.2s;
   }
 
-  .novel-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  @media (hover: hover) {
+    .novel-card:hover {
+      background: var(--bg-secondary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
   }
 
   .cover {
-    width: 100%;
-    height: 280px;
+    flex-shrink: 0;
+    width: 80px;
+    height: 112px;
     background: var(--bg-secondary);
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 6px;
+    overflow: hidden;
   }
 
   .cover img {
@@ -57,26 +65,111 @@ const { novel, lastChapter } = Astro.props;
   }
 
   .info {
-    padding: 16px;
+    flex: 1;
+    min-width: 0;
+    padding: 2px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
   }
 
   .title {
-    font-size: 1.1em;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 1em;
+    font-weight: 700;
     color: var(--text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.35;
   }
 
   .meta {
-    font-size: 0.9em;
+    font-size: 0.82em;
     color: var(--text-secondary);
     display: flex;
     gap: 8px;
+    flex-wrap: wrap;
+    line-height: 1.35;
   }
 
   .progress {
-    margin-top: 8px;
-    font-size: 0.85em;
+    font-size: 0.8em;
     color: var(--accent);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 768px) {
+    .novel-card {
+      display: block;
+      border: 2px solid var(--border);
+      padding: 0;
+      min-height: unset;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .cover {
+      width: 100%;
+      height: 280px;
+      border-radius: 0;
+    }
+
+    .info {
+      padding: 16px;
+      display: block;
+    }
+
+    .title {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      display: block;
+      line-height: normal;
+    }
+
+    .meta {
+      font-size: 0.9em;
+      gap: 8px;
+    }
+
+    .progress {
+      margin-top: 8px;
+      font-size: 0.85em;
+    }
+  }
+
+  @media (min-width: 768px) and (hover: hover) {
+    .novel-card:hover {
+      background: var(--bg-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  @media (max-width: 420px) {
+    .novel-card {
+      gap: 10px;
+      padding: 10px;
+      min-height: 104px;
+    }
+
+    .cover {
+      width: 72px;
+      height: 100px;
+    }
+
+    .title {
+      font-size: 0.95em;
+    }
+
+    .meta {
+      font-size: 0.78em;
+    }
+
+    .progress {
+      font-size: 0.76em;
+    }
   }
 </style>

@@ -1,0 +1,342 @@
+---
+import type { NovelMetadata } from '../types/novel';
+
+interface Props {
+  novels: NovelMetadata[];
+}
+
+const { novels } = Astro.props;
+---
+
+<section class="last-read-card" id="last-read-card" hidden aria-live="polite">
+  <div class="last-read-copy">
+    <p class="last-read-label">Continue where you left off</p>
+    <a class="last-read-cover" id="last-read-cover" href="#" aria-hidden="true" tabindex="-1">
+      <img id="last-read-cover-image" src="" alt="" />
+    </a>
+    <div class="last-read-info">
+      <p class="last-read-kicker">Last read novel</p>
+      <a class="last-read-title" id="last-read-title" href="#"></a>
+      <p class="last-read-progress" id="last-read-progress"></p>
+      <p class="last-read-time" id="last-read-time"></p>
+    </div>
+  </div>
+
+  <div class="last-read-actions">
+    <a class="continue-btn" id="last-read-continue" href="#">Continue Reading</a>
+  </div>
+
+  <script
+    type="application/json"
+    id="last-read-novel-seeds"
+    set:html={JSON.stringify(novels.map((novel) => ({
+      slug: novel.slug,
+      title: novel.title,
+      coverImage: novel.coverImage,
+      totalChapters: novel.totalChapters,
+    })))}
+  ></script>
+</section>
+
+<style>
+  .last-read-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 18px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .last-read-copy {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+  }
+
+  .last-read-label,
+  .last-read-kicker,
+  .last-read-progress,
+  .last-read-time {
+    margin: 0;
+  }
+
+  .last-read-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .last-read-cover {
+    display: block;
+    flex-shrink: 0;
+    width: 80px;
+    height: 112px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--bg-secondary);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .last-read-cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .last-read-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .last-read-kicker {
+    font-size: 0.78em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+
+  .last-read-title {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.12em;
+    font-weight: 700;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .last-read-progress {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .last-read-time {
+    font-size: 0.82em;
+    line-height: 1.35;
+    color: var(--text-secondary);
+  }
+
+  .last-read-actions {
+    display: flex;
+  }
+
+  .continue-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  @media (hover: hover) {
+    .last-read-title:hover {
+      color: var(--accent-hover);
+    }
+
+    .continue-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .last-read-card {
+      max-width: 680px;
+      margin-bottom: 24px;
+      padding: 18px;
+    }
+
+    .last-read-cover {
+      width: 88px;
+      height: 124px;
+    }
+
+    .last-read-title {
+      font-size: 1.2em;
+    }
+
+    .last-read-actions {
+      justify-content: flex-start;
+    }
+
+    .continue-btn {
+      width: auto;
+      min-width: 210px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .last-read-card {
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 12px;
+    }
+
+    .last-read-copy {
+      gap: 12px;
+    }
+
+    .last-read-cover {
+      width: 72px;
+      height: 100px;
+    }
+
+    .last-read-title {
+      font-size: 1.02em;
+    }
+
+    .continue-btn {
+      min-height: 42px;
+    }
+  }
+</style>
+
+<script>
+  import { buildLastReadCardData } from '../lib/last-read';
+
+  interface LastReadNovelSeed {
+    slug: string;
+    title: string;
+    coverImage: string;
+    totalChapters: number;
+  }
+
+  interface StoredNovelProgress {
+    slug: string;
+    lastChapter: number;
+    lastUpdated: number;
+  }
+
+  interface StoredReaderPreferences {
+    batchMode?: 'chapters' | 'words';
+    batchSize?: number;
+  }
+
+  const card = document.getElementById('last-read-card');
+  const coverLink = document.getElementById('last-read-cover') as HTMLAnchorElement | null;
+  const coverImage = document.getElementById('last-read-cover-image') as HTMLImageElement | null;
+  const titleLink = document.getElementById('last-read-title') as HTMLAnchorElement | null;
+  const progressText = document.getElementById('last-read-progress');
+  const timeText = document.getElementById('last-read-time');
+  const continueLink = document.getElementById('last-read-continue') as HTMLAnchorElement | null;
+  const seedsElement = document.getElementById('last-read-novel-seeds');
+
+  function parseNovelSeeds(): LastReadNovelSeed[] {
+    if (!seedsElement?.textContent) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(seedsElement.textContent) as unknown;
+      if (!Array.isArray(parsed)) {
+        return [];
+      }
+
+      return parsed.filter((item): item is LastReadNovelSeed => Boolean(
+        item &&
+        typeof item === 'object' &&
+        typeof (item as LastReadNovelSeed).slug === 'string' &&
+        typeof (item as LastReadNovelSeed).title === 'string' &&
+        typeof (item as LastReadNovelSeed).coverImage === 'string' &&
+        typeof (item as LastReadNovelSeed).totalChapters === 'number' &&
+        Number.isFinite((item as LastReadNovelSeed).totalChapters) &&
+        (item as LastReadNovelSeed).totalChapters >= 1,
+      ));
+    } catch (error) {
+      console.warn('[LastReadCard] Failed to parse novel seeds', error);
+      return [];
+    }
+  }
+
+  function collectProgressEntries(): StoredNovelProgress[] {
+    const entries: StoredNovelProgress[] = [];
+
+    for (let index = 0; index < localStorage.length; index += 1) {
+      const key = localStorage.key(index);
+      if (!key || !key.startsWith('novel-progress:')) {
+        continue;
+      }
+
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) {
+          continue;
+        }
+
+        entries.push(JSON.parse(raw) as StoredNovelProgress);
+      } catch (error) {
+        console.warn('[LastReadCard] Failed to parse stored progress', key, error);
+      }
+    }
+
+    return entries;
+  }
+
+  function getPreferences(): StoredReaderPreferences | null {
+    try {
+      const raw = localStorage.getItem('reader-preferences');
+      return raw ? JSON.parse(raw) as StoredReaderPreferences : null;
+    } catch (error) {
+      console.warn('[LastReadCard] Failed to parse reader preferences', error);
+      return null;
+    }
+  }
+
+  function formatTimestamp(timestamp: number) {
+    return new Date(timestamp).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
+
+  if (!card || !coverLink || !coverImage || !titleLink || !progressText || !timeText || !continueLink || !seedsElement) {
+    console.error('[LastReadCard] Required elements not found');
+  } else {
+    const data = buildLastReadCardData({
+      novelSeeds: parseNovelSeeds(),
+      progressEntries: collectProgressEntries(),
+      preferences: getPreferences(),
+    });
+
+    if (data) {
+      coverLink.href = data.resumeUrl;
+      titleLink.href = data.resumeUrl;
+      continueLink.href = data.resumeUrl;
+      coverImage.src = data.coverImage;
+      coverImage.alt = `${data.title} cover`;
+      titleLink.textContent = data.title;
+      progressText.textContent = `Continue from Chapter ${data.lastChapter}`;
+      timeText.textContent = `Last read ${formatTimestamp(data.lastUpdated)}`;
+      card.hidden = false;
+    }
+  }
+</script>
