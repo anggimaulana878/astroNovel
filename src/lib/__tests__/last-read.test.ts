@@ -64,7 +64,7 @@ describe('last-read helper', () => {
     expect(result?.lastChapter).toBe(33);
   });
 
-  it('clamps lastChapter to the matched novel totalChapters', () => {
+  it('preserves the stored lastChapter to match the existing resume contract', () => {
     const progressEntries: StoredNovelProgress[] = [
       { slug: 'shadow-slave', lastChapter: 9_999, lastUpdated: 4_000 },
     ];
@@ -75,8 +75,8 @@ describe('last-read helper', () => {
       preferences: null,
     });
 
-    expect(result?.lastChapter).toBe(2200);
-    expect(result?.resumeUrl).toBe('/novels/shadow-slave/read?start=2200&mode=chapters&size=5');
+    expect(result?.lastChapter).toBe(9999);
+    expect(result?.resumeUrl).toBe('/novels/shadow-slave/read?start=9999&mode=chapters&size=5');
   });
 
   it('uses validated chapter preferences when they are within bounds', () => {

@@ -88,17 +88,15 @@ export function buildLastReadCardData(input: BuildLastReadCardDataInput): LastRe
     return null;
   }
 
-  const clampedChapter = Math.min(latestValidProgress.lastChapter, matchedNovel.totalChapters);
-
   return {
     slug: matchedNovel.slug,
     title: matchedNovel.title,
     coverImage: matchedNovel.coverImage,
     totalChapters: matchedNovel.totalChapters,
-    lastChapter: clampedChapter,
+    lastChapter: latestValidProgress.lastChapter,
     lastUpdated: latestValidProgress.lastUpdated,
     batchMode: normalizedPreferences.batchMode,
     batchSize: normalizedPreferences.batchSize,
-    resumeUrl: `/novels/${matchedNovel.slug}/read?start=${clampedChapter}&mode=${normalizedPreferences.batchMode}&size=${normalizedPreferences.batchSize}`,
+    resumeUrl: `/novels/${matchedNovel.slug}/read?start=${latestValidProgress.lastChapter}&mode=${normalizedPreferences.batchMode}&size=${normalizedPreferences.batchSize}`,
   };
 }
