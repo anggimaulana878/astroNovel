@@ -1,10 +1,68 @@
 import type { Chapter } from '../types/novel';
 
+const htmlTagPattern = /<[^>]*>/g;
+const cjkCharacterPattern = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]/u;
+
+let wordSegmenter: Intl.Segmenter | null | undefined;
+
+function getWordSegmenter(): Intl.Segmenter | null {
+  if (wordSegmenter !== undefined) {
+    return wordSegmenter;
+  }
+
+  try {
+    wordSegmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
+  } catch {
+    wordSegmenter = null;
+  }
+
+  return wordSegmenter;
+}
+
+function countWordsWithSegmenter(text: string): number {
+  const segmenter = getWordSegmenter();
+
+  if (!segmenter) {
+    return 0;
+  }
+
+  let count = 0;
+  for (const segment of segmenter.segment(text)) {
+    if (segment.isWordLike) {
+      count += 1;
+    }
+  }
+
+  return count;
+}
+
+function countWordsWithFallback(text: string): number {
+  const tokens = text.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]+|[\p{Script=Hangul}\p{Letter}\p{Number}]+/gu);
+
+  if (!tokens) {
+    return 0;
+  }
+
+  return tokens.reduce((count, token) => {
+    if (cjkCharacterPattern.test(token)) {
+      return count + Array.from(token).length;
+    }
+
+    return count + 1;
+  }, 0);
+}
+
 export function countWords(html: string): number {
-  const text = html.replace(/<[^>]*>/g, ' ');
+  const text = html.replace(htmlTagPattern, ' ');
   const trimmed = text.trim();
   if (trimmed === '') return 0;
-  return trimmed.split(/\s+/).length;
+
+  const segmentedCount = countWordsWithSegmenter(trimmed);
+  if (segmentedCount > 0) {
+    return segmentedCount;
+  }
+
+  return countWordsWithFallback(trimmed);
 }
 
 export function getChapterBatch(
