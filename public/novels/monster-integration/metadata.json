@@ -1,0 +1,172 @@
+{
+  "slug": "monster-integration",
+  "title": "Monster Integration",
+  "description": "Read Monster Integration online. 3885 chapters available.",
+  "author": "Anwan",
+  "coverImage": "/novels/monster-integration/cover.jpg",
+  "totalChapters": 3885,
+  "publishDate": "2020-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [
+        1,
+        200
+      ]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [
+        201,
+        400
+      ]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [
+        401,
+        600
+      ]
+    },
+    {
+      "id": 4,
+      "file": "vol-004.json.br",
+      "chapterRange": [
+        601,
+        800
+      ]
+    },
+    {
+      "id": 5,
+      "file": "vol-005.json.br",
+      "chapterRange": [
+        801,
+        1002
+      ]
+    },
+    {
+      "id": 6,
+      "file": "vol-006.json.br",
+      "chapterRange": [
+        1003,
+        1202
+      ]
+    },
+    {
+      "id": 7,
+      "file": "vol-007.json.br",
+      "chapterRange": [
+        1203,
+        1402
+      ]
+    },
+    {
+      "id": 8,
+      "file": "vol-008.json.br",
+      "chapterRange": [
+        1403,
+        1602
+      ]
+    },
+    {
+      "id": 9,
+      "file": "vol-009.json.br",
+      "chapterRange": [
+        1603,
+        1802
+      ]
+    },
+    {
+      "id": 10,
+      "file": "vol-010.json.br",
+      "chapterRange": [
+        1803,
+        2002
+      ]
+    },
+    {
+      "id": 11,
+      "file": "vol-011.json.br",
+      "chapterRange": [
+        2003,
+        2202
+      ]
+    },
+    {
+      "id": 12,
+      "file": "vol-012.json.br",
+      "chapterRange": [
+        2203,
+        2402
+      ]
+    },
+    {
+      "id": 13,
+      "file": "vol-013.json.br",
+      "chapterRange": [
+        2403,
+        2602
+      ]
+    },
+    {
+      "id": 14,
+      "file": "vol-014.json.br",
+      "chapterRange": [
+        2603,
+        2802
+      ]
+    },
+    {
+      "id": 15,
+      "file": "vol-015.json.br",
+      "chapterRange": [
+        2803,
+        3002
+      ]
+    },
+    {
+      "id": 16,
+      "file": "vol-016.json.br",
+      "chapterRange": [
+        3003,
+        3202
+      ]
+    },
+    {
+      "id": 17,
+      "file": "vol-017.json.br",
+      "chapterRange": [
+        3203,
+        3402
+      ]
+    },
+    {
+      "id": 18,
+      "file": "vol-018.json.br",
+      "chapterRange": [
+        3403,
+        3602
+      ]
+    },
+    {
+      "id": 19,
+      "file": "vol-019.json.br",
+      "chapterRange": [
+        3603,
+        3802
+      ]
+    },
+    {
+      "id": 20,
+      "file": "vol-020.json.br",
+      "chapterRange": [
+        3803,
+        3887
+      ]
+    }
+  ]
+}

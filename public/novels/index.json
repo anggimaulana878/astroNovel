@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-19T16:06:54.817Z",
+  "generated": "2026-05-19T17:17:55.194Z",
   "novels": [
     {
       "id": "super-gene",
@@ -374,6 +374,23 @@
       "genres": [
         "Action"
       ]
+    },
+    {
+      "id": "monster-integration",
+      "title": "Monster Integration",
+      "slug": "monster-integration",
+      "cover": "/novels/monster-integration/cover.jpg",
+      "totalChapters": 3885,
+      "bundles": 20,
+      "bundleSize": 200,
+      "source": "fanmtl-com",
+      "sourceUrl": "https://www.fanmtl.com/novel/monster-integration.html",
+      "lastUpdated": "2026-05-19",
+      "authors": [
+        "Anwan"
+      ],
+      "synopsis": "",
+      "genres": []
     }
   ]
 }

@@ -1,0 +1,155 @@
+{
+  "id": "monster-integration",
+  "title": "Monster Integration",
+  "authors": [
+    "Anwan"
+  ],
+  "synopsis": "",
+  "genres": [],
+  "source": "fanmtl-com",
+  "sourceUrl": "https://www.fanmtl.com/novel/monster-integration.html",
+  "totalChapters": 3885,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 380
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 428
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 375
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 376
+    },
+    {
+      "id": 5,
+      "range": "801-1002",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 373
+    },
+    {
+      "id": 6,
+      "range": "1003-1202",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 347
+    },
+    {
+      "id": 7,
+      "range": "1203-1402",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 321
+    },
+    {
+      "id": 8,
+      "range": "1403-1602",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 328
+    },
+    {
+      "id": 9,
+      "range": "1603-1802",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 322
+    },
+    {
+      "id": 10,
+      "range": "1803-2002",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 318
+    },
+    {
+      "id": 11,
+      "range": "2003-2202",
+      "file": "vol-011.json.br",
+      "chapters": 200,
+      "sizeKB": 323
+    },
+    {
+      "id": 12,
+      "range": "2203-2402",
+      "file": "vol-012.json.br",
+      "chapters": 200,
+      "sizeKB": 324
+    },
+    {
+      "id": 13,
+      "range": "2403-2602",
+      "file": "vol-013.json.br",
+      "chapters": 200,
+      "sizeKB": 345
+    },
+    {
+      "id": 14,
+      "range": "2603-2802",
+      "file": "vol-014.json.br",
+      "chapters": 200,
+      "sizeKB": 376
+    },
+    {
+      "id": 15,
+      "range": "2803-3002",
+      "file": "vol-015.json.br",
+      "chapters": 200,
+      "sizeKB": 384
+    },
+    {
+      "id": 16,
+      "range": "3003-3202",
+      "file": "vol-016.json.br",
+      "chapters": 200,
+      "sizeKB": 372
+    },
+    {
+      "id": 17,
+      "range": "3203-3402",
+      "file": "vol-017.json.br",
+      "chapters": 200,
+      "sizeKB": 367
+    },
+    {
+      "id": 18,
+      "range": "3403-3602",
+      "file": "vol-018.json.br",
+      "chapters": 200,
+      "sizeKB": 359
+    },
+    {
+      "id": 19,
+      "range": "3603-3802",
+      "file": "vol-019.json.br",
+      "chapters": 200,
+      "sizeKB": 337
+    },
+    {
+      "id": 20,
+      "range": "3803-3887",
+      "file": "vol-020.json.br",
+      "chapters": 85,
+      "sizeKB": 153
+    }
+  ]
+}
