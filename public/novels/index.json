@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-04-07T13:54:08.765Z",
+  "generated": "2026-05-19T16:06:54.817Z",
   "novels": [
     {
       "id": "super-gene",
@@ -251,17 +251,17 @@
       "title": "Dual Cultivation",
       "slug": "dual-cultivation",
       "cover": "/novels/dual-cultivation/cover.jpg",
-      "authors": [
-        "Mylittlebrother"
-      ],
-      "synopsis": "What is the point of wealth and status if there’s nobody to share it with? Dual Cultivation explores the sensual side of the Cultivation world that is often filled with solitude! Su Yang was sentenced to life in prison within the Eternal Retribution Cliff, where only the universe’s most violent and evil criminals dwell. His crime? He seduced the Moon God’s wife, kidnapped the Dragon King’s sister, and even touched the Heavenly Emperor’s beloved daughter. He later meets a mysterious old man who would help him escape prison by reincarnating him. In his new life, Su Yang swears to reunite with his lovers and hold them in his embrace once again, all the while finding new ones along the way.",
-      "genres": [],
       "totalChapters": 1146,
       "bundles": 6,
       "bundleSize": 200,
       "source": "allnovelfull-com",
       "sourceUrl": "https://allnovelfull.com/dual-cultivation-novel.html",
-      "lastUpdated": "2026-03-15"
+      "lastUpdated": "2026-05-19",
+      "authors": [
+        "Mylittlebrother"
+      ],
+      "synopsis": "What is the point of wealth and status if there’s nobody to share it with? Dual Cultivation explores the sensual side of the Cultivation world that is often filled with solitude!Su Yang was sentenced to life in prison within the Eternal Retribution Cliff, where only the universe’s most violent and evil criminals dwell.His crime?He seduced the Moon God’s wife, kidnapped the Dragon King’s sister, and even touched the Heavenly Emperor’s beloved daughter.He later meets a mysterious old man who would help him escape prison by reincarnating him.In his new life, Su Yang swears to reunite with his lovers and hold them in his embrace once again, all the while finding new ones along the way.",
+      "genres": []
     },
     {
       "id": "heavenly-jewel-change",
@@ -338,6 +338,42 @@
       "source": "novel543-com",
       "sourceUrl": "https://www.novel543.com/0404253695/",
       "lastUpdated": "2026-04-07"
+    },
+    {
+      "id": "dui-bu-qi-wo-de-xing-ji-jian-dui-zhi-zhao-nu-bing",
+      "title": "對不起,我的星際艦隊只招女兵",
+      "slug": "dui-bu-qi-wo-de-xing-ji-jian-dui-zhi-zhao-nu-bing",
+      "cover": "/novels/dui-bu-qi-wo-de-xing-ji-jian-dui-zhi-zhao-nu-bing/cover.jpg",
+      "totalChapters": 2108,
+      "bundles": 11,
+      "bundleSize": 200,
+      "source": "novel543-com",
+      "sourceUrl": "https://www.novel543.com/0416304467/",
+      "lastUpdated": "2026-05-19",
+      "authors": [
+        "七斤流年"
+      ],
+      "synopsis": "穿越成為一個星際時代的落魄貴族少爺。 領地貧乏，資源短缺，星艦殘破，一個爛攤子被丟到了趙辰面前。 領地沒有星門？ 咱們自己造！ 領地沒有星艦？ 星際驅逐艦、星際護衛艦、星際巡洋艦想要啥咱造啥。 率領無人機集群猶如蜂群來襲的航母星艦，宣布著戰場的統治力。 一切真理就在星際戰列艦的巨炮射程範圍之內。 帝國研發出了T5科技的星艦？不好意思，我已經服役了一支艦隊的T5星艦！ 在趙辰的字典裡面，沒有什麼事情是星艦解決不了的。 如果有的話，那就再派兩支艦隊過去！ 路人甲：我要報名入伍，我要加入趙辰指揮官的艦隊！ 趙辰：對不起，我只招女兵。",
+      "genres": []
+    },
+    {
+      "id": "the-first-legendary-beast-master",
+      "title": "The First Legendary Beast Master",
+      "slug": "the-first-legendary-beast-master",
+      "cover": "/novels/the-first-legendary-beast-master/cover.jpg",
+      "totalChapters": 1506,
+      "bundles": 8,
+      "bundleSize": 200,
+      "source": "novelhall-com",
+      "sourceUrl": "https://novelhall.com/the-first-legendary-beast-master-32920",
+      "lastUpdated": "2026-05-19",
+      "authors": [
+        "0"
+      ],
+      "synopsis": "",
+      "genres": [
+        "Action"
+      ]
     }
   ]
 }

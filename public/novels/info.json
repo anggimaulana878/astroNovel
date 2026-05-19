@@ -1,0 +1,92 @@
+{
+  "id": "",
+  "title": "對不起,我的星際艦隊只招女兵",
+  "authors": [
+    "七斤流年"
+  ],
+  "synopsis": "穿越成為一個星際時代的落魄貴族少爺。 領地貧乏，資源短缺，星艦殘破，一個爛攤子被丟到了趙辰面前。 領地沒有星門？ 咱們自己造！ 領地沒有星艦？ 星際驅逐艦、星際護衛艦、星際巡洋艦想要啥咱造啥。 率領無人機集群猶如蜂群來襲的航母星艦，宣布著戰場的統治力。 一切真理就在星際戰列艦的巨炮射程範圍之內。 帝國研發出了T5科技的星艦？不好意思，我已經服役了一支艦隊的T5星艦！ 在趙辰的字典裡面，沒有什麼事情是星艦解決不了的。 如果有的話，那就再派兩支艦隊過去！ 路人甲：我要報名入伍，我要加入趙辰指揮官的艦隊！ 趙辰：對不起，我只招女兵。",
+  "genres": [],
+  "source": "novel543-com",
+  "sourceUrl": "https://www.novel543.com/0416304467/",
+  "totalChapters": 2108,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 429
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 412
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 406
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 416
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 400
+    },
+    {
+      "id": 6,
+      "range": "1001-1200",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 411
+    },
+    {
+      "id": 7,
+      "range": "1201-1400",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 530
+    },
+    {
+      "id": 8,
+      "range": "1401-1600",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 717
+    },
+    {
+      "id": 9,
+      "range": "1601-1800",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 595
+    },
+    {
+      "id": 10,
+      "range": "1801-2000",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 341
+    },
+    {
+      "id": 11,
+      "range": "2001-2108",
+      "file": "vol-011.json.br",
+      "chapters": 108,
+      "sizeKB": 379
+    }
+  ]
+}

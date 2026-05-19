@@ -1,0 +1,100 @@
+{
+  "slug": "dui-bu-qi-wo-de-xing-ji-jian-dui-zhi-zhao-nu-bing",
+  "title": "對不起,我的星際艦隊只招女兵",
+  "description": "Read 對不起,我的星際艦隊只招女兵 online. 2108 chapters available.",
+  "author": "七斤流年",
+  "coverImage": "/novels/dui-bu-qi-wo-de-xing-ji-jian-dui-zhi-zhao-nu-bing/cover.jpg",
+  "totalChapters": 2108,
+  "publishDate": "2020-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [
+        1,
+        200
+      ]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [
+        201,
+        400
+      ]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [
+        401,
+        600
+      ]
+    },
+    {
+      "id": 4,
+      "file": "vol-004.json.br",
+      "chapterRange": [
+        601,
+        800
+      ]
+    },
+    {
+      "id": 5,
+      "file": "vol-005.json.br",
+      "chapterRange": [
+        801,
+        1000
+      ]
+    },
+    {
+      "id": 6,
+      "file": "vol-006.json.br",
+      "chapterRange": [
+        1001,
+        1200
+      ]
+    },
+    {
+      "id": 7,
+      "file": "vol-007.json.br",
+      "chapterRange": [
+        1201,
+        1400
+      ]
+    },
+    {
+      "id": 8,
+      "file": "vol-008.json.br",
+      "chapterRange": [
+        1401,
+        1600
+      ]
+    },
+    {
+      "id": 9,
+      "file": "vol-009.json.br",
+      "chapterRange": [
+        1601,
+        1800
+      ]
+    },
+    {
+      "id": 10,
+      "file": "vol-010.json.br",
+      "chapterRange": [
+        1801,
+        2000
+      ]
+    },
+    {
+      "id": 11,
+      "file": "vol-011.json.br",
+      "chapterRange": [
+        2001,
+        2108
+      ]
+    }
+  ]
+}

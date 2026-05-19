@@ -12,7 +12,9 @@
     "astro": "astro",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "migrate": "node scripts/migrate-raw.mjs",
+    "migrate:ui": "node scripts/migrate-ui.mjs"
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.6",

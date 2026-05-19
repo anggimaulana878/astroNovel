@@ -1,10 +1,10 @@
 {
-  "slug": "dual-cultivation",
-  "title": "Dual Cultivation",
-  "description": "Read Dual Cultivation online. 1146 chapters available.",
-  "author": "Mylittlebrother",
-  "coverImage": "/novels/dual-cultivation/cover.jpg",
-  "totalChapters": 1146,
+  "slug": "the-first-legendary-beast-master",
+  "title": "The First Legendary Beast Master",
+  "description": "Read The First Legendary Beast Master online. 1506 chapters available.",
+  "author": "0",
+  "coverImage": "/novels/the-first-legendary-beast-master/cover.jpg",
+  "totalChapters": 1506,
   "publishDate": "2020-01-01",
   "language": "en",
   "volumes": [
@@ -53,7 +53,23 @@
       "file": "vol-006.json.br",
       "chapterRange": [
         1001,
-        1146
+        1200
+      ]
+    },
+    {
+      "id": 7,
+      "file": "vol-007.json.br",
+      "chapterRange": [
+        1201,
+        1400
+      ]
+    },
+    {
+      "id": 8,
+      "file": "vol-008.json.br",
+      "chapterRange": [
+        1401,
+        1506
       ]
     }
   ]

@@ -1,0 +1,507 @@
+---
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Migration Tool - AstroNovel" description="Migrate raw novel data to production format">
+  <main class="container">
+    <header class="page-header">
+      <a href="/" class="back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Back
+      </a>
+      <h1>Migration Tool</h1>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">Available in public/raw/</h2>
+      <ul class="novel-list" id="novelList">
+        <li class="empty-state">Loading...</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Or Choose Folder</h2>
+      <input type="file" id="folderInput" webkitdirectory hidden>
+      <button class="btn btn-folder" id="chooseFolderBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        Choose Folder...
+      </button>
+      <div class="chosen-folder" id="chosenFolder"></div>
+    </section>
+
+    <section class="section">
+      <div class="actions">
+        <button class="btn btn-primary" id="migrateBtn" disabled>
+          Migrate Selected
+        </button>
+        <span class="selection-count" id="selectionCount">0 selected</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Output Log</h2>
+      <div class="log-container" id="logContainer">
+        <div class="log-line info">Ready. Select novels and click Migrate.</div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px 12px 24px;
+  }
+
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: background-color 0.15s;
+  }
+
+  .back-link:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  .page-header h1 {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+
+  .section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .novel-list {
+    list-style: none;
+  }
+
+  .novel-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+
+  .novel-item:hover {
+    background: var(--bg-primary);
+  }
+
+  .novel-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .novel-info {
+    flex: 1;
+    cursor: pointer;
+  }
+
+  .novel-title {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .novel-meta {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .btn-folder {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--bg-primary);
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .btn-folder:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .chosen-folder {
+    margin-top: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: none;
+  }
+
+  .chosen-folder.show {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #16a34a15;
+    border: 1px solid #16a34a40;
+    color: #22c55e;
+  }
+
+  .chosen-folder .remove-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0 6px;
+    line-height: 1;
+  }
+
+  .btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-height: 40px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .btn-primary:disabled {
+    background: var(--border);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--border);
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .selection-count {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-left: auto;
+  }
+
+  .log-container {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    max-height: 400px;
+    overflow-y: auto;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .log-line {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .log-line.error {
+    color: #ef4444;
+  }
+
+  .log-line.success {
+    color: #22c55e;
+  }
+
+  .log-line.info {
+    color: var(--accent);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      padding: 40px 20px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .container {
+      padding: 14px 10px 20px;
+    }
+  }
+</style>
+
+<script>
+  interface NovelEntry {
+    folder: string;
+    title: string;
+    authors: string[];
+    chapters: number;
+    source: string;
+  }
+
+  interface UploadedSource {
+    folder: string;
+    title: string;
+    chapters: number;
+  }
+
+  let novels: NovelEntry[] = [];
+  let uploadedSource: UploadedSource | null = null;
+  let migrating = false;
+
+  async function loadNovels() {
+    const res = await fetch('/api/migrate/novels');
+    novels = await res.json();
+    renderList();
+  }
+
+  function renderList() {
+    const list = document.getElementById('novelList')!;
+    if (novels.length === 0) {
+      list.innerHTML = '<li class="empty-state">No novels found in public/raw/</li>';
+      return;
+    }
+    list.innerHTML = novels.map((n, i) => `
+      <li class="novel-item">
+        <input type="checkbox" id="novel-${i}" data-index="${i}">
+        <label class="novel-info" for="novel-${i}">
+          <div class="novel-title">${escapeHtml(n.title)}</div>
+          <div class="novel-meta">${n.chapters} chapters · ${escapeHtml(n.authors.join(', ') || 'Unknown')} · ${escapeHtml(n.folder)}</div>
+        </label>
+      </li>
+    `).join('');
+
+    list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', updateSelection);
+    });
+  }
+
+  function escapeHtml(s: string): string {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function updateSelection() {
+    const checked = document.querySelectorAll('.novel-item input:checked');
+    const count = checked.length + (uploadedSource ? 1 : 0);
+    document.getElementById('selectionCount')!.textContent = `${count} selected`;
+    const btn = document.getElementById('migrateBtn') as HTMLButtonElement;
+    btn.disabled = count === 0 || migrating;
+  }
+
+  const folderInput = document.getElementById('folderInput') as HTMLInputElement;
+  const chooseFolderBtn = document.getElementById('chooseFolderBtn')!;
+
+  chooseFolderBtn.addEventListener('click', () => {
+    folderInput.click();
+  });
+
+  folderInput.addEventListener('change', async () => {
+    const files = folderInput.files;
+    if (!files || files.length === 0) return;
+
+    const chosenDiv = document.getElementById('chosenFolder')!;
+    chosenDiv.className = 'chosen-folder show';
+    chosenDiv.style.background = 'var(--bg-primary)';
+    chosenDiv.style.borderColor = 'var(--border)';
+    chosenDiv.style.color = 'var(--text-secondary)';
+    chosenDiv.innerHTML = '<span class="spinner"></span> Uploading...';
+
+    const firstPath = files[0].webkitRelativePath;
+    const folderName = firstPath.split('/')[0];
+
+    const formData = new FormData();
+    formData.append('folderName', folderName);
+
+    for (const file of Array.from(files)) {
+      const relativePath = file.webkitRelativePath.substring(folderName.length + 1);
+      if (relativePath.endsWith('.json') || relativePath.endsWith('.jpg') || relativePath.endsWith('.png')) {
+        formData.append('files', file);
+        formData.append('paths', relativePath);
+      }
+    }
+
+    try {
+      const res = await fetch('/api/migrate/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.uploaded) {
+        uploadedSource = { folder: data.folder, title: data.folder, chapters: data.chapters };
+        chosenDiv.className = 'chosen-folder show';
+        chosenDiv.removeAttribute('style');
+        chosenDiv.innerHTML = `
+          <span>✓ ${escapeHtml(data.folder)} — ${data.chapters} chapters (${data.files} files uploaded)</span>
+          <button class="remove-btn" id="removeUploaded">×</button>
+        `;
+        document.getElementById('removeUploaded')!.addEventListener('click', () => {
+          uploadedSource = null;
+          chosenDiv.className = 'chosen-folder';
+          chosenDiv.innerHTML = '';
+          updateSelection();
+        });
+        await loadNovels();
+      } else {
+        chosenDiv.className = 'chosen-folder show';
+        chosenDiv.style.background = '#ef444415';
+        chosenDiv.style.borderColor = '#ef444440';
+        chosenDiv.style.color = '#ef4444';
+        chosenDiv.innerHTML = `<span>✗ ${escapeHtml(data.error)}</span>`;
+        uploadedSource = null;
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Upload failed';
+      chosenDiv.className = 'chosen-folder show';
+      chosenDiv.style.background = '#ef444415';
+      chosenDiv.style.borderColor = '#ef444440';
+      chosenDiv.style.color = '#ef4444';
+      chosenDiv.innerHTML = `<span>✗ ${escapeHtml(message)}</span>`;
+      uploadedSource = null;
+    }
+
+    updateSelection();
+    folderInput.value = '';
+  });
+
+  document.getElementById('migrateBtn')!.addEventListener('click', async () => {
+    if (migrating) return;
+    migrating = true;
+    const btn = document.getElementById('migrateBtn') as HTMLButtonElement;
+    btn.innerHTML = '<span class="spinner"></span>Migrating...';
+    btn.disabled = true;
+
+    const sources: Array<{ folder: string; title?: string }> = [];
+    document.querySelectorAll('.novel-item input:checked').forEach(cb => {
+      const idx = parseInt((cb as HTMLInputElement).dataset.index!);
+      sources.push({ folder: novels[idx].folder, title: novels[idx].title });
+    });
+    if (uploadedSource) {
+      sources.push({ folder: uploadedSource.folder, title: uploadedSource.title });
+    }
+
+    const log = document.getElementById('logContainer')!;
+    log.innerHTML = '';
+    addLog(`🚀 Starting migration of ${sources.length} novel(s)...`, 'info');
+
+    try {
+      const res = await fetch('/api/migrate/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sources }),
+      });
+      const data = await res.json();
+
+      for (const line of data.logs) {
+        const type = line.includes('✅') || line.includes('✓') ? 'success'
+          : line.includes('❌') ? 'error' : 'info';
+        addLog(line, type);
+      }
+
+      if (data.failures === 0) {
+        addLog(`\n🎉 Done! ${data.success} novel(s) migrated successfully.`, 'success');
+      } else {
+        addLog(`\n⚠ Done with ${data.failures} failure(s). ${data.success} succeeded.`, 'error');
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Request failed';
+      addLog(`💥 ${message}`, 'error');
+    }
+
+    migrating = false;
+    btn.innerHTML = 'Migrate Selected';
+    updateSelection();
+  });
+
+  function addLog(text: string, type: 'info' | 'success' | 'error' = 'info') {
+    const log = document.getElementById('logContainer')!;
+    const line = document.createElement('div');
+    line.className = `log-line ${type}`;
+    line.textContent = text;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  loadNovels();
+</script>

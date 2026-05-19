@@ -14,7 +14,17 @@ const novels = await getAllNovels();
   <main class="container">
     <header class="page-header">
       <h1>My Novel Library</h1>
-      <ReadingHistoryMenu novels={novels} />
+      <div class="header-actions">
+        <a href="/migrate" class="migrate-link" aria-label="Migration Tool">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Migrate</span>
+        </a>
+        <ReadingHistoryMenu novels={novels} />
+      </div>
     </header>
 
     <LastReadCard novels={novels} />
@@ -48,6 +58,37 @@ const novels = await getAllNovels();
     line-height: 1.15;
     min-width: 0;
     flex: 1;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .migrate-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+
+  .migrate-link:hover {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  .migrate-link span {
+    display: none;
   }
 
   .novel-grid {
