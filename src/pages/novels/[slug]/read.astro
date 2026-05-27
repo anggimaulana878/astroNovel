@@ -1077,7 +1077,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       const slug = window.location.pathname.split('/')[2];
       const progressKey = 'novel-progress:' + slug;
       const batchInfo = document.querySelector('.batch-info');
-      const match = batchInfo ? batchInfo.textContent.match(/Chapters (\d+)/) : null;
+      const match = batchInfo ? batchInfo.textContent.match(/Ch\.\s*(\d+)-\d+/) : null;
       const currentChapter = match ? parseInt(match[1], 10) : 1;
       
       let saveTimeout;
