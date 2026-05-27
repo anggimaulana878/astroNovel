@@ -266,6 +266,8 @@ const { novels } = Astro.props;
     slug: string;
     lastChapter: number;
     lastUpdated: number;
+    batchMode?: 'chapters' | 'words';
+    batchSize?: number;
   }
 
   interface ReaderPreferences {
@@ -279,6 +281,8 @@ const { novels } = Astro.props;
     coverImage: string;
     lastChapter: number;
     lastUpdated: number;
+    batchMode?: 'chapters' | 'words';
+    batchSize?: number;
   }
 
   const DEFAULT_PREFERENCES: ReaderPreferences = {
@@ -380,8 +384,11 @@ const { novels } = Astro.props;
     });
   }
 
-  function createHistoryItemElement(item: HistoryItem, preferences: ReaderPreferences) {
-    const resumeUrl = `/novels/${item.slug}/read?start=${item.lastChapter}&mode=${preferences.batchMode}&size=${preferences.batchSize}`;
+  function createHistoryItemElement(item: HistoryItem, globalPreferences: ReaderPreferences) {
+    // Prefer per-novel preferences from progress entry, fall back to global preferences
+    const batchMode = item.batchMode ?? globalPreferences.batchMode;
+    const batchSize = item.batchSize ?? globalPreferences.batchSize;
+    const resumeUrl = `/novels/${item.slug}/read?start=${item.lastChapter}&mode=${batchMode}&size=${batchSize}`;
 
     const listItem = document.createElement('li');
     listItem.className = 'history-item';
@@ -485,7 +492,9 @@ const { novels } = Astro.props;
                   title: seed.title,
                   coverImage: seed.coverImage,
                   lastChapter: progress.lastChapter,
-                  lastUpdated: progress.lastUpdated
+                  lastUpdated: progress.lastUpdated,
+                  batchMode: progress.batchMode,
+                  batchSize: progress.batchSize,
                 });
               }
             } catch (err) {

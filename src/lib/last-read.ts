@@ -9,6 +9,8 @@ export interface StoredNovelProgress {
   slug: string;
   lastChapter: number;
   lastUpdated: number;
+  batchMode?: 'chapters' | 'words';
+  batchSize?: number;
 }
 
 export interface StoredReaderPreferences {
@@ -71,7 +73,6 @@ function isValidProgress(progress: StoredNovelProgress) {
 
 export function buildLastReadCardData(input: BuildLastReadCardDataInput): LastReadCardData | null {
   const { novelSeeds, progressEntries, preferences } = input;
-  const normalizedPreferences = normalizePreferences(preferences);
 
   const latestValidProgress = [...progressEntries]
     .filter(isValidProgress)
@@ -87,6 +88,13 @@ export function buildLastReadCardData(input: BuildLastReadCardDataInput): LastRe
   if (!matchedNovel) {
     return null;
   }
+
+  // Prefer per-novel preferences from progress entry, fall back to global preferences
+  const progressPreferences: StoredReaderPreferences | null =
+    latestValidProgress.batchMode || latestValidProgress.batchSize
+      ? { batchMode: latestValidProgress.batchMode, batchSize: latestValidProgress.batchSize }
+      : null;
+  const normalizedPreferences = normalizePreferences(progressPreferences ?? preferences);
 
   return {
     slug: matchedNovel.slug,

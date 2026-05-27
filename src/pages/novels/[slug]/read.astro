@@ -1079,7 +1079,12 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       const batchInfo = document.querySelector('.batch-info');
       const match = batchInfo ? batchInfo.textContent.match(/Ch\.\s*(\d+)-\d+/) : null;
       const currentChapter = match ? parseInt(match[1], 10) : 1;
-      
+
+      // Read batch mode and size from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentMode = urlParams.get('mode') || 'chapters';
+      const currentSize = parseInt(urlParams.get('size') || '5', 10);
+
       let saveTimeout;
       function saveProgress() {
         clearTimeout(saveTimeout);
@@ -1087,11 +1092,19 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
           localStorage.setItem(progressKey, JSON.stringify({
             slug: slug,
             lastChapter: currentChapter,
+            batchMode: currentMode,
+            batchSize: currentSize,
             lastUpdated: Date.now()
+          }));
+
+          // Also save as global reader preferences for other components
+          localStorage.setItem('reader-preferences', JSON.stringify({
+            batchMode: currentMode,
+            batchSize: currentSize,
           }));
         }, 10000);
       }
-      
+
       saveProgress();
     });
   </script>

@@ -249,9 +249,13 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
     const progress = localStorage.getItem(progressKey);
     
     if (progress) {
-      const { lastChapter } = JSON.parse(progress);
-      const prefs = JSON.parse(localStorage.getItem('reader-preferences') || '{"batchMode":"chapters","batchSize":5}');
-      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${prefs.batchMode}&size=${prefs.batchSize}`;
+      const progressData = JSON.parse(progress);
+      const { lastChapter } = progressData;
+      // Prefer per-novel preferences from progress, fall back to global preferences
+      const globalPrefs = JSON.parse(localStorage.getItem('reader-preferences') || '{"batchMode":"chapters","batchSize":5}');
+      const batchMode = progressData.batchMode ?? globalPrefs.batchMode;
+      const batchSize = progressData.batchSize ?? globalPrefs.batchSize;
+      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}`;
       continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
     }
   }
