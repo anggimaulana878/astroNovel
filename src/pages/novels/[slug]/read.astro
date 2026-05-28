@@ -16,9 +16,11 @@ if (!slug) {
 const startParam = url.searchParams.get('start');
 const modeParam = url.searchParams.get('mode') || 'chapters';
 const sizeParam = url.searchParams.get('size') || '5';
+const chapterParam = url.searchParams.get('chapter');
 
 const startChapter = parseInt(startParam || '1', 10);
 const batchSize = parseInt(sizeParam, 10);
+const targetChapter = chapterParam ? parseInt(chapterParam, 10) : null;
 
 // For display purposes, convert word count to thousands
 const displayBatchSize = modeParam === 'words' ? Math.round(batchSize / 1000) : batchSize;
@@ -233,7 +235,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       <div class="chapter-list-sidebar">
         {allChapters.map(chapter => (
           <a 
-            href={`/novels/${slug}/read?start=${chapter.id}&mode=${modeParam}&size=${batchSize}`}
+            href={`/novels/${slug}/read?start=${chapter.id}&mode=${modeParam}&size=${batchSize}&chapter=${chapter.id}`}
             class={`chapter-item-sidebar ${chapter.id >= batchStart && chapter.id <= batchEnd ? 'active' : ''}`}
             data-chapter-id={chapter.id}
             title={`${chapter.id} - ${chapter.title}`}
@@ -250,7 +252,7 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
   <article role="main" itemscope itemtype="https://schema.org/Article" lang={novel.language}>
     <div class="reader-content">
       {chapters.map(chapter => (
-        <section itemprop="articleBody" class="chapter-section">
+        <section itemprop="articleBody" class="chapter-section" data-chapter-id={chapter.id} id={`chapter-${chapter.id}`}>
           <h2 class="chapter-title">{chapter.title}</h2>
           <div class="chapter-body" set:html={sanitizeChapterHTML(chapter.body, chapter.title)} />
         </section>
@@ -1080,9 +1082,8 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       const match = batchInfo ? batchInfo.textContent.match(/Ch\.\s*(\d+)-\d+/) : null;
       const currentChapter = match ? parseInt(match[1], 10) : 1;
 
-      // Read batch mode and size from URL params
+      // Read batch size from URL params (currentMode already defined above)
       const urlParams = new URLSearchParams(window.location.search);
-      const currentMode = urlParams.get('mode') || 'chapters';
       const currentSize = parseInt(urlParams.get('size') || '5', 10);
 
       let saveTimeout;
@@ -1106,6 +1107,23 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       }
 
       saveProgress();
+
+      // Auto-scroll to target chapter if specified in URL
+      const targetChapter = urlParams.get('chapter');
+      if (targetChapter) {
+        const targetElement = document.getElementById(`chapter-${targetChapter}`);
+        if (targetElement) {
+          // Small delay to ensure content is fully rendered
+          setTimeout(() => {
+            const headerHeight = document.querySelector('.reader-header')?.offsetHeight || 0;
+            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+              top: elementPosition - headerHeight - 20,
+              behavior: 'smooth'
+            });
+          }, 100);
+        }
+      }
     });
   </script>
 </body>

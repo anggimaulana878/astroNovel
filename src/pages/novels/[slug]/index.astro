@@ -42,10 +42,10 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
         <p class="description">{novel.description}</p>
         
         <div class="actions">
-          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5`} class="btn btn-primary">
+          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5&chapter=1`} class="btn btn-primary">
             Start from Beginning
           </a>
-          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5`} class="btn btn-secondary" id="continue-btn">
+          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5&chapter=1`} class="btn btn-secondary" id="continue-btn">
             Continue Reading
           </a>
         </div>
@@ -255,7 +255,7 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
       const globalPrefs = JSON.parse(localStorage.getItem('reader-preferences') || '{"batchMode":"chapters","batchSize":5}');
       const batchMode = progressData.batchMode ?? globalPrefs.batchMode;
       const batchSize = progressData.batchSize ?? globalPrefs.batchSize;
-      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}`;
+      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}&chapter=${lastChapter}`;
       continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
     }
   }
