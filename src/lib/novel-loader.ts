@@ -4,6 +4,14 @@ import { join } from 'node:path';
 import type { NovelMetadata, VolumeData, Chapter } from '../types/novel';
 
 const cache = new Map<string, any>();
+const MAX_CACHE_SIZE = 100;
+
+function limitCacheSize() {
+  if (cache.size > MAX_CACHE_SIZE) {
+    const keysToDelete = Array.from(cache.keys()).slice(0, cache.size - MAX_CACHE_SIZE);
+    keysToDelete.forEach(key => cache.delete(key));
+  }
+}
 
 export async function loadNovelMetadata(slug: string): Promise<NovelMetadata> {
   const cacheKey = `metadata:${slug}`;
@@ -15,6 +23,7 @@ export async function loadNovelMetadata(slug: string): Promise<NovelMetadata> {
     const filePath = join(process.cwd(), 'public', 'novels', slug, 'metadata.json');
     const data = JSON.parse(await readFile(filePath, 'utf-8'));
     cache.set(cacheKey, data);
+    limitCacheSize();
     return data;
   } catch (err: any) {
     if (err.code === 'ENOENT') {
@@ -38,6 +47,7 @@ export async function loadVolumeData(slug: string, volumeFile: string): Promise<
     });
     const data: VolumeData = JSON.parse(decompressed.toString('utf-8'));
     cache.set(cacheKey, data);
+    limitCacheSize();
     return data;
   } catch (err: any) {
     if (err.code === 'ENOENT') {
@@ -82,26 +92,22 @@ export async function getAllNovels(): Promise<NovelMetadata[]> {
   
   try {
     const indexPath = join(process.cwd(), 'public', 'novels', 'index.json');
-    console.log('[getAllNovels] Reading index from:', indexPath);
     const indexData = JSON.parse(await readFile(indexPath, 'utf-8'));
-    console.log('[getAllNovels] Found novels:', indexData.novels.length);
-    
+
     const novels: NovelMetadata[] = [];
     for (const novel of indexData.novels) {
       try {
         const metadata = await loadNovelMetadata(novel.slug);
         novels.push(metadata);
-        console.log('[getAllNovels] Loaded:', novel.slug);
       } catch (err) {
-        console.warn(`[getAllNovels] Failed to load novel ${novel.slug}:`, err);
+        // Skip novels that fail to load
       }
     }
-    
-    console.log('[getAllNovels] Total loaded:', novels.length);
+
     cache.set(cacheKey, novels);
+    limitCacheSize();
     return novels;
   } catch (err) {
-    console.error('[getAllNovels] Failed to load novels index:', err);
     return [];
   }
 }

@@ -247,16 +247,28 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
     const slug = window.location.pathname.split('/')[2];
     const progressKey = `novel-progress:${slug}`;
     const progress = localStorage.getItem(progressKey);
-    
+
     if (progress) {
-      const progressData = JSON.parse(progress);
-      const { lastChapter } = progressData;
-      // Prefer per-novel preferences from progress, fall back to global preferences
-      const globalPrefs = JSON.parse(localStorage.getItem('reader-preferences') || '{"batchMode":"chapters","batchSize":5}');
-      const batchMode = progressData.batchMode ?? globalPrefs.batchMode;
-      const batchSize = progressData.batchSize ?? globalPrefs.batchSize;
-      continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}&chapter=${lastChapter}`;
-      continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
+      try {
+        const progressData = JSON.parse(progress);
+        const { lastChapter } = progressData;
+        // Prefer per-novel preferences from progress, fall back to global preferences
+        let globalPrefs = { batchMode: 'chapters', batchSize: 5 };
+        try {
+          const rawPrefs = localStorage.getItem('reader-preferences');
+          if (rawPrefs) {
+            globalPrefs = JSON.parse(rawPrefs);
+          }
+        } catch (e) {
+          console.warn('[NovelDetail] Failed to parse reader preferences, using defaults');
+        }
+        const batchMode = progressData.batchMode ?? globalPrefs.batchMode;
+        const batchSize = progressData.batchSize ?? globalPrefs.batchSize;
+        continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}&chapter=${lastChapter}`;
+        continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
+      } catch (e) {
+        console.warn('[NovelDetail] Failed to parse progress data:', e);
+      }
     }
   }
 </script>

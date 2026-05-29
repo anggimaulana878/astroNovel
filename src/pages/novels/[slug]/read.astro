@@ -195,20 +195,19 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
             <option value="3" selected={displayBatchSize === 3}>3 chapters</option>
             <option value="5" selected={displayBatchSize === 5}>5 chapters</option>
             <option value="10" selected={displayBatchSize === 10}>10 chapters</option>
-            <option value="15" selected={displayBatchSize === 15}>15 chapters</option>
-            <option value="custom" selected={![3, 5, 10, 15].includes(displayBatchSize)}>Custom</option>
+            <option value="custom" selected={![3, 5, 10].includes(displayBatchSize)}>Custom</option>
           </select>
         </div>
         <div class="setting-item custom-input-container" id="custom-input-container" style="display: none;">
-          <input 
-            type="number" 
-            id="custom-batch-size" 
+          <input
+            type="number"
+            id="custom-batch-size"
             placeholder="Enter number"
             min="1"
-            max="50"
-            value={![3, 5, 10, 15].includes(displayBatchSize) ? displayBatchSize : ''}
+            max="12"
+            value={![3, 5, 10].includes(displayBatchSize) ? displayBatchSize : ''}
           />
-          <small class="input-hint" id="custom-hint">Enter a number between 1-50</small>
+          <small class="input-hint" id="custom-hint">Enter a number between 1-12</small>
         </div>
       </div>
       
@@ -903,33 +902,32 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
       function updateCustomHint(mode) {
         if (!customHint) return;
         if (mode === 'chapters') {
-          customHint.textContent = 'Enter number of chapters (1-50)';
+          customHint.textContent = 'Enter number of chapters (1-12)';
         } else {
-          customHint.textContent = 'Enter number in thousands (e.g., 7 for 7k words, max 50)';
+          customHint.textContent = 'Enter number in thousands (e.g., 7 for 7k words, max 25)';
         }
       }
       
       // Update batch size options based on selected mode
       function updateBatchSizeOptions(mode) {
         if (!batchSizeSelect) return;
-        
+
         const currentValue = batchSizeSelect.value;
         const unit = mode === 'chapters' ? 'chapters' : 'k words';
-        
+
         // Preserve custom option if selected
         const isCustom = currentValue === 'custom';
-        
+
         batchSizeSelect.innerHTML = `
           <option value="3" ${currentValue === '3' ? 'selected' : ''}>3 ${unit}</option>
           <option value="5" ${currentValue === '5' ? 'selected' : ''}>5 ${unit}</option>
           <option value="10" ${currentValue === '10' ? 'selected' : ''}>10 ${unit}</option>
-          <option value="15" ${currentValue === '15' ? 'selected' : ''}>15 ${unit}</option>
           <option value="custom" ${isCustom ? 'selected' : ''}>Custom</option>
         `;
-        
+
         // Update hint text
         updateCustomHint(mode);
-        
+
         // Show/hide custom input based on selection
         toggleCustomInput();
       }
@@ -1045,16 +1043,23 @@ const pageTitle = `${novel.title} - Chapters ${batchStart}-${batchEnd}`;
           // If custom is selected, get value from custom input
           if (selectedSize === 'custom' && customBatchSizeInput) {
             const customValue = parseInt(customBatchSizeInput.value, 10);
-            
-            if (customValue && customValue >= 1 && customValue <= 50) {
-              selectedSize = String(customValue);
-            } else {
-              if (selectedMode === 'chapters') {
-                alert('Please enter a valid number of chapters between 1 and 50');
+
+            if (selectedMode === 'chapters') {
+              // Chapters mode: 1-12 chapters
+              if (customValue && customValue >= 1 && customValue <= 12) {
+                selectedSize = String(customValue);
               } else {
-                alert('Please enter a valid number between 1 and 50 (in thousands of words)');
+                alert('Please enter a valid number of chapters between 1 and 12');
+                return;
               }
-              return;
+            } else {
+              // Words mode: 1-25k words
+              if (customValue && customValue >= 1 && customValue <= 25) {
+                selectedSize = String(customValue);
+              } else {
+                alert('Please enter a valid number between 1 and 25 (in thousands of words)');
+                return;
+              }
             }
           }
           
