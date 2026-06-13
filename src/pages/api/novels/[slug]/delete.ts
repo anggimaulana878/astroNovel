@@ -23,6 +23,9 @@ const METHOD_NOT_ALLOWED = json(
 export const GET: APIRoute = async () => METHOD_NOT_ALLOWED;
 export const POST: APIRoute = async () => METHOD_NOT_ALLOWED;
 export const PUT: APIRoute = async () => METHOD_NOT_ALLOWED;
+export const PATCH: APIRoute = async () => METHOD_NOT_ALLOWED;
+export const HEAD: APIRoute = async () => METHOD_NOT_ALLOWED;
+export const OPTIONS: APIRoute = async () => METHOD_NOT_ALLOWED;
 
 interface IndexEntry {
   slug: string;
