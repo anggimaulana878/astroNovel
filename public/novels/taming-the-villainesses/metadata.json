@@ -1,0 +1,36 @@
+{
+  "slug": "taming-the-villainesses",
+  "title": "Taming The Villainesses",
+  "description": "Read Taming The Villainesses online. 490 chapters available.",
+  "author": "Michuri",
+  "coverImage": "/novels/taming-the-villainesses/cover.jpg",
+  "totalChapters": 490,
+  "publishDate": "2020-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [
+        1,
+        341
+      ]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [
+        342,
+        675
+      ]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [
+        688,
+        845
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "taming-the-villainesses",
+  "title": "Taming The Villainesses",
+  "authors": [
+    "Michuri"
+  ],
+  "synopsis": "",
+  "genres": [],
+  "source": "novelfire-net",
+  "sourceUrl": "https://novelfire.net/book/taming-the-villainesses",
+  "totalChapters": 490,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-341",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 395
+    },
+    {
+      "id": 2,
+      "range": "342-675",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 357
+    },
+    {
+      "id": 3,
+      "range": "688-845",
+      "file": "vol-003.json.br",
+      "chapters": 90,
+      "sizeKB": 270
+    }
+  ]
+}

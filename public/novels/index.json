@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T13:18:25.136Z",
+  "generated": "2026-06-13T13:25:48.021Z",
   "novels": [
     {
       "id": "super-gene",
@@ -344,6 +344,23 @@
       "lastUpdated": "2026-06-13",
       "authors": [
         "Ni Cang Tian"
+      ],
+      "synopsis": "",
+      "genres": []
+    },
+    {
+      "id": "taming-the-villainesses",
+      "title": "Taming The Villainesses",
+      "slug": "taming-the-villainesses",
+      "cover": "/novels/taming-the-villainesses/cover.jpg",
+      "totalChapters": 490,
+      "bundles": 3,
+      "bundleSize": 200,
+      "source": "novelfire-net",
+      "sourceUrl": "https://novelfire.net/book/taming-the-villainesses",
+      "lastUpdated": "2026-06-13",
+      "authors": [
+        "Michuri"
       ],
       "synopsis": "",
       "genres": []
