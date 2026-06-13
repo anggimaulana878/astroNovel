@@ -15,17 +15,14 @@ const json = (body: unknown, status: number): Response =>
     headers: { 'Content-Type': 'application/json' },
   });
 
-const METHOD_NOT_ALLOWED = json(
-  { error: 'Method not allowed. Use DELETE.' },
-  405,
-);
+const methodNotAllowed = () => json({ error: 'Method not allowed. Use DELETE.' }, 405);
 
-export const GET: APIRoute = async () => METHOD_NOT_ALLOWED;
-export const POST: APIRoute = async () => METHOD_NOT_ALLOWED;
-export const PUT: APIRoute = async () => METHOD_NOT_ALLOWED;
-export const PATCH: APIRoute = async () => METHOD_NOT_ALLOWED;
-export const HEAD: APIRoute = async () => METHOD_NOT_ALLOWED;
-export const OPTIONS: APIRoute = async () => METHOD_NOT_ALLOWED;
+export const GET: APIRoute = async () => methodNotAllowed();
+export const POST: APIRoute = async () => methodNotAllowed();
+export const PUT: APIRoute = async () => methodNotAllowed();
+export const PATCH: APIRoute = async () => methodNotAllowed();
+export const HEAD: APIRoute = async () => methodNotAllowed();
+export const OPTIONS: APIRoute = async () => methodNotAllowed();
 
 interface IndexEntry {
   slug: string;
@@ -63,8 +60,7 @@ export const DELETE: APIRoute = async ({ params }) => {
     const raw = await readFile(join(NOVELS_DIR, 'index.json'), 'utf-8');
     index = JSON.parse(raw) as IndexFile;
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return json({ error: `Failed to read novel index: ${message}` }, 500);
+    return json({ error: 'Failed to read novel index' }, 500);
   }
 
   const entry = index.novels.find((n) => n.slug === slug);
@@ -79,8 +75,7 @@ export const DELETE: APIRoute = async ({ params }) => {
     const raw = await readFile(join(novelDir, 'metadata.json'), 'utf-8');
     metadata = JSON.parse(raw) as Metadata;
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return json({ error: `Failed to read metadata for "${slug}": ${message}` }, 500);
+    return json({ error: `Failed to read metadata for "${slug}"` }, 500);
   }
 
   // 3. List files
@@ -89,8 +84,7 @@ export const DELETE: APIRoute = async ({ params }) => {
     const entries = await readdir(novelDir);
     files = entries.map((f) => `public/novels/${slug}/${f}`);
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    return json({ error: `Failed to list files for "${slug}": ${message}` }, 500);
+    return json({ error: `Failed to list files for "${slug}"` }, 500);
   }
 
   return json({
