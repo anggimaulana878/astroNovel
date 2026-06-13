@@ -1,0 +1,44 @@
+{
+  "slug": "great-demon-king",
+  "title": "Great Demon King",
+  "description": "Read Great Demon King online. 774 chapters available.",
+  "author": "Ni Cang Tian",
+  "coverImage": "/novels/great-demon-king/cover.jpg",
+  "totalChapters": 774,
+  "publishDate": "2020-01-01",
+  "language": "en",
+  "volumes": [
+    {
+      "id": 1,
+      "file": "vol-001.json.br",
+      "chapterRange": [
+        1,
+        225
+      ]
+    },
+    {
+      "id": 2,
+      "file": "vol-002.json.br",
+      "chapterRange": [
+        226,
+        453
+      ]
+    },
+    {
+      "id": 3,
+      "file": "vol-003.json.br",
+      "chapterRange": [
+        454,
+        786
+      ]
+    },
+    {
+      "id": 4,
+      "file": "vol-004.json.br",
+      "chapterRange": [
+        787,
+        1028
+      ]
+    }
+  ]
+}

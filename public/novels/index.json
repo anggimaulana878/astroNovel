@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T11:35:54.583Z",
+  "generated": "2026-06-13T11:37:05.864Z",
   "novels": [
     {
       "id": "super-gene",
@@ -399,6 +399,40 @@
         "譚老仙"
       ],
       "synopsis": "蕭家廢物長子蕭凡被親弟弟打個半死送去和龍家醜八怪聯姻換取修鍊資源，卻意外激活諸天至寶：周天星斗圖。 每擊碎一顆星辰就能獲得其內的各種靈寶、靈石、靈藥、功法。 龍象霸體訣鍛體 逆天之路展開 廢材贅婿逆天稱皇",
+      "genres": []
+    },
+    {
+      "id": "keyboard-immortal",
+      "title": "Keyboard Immortal",
+      "slug": "keyboard-immortal",
+      "cover": "/novels/keyboard-immortal/cover.jpg",
+      "totalChapters": 2977,
+      "bundles": 15,
+      "bundleSize": 200,
+      "source": "wuxiaworld-com",
+      "sourceUrl": "https://www.wuxiaworld.com/novel/keyboard-immortal",
+      "lastUpdated": "2026-06-13",
+      "authors": [
+        "Monk Of The Six Illusions(六如和尚)"
+      ],
+      "synopsis": "",
+      "genres": []
+    },
+    {
+      "id": "great-demon-king",
+      "title": "Great Demon King",
+      "slug": "great-demon-king",
+      "cover": "/novels/great-demon-king/cover.jpg",
+      "totalChapters": 774,
+      "bundles": 4,
+      "bundleSize": 200,
+      "source": "novelfire-net",
+      "sourceUrl": "https://novelfire.net/book/great-demon-king",
+      "lastUpdated": "2026-06-13",
+      "authors": [
+        "Ni Cang Tian"
+      ],
+      "synopsis": "",
       "genres": []
     }
   ]

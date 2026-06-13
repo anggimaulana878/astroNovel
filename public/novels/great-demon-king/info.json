@@ -1,0 +1,43 @@
+{
+  "id": "great-demon-king",
+  "title": "Great Demon King",
+  "authors": [
+    "Ni Cang Tian"
+  ],
+  "synopsis": "",
+  "genres": [],
+  "source": "novelfire-net",
+  "sourceUrl": "https://novelfire.net/book/great-demon-king",
+  "totalChapters": 774,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-225",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 658
+    },
+    {
+      "id": 2,
+      "range": "226-453",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 756
+    },
+    {
+      "id": 3,
+      "range": "454-786",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 722
+    },
+    {
+      "id": 4,
+      "range": "787-1028",
+      "file": "vol-004.json.br",
+      "chapters": 174,
+      "sizeKB": 511
+    }
+  ]
+}
