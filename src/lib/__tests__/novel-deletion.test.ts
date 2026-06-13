@@ -13,6 +13,40 @@ describe("novel-deletion", () => {
 	let testDir: string;
 	let novelsDir: string;
 
+	// Slug validation regex (mirrors src/pages/api/novels/[slug]/delete.ts)
+	const SLUG_REGEX = /^[a-z0-9-]{1,100}$/;
+
+	describe("slug validation", () => {
+		it("accepts valid slugs", () => {
+			expect(SLUG_REGEX.test("super-gene")).toBe(true);
+			expect(SLUG_REGEX.test("shadow-slave-123")).toBe(true);
+			expect(SLUG_REGEX.test("a")).toBe(true);
+			expect(SLUG_REGEX.test("123")).toBe(true);
+			expect(SLUG_REGEX.test("my-novel-2024")).toBe(true);
+		});
+
+		it("rejects uppercase letters", () => {
+			expect(SLUG_REGEX.test("Invalid_Slug")).toBe(false);
+			expect(SLUG_REGEX.test("MyNovel")).toBe(false);
+		});
+
+		it("rejects spaces and special characters", () => {
+			expect(SLUG_REGEX.test("slug with spaces")).toBe(false);
+			expect(SLUG_REGEX.test("my_novel")).toBe(false);
+			expect(SLUG_REGEX.test("novel@home")).toBe(false);
+			expect(SLUG_REGEX.test("a/b")).toBe(false);
+		});
+
+		it("rejects slugs longer than 100 chars", () => {
+			expect(SLUG_REGEX.test("a".repeat(100))).toBe(true);
+			expect(SLUG_REGEX.test("a".repeat(101))).toBe(false);
+		});
+
+		it("rejects empty string", () => {
+			expect(SLUG_REGEX.test("")).toBe(false);
+		});
+	});
+
 	beforeEach(async () => {
 		testDir = await mkdtemp(join(tmpdir(), "novel-del-"));
 		novelsDir = join(testDir, "novels");
