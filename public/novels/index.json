@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T10:34:44.720Z",
+  "generated": "2026-06-13T10:36:47.270Z",
   "novels": [
     {
       "id": "super-gene",
@@ -376,6 +376,30 @@
       ],
       "synopsis": "",
       "genres": []
+    },
+    {
+      "id": "devil-s-son-in-law",
+      "title": "Devil’S Son-In-Law",
+      "slug": "devil-s-son-in-law",
+      "cover": "/novels/devil-s-son-in-law/cover.jpg",
+      "totalChapters": 1306,
+      "bundles": 7,
+      "bundleSize": 200,
+      "source": "sonicmtl-com",
+      "sourceUrl": "https://www.sonicmtl.com/novel/devils-son-in-law/",
+      "lastUpdated": "2026-06-13",
+      "authors": [],
+      "synopsis": "www.sonicmtl.com",
+      "genres": [
+        "mature",
+        "action",
+        "slice of life",
+        "harem",
+        "comedy",
+        "fantasy",
+        "adventure",
+        "xuanhuan"
+      ]
     }
   ]
 }

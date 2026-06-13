@@ -1,14 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import ChapterList from '../../../components/ChapterList.astro';
-import { loadNovelMetadata, loadChapterRange, getAllNovels } from '../../../lib/novel-loader';
+import { loadNovelMetadata, loadChapterRange } from '../../../lib/novel-loader';
 
-export async function getStaticPaths() {
-  const novels = await getAllNovels();
-  return novels.map(novel => ({
-    params: { slug: novel.slug }
-  }));
-}
+export const prerender = false;
 
 const { slug } = Astro.params;
 
