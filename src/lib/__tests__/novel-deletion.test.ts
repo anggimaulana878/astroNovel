@@ -72,6 +72,12 @@ describe("novel-deletion", () => {
 			await writeFile(join(novelsDir, "index.json"), "not json");
 			await expect(loadIndex(novelsDir)).rejects.toThrow();
 		});
+
+		it("throws when index.json is valid JSON but missing novels array", async () => {
+			const indexPath = join(novelsDir, "index.json");
+			await writeFile(indexPath, JSON.stringify({ version: "1.0" }));
+			await expect(loadIndex(novelsDir)).rejects.toThrow('missing "novels" array');
+		});
 	});
 
 	describe("findNovel", () => {

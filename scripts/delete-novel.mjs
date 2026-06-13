@@ -2,7 +2,7 @@
 import { readFile, writeFile, readdir, rm, access } from 'fs/promises';
 import { join } from 'path';
 import { createInterface } from 'readline';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 const NOVELS_DIR = 'public/novels';
@@ -46,8 +46,11 @@ export async function getNovelFiles(dir) {
   try {
     const entries = await readdir(dir);
     return entries;
-  } catch {
-    return [];
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return [];
+    }
+    throw err;
   }
 }
 
@@ -74,8 +77,8 @@ export function removeFromIndex(index, slug) {
  */
 function createGitCommit(title, slug) {
   try {
-    execSync('git add -A', { stdio: 'inherit' });
-    execSync(`git commit -m "chore: remove novel ${title}"`, {
+    execFileSync('git', ['add', '-A'], { stdio: 'inherit' });
+    execFileSync('git', ['commit', '-m', `chore: remove novel ${title}`], {
       stdio: 'inherit',
     });
     return true;
@@ -110,6 +113,13 @@ async function main() {
   if (!slug) {
     console.error('❌ Usage: node scripts/delete-novel.mjs <slug> [novelsDir]');
     console.error('   Example: node scripts/delete-novel.mjs shadow-slave');
+    process.exit(1);
+  }
+
+  const SLUG_REGEX = /^[a-z0-9-]+$/;
+  if (!SLUG_REGEX.test(slug)) {
+    console.error(`❌ Invalid slug format: "${slug}"`);
+    console.error('   Slugs must contain only lowercase letters, numbers, and hyphens');
     process.exit(1);
   }
 
@@ -175,6 +185,8 @@ async function main() {
     console.log('✅ Removed entry from index.json');
   } catch (err) {
     console.error(`❌ Failed to update index.json: ${err.message}`);
+    console.error('⚠️  Directory was deleted but index still references it');
+    console.error('   Manual fix: edit public/novels/index.json to remove the entry');
     process.exit(1);
   }
 
