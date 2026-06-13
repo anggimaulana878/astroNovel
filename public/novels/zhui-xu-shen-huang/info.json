@@ -1,0 +1,267 @@
+{
+  "id": "zhui-xu-shen-huang",
+  "title": "贅婿神皇",
+  "authors": [
+    "譚老仙"
+  ],
+  "synopsis": "蕭家廢物長子蕭凡被親弟弟打個半死送去和龍家醜八怪聯姻換取修鍊資源，卻意外激活諸天至寶：周天星斗圖。 每擊碎一顆星辰就能獲得其內的各種靈寶、靈石、靈藥、功法。 龍象霸體訣鍛體 逆天之路展開 廢材贅婿逆天稱皇",
+  "genres": [],
+  "source": "novel543-com",
+  "sourceUrl": "https://www.novel543.com/1016300957/",
+  "totalChapters": 7034,
+  "bundleSize": 200,
+  "bundles": [
+    {
+      "id": 1,
+      "range": "1-200",
+      "file": "vol-001.json.br",
+      "chapters": 200,
+      "sizeKB": 361
+    },
+    {
+      "id": 2,
+      "range": "201-400",
+      "file": "vol-002.json.br",
+      "chapters": 200,
+      "sizeKB": 318
+    },
+    {
+      "id": 3,
+      "range": "401-600",
+      "file": "vol-003.json.br",
+      "chapters": 200,
+      "sizeKB": 310
+    },
+    {
+      "id": 4,
+      "range": "601-800",
+      "file": "vol-004.json.br",
+      "chapters": 200,
+      "sizeKB": 303
+    },
+    {
+      "id": 5,
+      "range": "801-1000",
+      "file": "vol-005.json.br",
+      "chapters": 200,
+      "sizeKB": 297
+    },
+    {
+      "id": 6,
+      "range": "1001-1200",
+      "file": "vol-006.json.br",
+      "chapters": 200,
+      "sizeKB": 298
+    },
+    {
+      "id": 7,
+      "range": "1201-1400",
+      "file": "vol-007.json.br",
+      "chapters": 200,
+      "sizeKB": 285
+    },
+    {
+      "id": 8,
+      "range": "1401-1600",
+      "file": "vol-008.json.br",
+      "chapters": 200,
+      "sizeKB": 289
+    },
+    {
+      "id": 9,
+      "range": "1601-1800",
+      "file": "vol-009.json.br",
+      "chapters": 200,
+      "sizeKB": 303
+    },
+    {
+      "id": 10,
+      "range": "1801-2000",
+      "file": "vol-010.json.br",
+      "chapters": 200,
+      "sizeKB": 291
+    },
+    {
+      "id": 11,
+      "range": "2001-2200",
+      "file": "vol-011.json.br",
+      "chapters": 200,
+      "sizeKB": 274
+    },
+    {
+      "id": 12,
+      "range": "2201-2400",
+      "file": "vol-012.json.br",
+      "chapters": 200,
+      "sizeKB": 265
+    },
+    {
+      "id": 13,
+      "range": "2401-2600",
+      "file": "vol-013.json.br",
+      "chapters": 200,
+      "sizeKB": 263
+    },
+    {
+      "id": 14,
+      "range": "2601-2800",
+      "file": "vol-014.json.br",
+      "chapters": 200,
+      "sizeKB": 255
+    },
+    {
+      "id": 15,
+      "range": "2801-3000",
+      "file": "vol-015.json.br",
+      "chapters": 200,
+      "sizeKB": 262
+    },
+    {
+      "id": 16,
+      "range": "3001-3200",
+      "file": "vol-016.json.br",
+      "chapters": 200,
+      "sizeKB": 265
+    },
+    {
+      "id": 17,
+      "range": "3201-3400",
+      "file": "vol-017.json.br",
+      "chapters": 200,
+      "sizeKB": 241
+    },
+    {
+      "id": 18,
+      "range": "3401-3600",
+      "file": "vol-018.json.br",
+      "chapters": 200,
+      "sizeKB": 238
+    },
+    {
+      "id": 19,
+      "range": "3601-3800",
+      "file": "vol-019.json.br",
+      "chapters": 200,
+      "sizeKB": 232
+    },
+    {
+      "id": 20,
+      "range": "3801-4000",
+      "file": "vol-020.json.br",
+      "chapters": 200,
+      "sizeKB": 228
+    },
+    {
+      "id": 21,
+      "range": "4001-4200",
+      "file": "vol-021.json.br",
+      "chapters": 200,
+      "sizeKB": 227
+    },
+    {
+      "id": 22,
+      "range": "4201-4400",
+      "file": "vol-022.json.br",
+      "chapters": 200,
+      "sizeKB": 231
+    },
+    {
+      "id": 23,
+      "range": "4401-4600",
+      "file": "vol-023.json.br",
+      "chapters": 200,
+      "sizeKB": 232
+    },
+    {
+      "id": 24,
+      "range": "4601-4800",
+      "file": "vol-024.json.br",
+      "chapters": 200,
+      "sizeKB": 228
+    },
+    {
+      "id": 25,
+      "range": "4801-5000",
+      "file": "vol-025.json.br",
+      "chapters": 200,
+      "sizeKB": 236
+    },
+    {
+      "id": 26,
+      "range": "5001-5200",
+      "file": "vol-026.json.br",
+      "chapters": 200,
+      "sizeKB": 231
+    },
+    {
+      "id": 27,
+      "range": "5201-5400",
+      "file": "vol-027.json.br",
+      "chapters": 200,
+      "sizeKB": 228
+    },
+    {
+      "id": 28,
+      "range": "5401-5600",
+      "file": "vol-028.json.br",
+      "chapters": 200,
+      "sizeKB": 239
+    },
+    {
+      "id": 29,
+      "range": "5601-5800",
+      "file": "vol-029.json.br",
+      "chapters": 200,
+      "sizeKB": 237
+    },
+    {
+      "id": 30,
+      "range": "5801-6000",
+      "file": "vol-030.json.br",
+      "chapters": 200,
+      "sizeKB": 238
+    },
+    {
+      "id": 31,
+      "range": "6001-6200",
+      "file": "vol-031.json.br",
+      "chapters": 200,
+      "sizeKB": 233
+    },
+    {
+      "id": 32,
+      "range": "6201-6400",
+      "file": "vol-032.json.br",
+      "chapters": 200,
+      "sizeKB": 230
+    },
+    {
+      "id": 33,
+      "range": "6401-6600",
+      "file": "vol-033.json.br",
+      "chapters": 200,
+      "sizeKB": 228
+    },
+    {
+      "id": 34,
+      "range": "6601-6800",
+      "file": "vol-034.json.br",
+      "chapters": 200,
+      "sizeKB": 223
+    },
+    {
+      "id": 35,
+      "range": "6801-7000",
+      "file": "vol-035.json.br",
+      "chapters": 200,
+      "sizeKB": 217
+    },
+    {
+      "id": 36,
+      "range": "7001-7034",
+      "file": "vol-036.json.br",
+      "chapters": 34,
+      "sizeKB": 42
+    }
+  ]
+}

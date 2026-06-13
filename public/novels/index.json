@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T10:36:47.270Z",
+  "generated": "2026-06-13T10:48:30.489Z",
   "novels": [
     {
       "id": "super-gene",
@@ -400,6 +400,23 @@
         "adventure",
         "xuanhuan"
       ]
+    },
+    {
+      "id": "zhui-xu-shen-huang",
+      "title": "贅婿神皇",
+      "slug": "zhui-xu-shen-huang",
+      "cover": "/novels/zhui-xu-shen-huang/cover.jpg",
+      "totalChapters": 7034,
+      "bundles": 36,
+      "bundleSize": 200,
+      "source": "novel543-com",
+      "sourceUrl": "https://www.novel543.com/1016300957/",
+      "lastUpdated": "2026-06-13",
+      "authors": [
+        "譚老仙"
+      ],
+      "synopsis": "蕭家廢物長子蕭凡被親弟弟打個半死送去和龍家醜八怪聯姻換取修鍊資源，卻意外激活諸天至寶：周天星斗圖。 每擊碎一顆星辰就能獲得其內的各種靈寶、靈石、靈藥、功法。 龍象霸體訣鍛體 逆天之路展開 廢材贅婿逆天稱皇",
+      "genres": []
     }
   ]
 }
