@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T13:17:10.491Z",
+  "generated": "2026-06-13T13:17:58.572Z",
   "novels": [
     {
       "id": "super-gene",
@@ -160,21 +160,6 @@
       "totalChapters": 1334,
       "bundles": 7,
       "bundleSize": 200,
-      "source": "allnovel-org",
-      "lastUpdated": "2026-01-16",
-      "authors": [],
-      "synopsis": "",
-      "genres": [],
-      "sourceUrl": ""
-    },
-    {
-      "id": "shadow-hack",
-      "title": "Shadow Hack",
-      "slug": "shadow-hack",
-      "cover": "/novels/shadow-hack/cover.jpg",
-      "totalChapters": 989,
-      "bundles": 10,
-      "bundleSize": 100,
       "source": "allnovel-org",
       "lastUpdated": "2026-01-16",
       "authors": [],
