@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T13:16:48.111Z",
+  "generated": "2026-06-13T13:17:10.491Z",
   "novels": [
     {
       "id": "super-gene",
@@ -39,21 +39,6 @@
       "cover": "/novels/cultivation-online/cover.jpg",
       "totalChapters": 2442,
       "bundles": 13,
-      "bundleSize": 200,
-      "source": "allnovel-org",
-      "lastUpdated": "2026-01-16",
-      "authors": [],
-      "synopsis": "",
-      "genres": [],
-      "sourceUrl": ""
-    },
-    {
-      "id": "ultimate-scheming-system",
-      "title": "Ultimate Scheming System",
-      "slug": "ultimate-scheming-system",
-      "cover": "/novels/ultimate-scheming-system/cover.jpg",
-      "totalChapters": 1900,
-      "bundles": 10,
       "bundleSize": 200,
       "source": "allnovel-org",
       "lastUpdated": "2026-01-16",
