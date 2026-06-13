@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T13:16:10.717Z",
+  "generated": "2026-06-13T13:16:48.111Z",
   "novels": [
     {
       "id": "super-gene",
@@ -266,29 +266,6 @@
       "source": "allnovelfull-net",
       "sourceUrl": "https://allnovelfull.net/long-live-summons.html",
       "lastUpdated": "2026-03-19"
-    },
-    {
-      "id": "science-and-technology-library",
-      "title": "Science And Technology Library",
-      "slug": "science-and-technology-library",
-      "cover": "/novels/science-and-technology-library/cover.jpg",
-      "authors": [
-        "Lonely_Ant"
-      ],
-      "synopsis": "Science and Technology Library: The supreme state of science is theology; an accidental rescue, let Chen Mo get a technology library that collects endless technology, the story begins…",
-      "genres": [
-        "Action",
-        "Army",
-        "AcceleratedGrowth",
-        "Sci-fi",
-        "Aliens"
-      ],
-      "totalChapters": 1129,
-      "bundles": 6,
-      "bundleSize": 200,
-      "source": "wuxiaspot-com",
-      "sourceUrl": "https://www.wuxiaspot.com/novel/science-library.html",
-      "lastUpdated": "2026-03-30"
     },
     {
       "id": "quan-min-yu-ling-wo-de-ling-chong-shi-nu-jiang-shi-json",
