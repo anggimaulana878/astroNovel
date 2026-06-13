@@ -647,6 +647,11 @@ const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
           throw new Error(data.error || 'Failed to prepare deletion');
         }
 
+        // Validate command format to prevent XSS from compromised API
+        const expectedCmd = `npm run delete-novel ${novelSlug}`;
+        if (data.command !== expectedCmd) {
+          throw new Error('Invalid server response');
+        }
         commandText.textContent = data.command;
         fileCount.textContent = `${data.files.length} files`;
         showState('result');
