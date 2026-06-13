@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-05-19T17:17:55.194Z",
+  "generated": "2026-06-13T10:34:44.720Z",
   "novels": [
     {
       "id": "super-gene",
@@ -23,21 +23,6 @@
       "slug": "shadow-slave",
       "cover": "/novels/shadow-slave/cover.jpg",
       "totalChapters": 2754,
-      "bundles": 14,
-      "bundleSize": 200,
-      "source": "allnovel-org",
-      "lastUpdated": "2026-01-16",
-      "authors": [],
-      "synopsis": "",
-      "genres": [],
-      "sourceUrl": ""
-    },
-    {
-      "id": "devils-son-in-law",
-      "title": "Devil S Son In Law",
-      "slug": "devils-son-in-law",
-      "cover": "/novels/devils-son-in-law/cover.jpg",
-      "totalChapters": 2686,
       "bundles": 14,
       "bundleSize": 200,
       "source": "allnovel-org",
