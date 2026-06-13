@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T10:48:30.489Z",
+  "generated": "2026-06-13T11:35:54.583Z",
   "novels": [
     {
       "id": "super-gene",
@@ -212,23 +212,6 @@
       "bundleSize": 200,
       "source": "wuxiaworld-com",
       "sourceUrl": "https://www.wuxiaworld.com/novel/ancient-strengthening-technique",
-      "lastUpdated": "2026-02-21"
-    },
-    {
-      "id": "keyboard-immortal",
-      "title": "Keyboard Immortal",
-      "slug": "keyboard-immortal",
-      "cover": "/novels/keyboard-immortal/cover.jpg",
-      "authors": [
-        "Monk Of The Six Illusions(六如和尚)"
-      ],
-      "synopsis": "",
-      "genres": [],
-      "totalChapters": 2869,
-      "bundles": 15,
-      "bundleSize": 200,
-      "source": "wuxiaworld-com",
-      "sourceUrl": "https://www.wuxiaworld.com/novel/keyboard-immortal",
       "lastUpdated": "2026-02-21"
     },
     {
