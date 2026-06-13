@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T13:17:58.572Z",
+  "generated": "2026-06-13T13:18:25.136Z",
   "novels": [
     {
       "id": "super-gene",
@@ -99,21 +99,6 @@
       "cover": "/novels/neet-receives-a-dating-sim-game-leveling-system/cover.jpg",
       "totalChapters": 841,
       "bundles": 9,
-      "bundleSize": 100,
-      "source": "allnovel-org",
-      "lastUpdated": "2026-01-16",
-      "authors": [],
-      "synopsis": "",
-      "genres": [],
-      "sourceUrl": ""
-    },
-    {
-      "id": "i-have-a-super-usb-drive",
-      "title": "I Have A Super Usb Drive",
-      "slug": "i-have-a-super-usb-drive",
-      "cover": "/novels/i-have-a-super-usb-drive/cover.jpg",
-      "totalChapters": 645,
-      "bundles": 7,
       "bundleSize": 100,
       "source": "allnovel-org",
       "lastUpdated": "2026-01-16",
