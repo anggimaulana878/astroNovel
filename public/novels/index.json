@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated": "2026-06-13T11:37:05.864Z",
+  "generated": "2026-06-13T13:16:10.717Z",
   "novels": [
     {
       "id": "super-gene",
@@ -323,25 +323,6 @@
       ],
       "synopsis": "穿越成為一個星際時代的落魄貴族少爺。 領地貧乏，資源短缺，星艦殘破，一個爛攤子被丟到了趙辰面前。 領地沒有星門？ 咱們自己造！ 領地沒有星艦？ 星際驅逐艦、星際護衛艦、星際巡洋艦想要啥咱造啥。 率領無人機集群猶如蜂群來襲的航母星艦，宣布著戰場的統治力。 一切真理就在星際戰列艦的巨炮射程範圍之內。 帝國研發出了T5科技的星艦？不好意思，我已經服役了一支艦隊的T5星艦！ 在趙辰的字典裡面，沒有什麼事情是星艦解決不了的。 如果有的話，那就再派兩支艦隊過去！ 路人甲：我要報名入伍，我要加入趙辰指揮官的艦隊！ 趙辰：對不起，我只招女兵。",
       "genres": []
-    },
-    {
-      "id": "the-first-legendary-beast-master",
-      "title": "The First Legendary Beast Master",
-      "slug": "the-first-legendary-beast-master",
-      "cover": "/novels/the-first-legendary-beast-master/cover.jpg",
-      "totalChapters": 1506,
-      "bundles": 8,
-      "bundleSize": 200,
-      "source": "novelhall-com",
-      "sourceUrl": "https://novelhall.com/the-first-legendary-beast-master-32920",
-      "lastUpdated": "2026-05-19",
-      "authors": [
-        "0"
-      ],
-      "synopsis": "",
-      "genres": [
-        "Action"
-      ]
     },
     {
       "id": "monster-integration",
