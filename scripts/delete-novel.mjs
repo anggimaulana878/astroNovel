@@ -75,7 +75,7 @@ export function removeFromIndex(index, slug) {
 function createGitCommit(title, slug) {
   try {
     execSync('git add -A', { stdio: 'inherit' });
-    execSync(`git commit -m "chore: remove novel '${title}' (${slug})"`, {
+    execSync(`git commit -m "chore: remove novel ${title}"`, {
       stdio: 'inherit',
     });
     return true;
@@ -119,6 +119,7 @@ async function main() {
     index = await loadIndex(novelsDir);
   } catch (err) {
     console.error(`❌ ${err.message}`);
+    console.error('   Try checking the file manually or running: git checkout public/novels/index.json');
     process.exit(1);
   }
 
@@ -139,7 +140,7 @@ async function main() {
   console.log(`   ├─ Title:     ${novel.title}`);
   console.log(`   ├─ Slug:      ${novel.slug}`);
   console.log(`   ├─ Chapters:  ${novel.totalChapters ?? 'unknown'}`);
-  console.log(`   ├─ Bundles:   ${novel.bundles ?? 'unknown'}`);
+  console.log(`   ├─ Volumes:   ${novel.bundles ?? 'unknown'}`);
   console.log(`   ├─ Files:     ${files.length}`);
   for (const f of files.slice(0, 10)) {
     console.log(`   │   • ${f}`);
@@ -151,7 +152,7 @@ async function main() {
 
   // 4. Confirm
   const confirmed = await promptConfirm(
-    `⚠️  This will permanently delete "${novel.title}" and remove it from index.json. Continue? (y/N) `
+    `Delete "${novel.title}" (${novel.totalChapters ?? 'unknown'} chapters)? [y/N] `
   );
   if (!confirmed) {
     console.log('❎ Deletion cancelled.');
