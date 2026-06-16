@@ -1,0 +1,80 @@
+---
+interface Props {
+  banners: Array<{
+    title: string;
+    image: string;
+    badge: string;
+    badgeColor: string;
+    link: string;
+  }>;
+}
+
+const { banners } = Astro.props;
+
+const badgeStyles: Record<string, string> = {
+  primary: "bg-primary text-on-primary-fixed",
+  secondary: "bg-secondary-container text-on-secondary-container",
+  tertiary: "bg-tertiary-container text-on-tertiary-container",
+};
+
+function getBadgeClasses(color: string): string {
+  return badgeStyles[color] ?? badgeStyles.primary;
+}
+---
+
+<section class="py-2">
+  <div class="carousel-track flex overflow-x-auto gap-md no-scrollbar snap-x banner-mask">
+    {banners.map((banner) => (
+      <a
+        href={banner.link}
+        class="flex-none w-[280px] h-[150px] relative rounded-xl overflow-hidden snap-center group cursor-pointer"
+      >
+        <img
+          src={banner.image}
+          alt={banner.title}
+          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+          <span class={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full w-fit mb-1 ${getBadgeClasses(banner.badgeColor)}`}>
+            {banner.badge}
+          </span>
+          <p class="text-white font-title-sm font-semibold leading-tight truncate">{banner.title}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<script>
+  const track = document.querySelector(".carousel-track") as HTMLElement | null;
+  if (track) {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    track.addEventListener("pointerdown", (e: Event) => {
+      const pe = e as PointerEvent;
+      isDown = true;
+      startX = pe.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener("pointerleave", () => {
+      isDown = false;
+    });
+
+    track.addEventListener("pointerup", () => {
+      isDown = false;
+    });
+
+    track.addEventListener("pointermove", (e: Event) => {
+      if (!isDown) return;
+      const pe = e as PointerEvent;
+      pe.preventDefault();
+      const x = pe.pageX - track.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeft - walk;
+    });
+  }
+</script>

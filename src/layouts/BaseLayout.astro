@@ -8,84 +8,134 @@ const { title, description } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="robots" content="index, follow" />
   <meta name="googlebot" content="index, follow" />
-  
+
   {description && <meta name="description" content={description} />}
-  
+
   <title>{title}</title>
-  
-  <style is:global>
-    :root {
-      --bg-primary: #ffffff;
-      --bg-secondary: #f5f5f5;
-      --text-primary: #1a1a1a;
-      --text-secondary: #666666;
-      --border: #e0e0e0;
-      --accent: #3b82f6;
-      --accent-hover: #2563eb;
-    }
 
-    .dark {
-      --bg-primary: #1a1a1a;
-      --bg-secondary: #2a2a2a;
-      --text-primary: #e0e0e0;
-      --text-secondary: #a0a0a0;
-      --border: #404040;
-      --accent: #60a5fa;
-      --accent-hover: #3b82f6;
-    }
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries" is:inline></script>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: var(--accent-hover);
-    }
-
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    input, select {
-      font-family: inherit;
-    }
-  </style>
-
-  <script>
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedMode = localStorage.getItem('darkMode');
-    const darkMode = savedMode !== null ? savedMode === 'true' : prefersDark;
-    
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    }
+  <script is:inline>
+    // @ts-ignore - Tailwind CDN provides global `tailwind`
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary-fixed": "#2c1700",
+            "on-tertiary-container": "#3f2300",
+            "secondary-fixed-dim": "#d2bbff",
+            "inverse-primary": "#6d3bd7",
+            "on-primary-fixed": "#23005c",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "on-secondary-fixed": "#25005a",
+            "on-primary": "#3c0091",
+            "primary-fixed": "#e9ddff",
+            "tertiary-fixed": "#ffdcbb",
+            "on-tertiary": "#482900",
+            "on-surface-variant": "#cbc3d7",
+            "surface-tint": "#d0bcff",
+            "inverse-on-surface": "#303032",
+            "surface-container-high": "#2a2a2c",
+            "on-surface": "#e5e1e4",
+            "on-secondary": "#3f008e",
+            "on-primary-container": "#340080",
+            "secondary": "#d2bbff",
+            "surface-variant": "#353437",
+            "surface-container-lowest": "#0e0e10",
+            "on-secondary-container": "#c9aeff",
+            "primary-fixed-dim": "#d0bcff",
+            "secondary-container": "#6001d1",
+            "tertiary-container": "#ca801e",
+            "surface-container-low": "#1b1b1d",
+            "on-tertiary-fixed-variant": "#673d00",
+            "on-background": "#e5e1e4",
+            "error": "#ffb4ab",
+            "on-primary-fixed-variant": "#5516be",
+            "outline": "#958ea0",
+            "inverse-surface": "#e5e1e4",
+            "secondary-fixed": "#eaddff",
+            "background": "#131315",
+            "on-error-container": "#ffdad6",
+            "surface-container": "#201f21",
+            "outline-variant": "#494454",
+            "tertiary-fixed-dim": "#ffb869",
+            "surface": "#131315",
+            "tertiary": "#ffb869",
+            "surface-container-highest": "#353437",
+            "surface-bright": "#39393b",
+            "on-secondary-fixed-variant": "#5a00c6",
+            "surface-dim": "#131315",
+            "primary": "#d0bcff",
+            "primary-container": "#a078ff",
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px",
+          },
+          spacing: {
+            sm: "8px",
+            unit: "8px",
+            md: "16px",
+            xs: "4px",
+            lg: "24px",
+            "container-margin": "16px",
+            gutter: "12px",
+            xl: "40px",
+          },
+          fontFamily: {
+            "display-lg": ["Inter"],
+            "reader-body": ["Merriweather"],
+            "headline-md": ["Inter"],
+            "title-sm": ["Inter"],
+            "label-caps": ["Inter"],
+            "reader-body-mobile": ["Merriweather"],
+            "ui-body": ["Inter"],
+            caption: ["Inter"],
+          },
+          fontSize: {
+            "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "reader-body": ["18px", { lineHeight: "32px", fontWeight: "400" }],
+            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+            "title-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+            "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+            "reader-body-mobile": ["16px", { lineHeight: "28px", fontWeight: "400" }],
+            "ui-body": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            caption: ["12px", { lineHeight: "16px", fontWeight: "400" }],
+          },
+        },
+      },
+    };
   </script>
+
+  <style is:global>
+    body {
+      background-color: #121214;
+      color: #e5e1e4;
+      -webkit-tap-highlight-color: transparent;
+      min-height: max(884px, 100dvh);
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    .banner-mask { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+  </style>
 </head>
-<body>
+<body class="font-ui-body text-ui-body">
   <slot />
 </body>
 </html>

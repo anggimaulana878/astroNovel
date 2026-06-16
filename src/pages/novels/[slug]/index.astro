@@ -13,649 +13,265 @@ if (!slug) {
 
 const novel = await loadNovelMetadata(slug);
 const allChapters = await loadChapterRange(slug, 1, novel.totalChapters);
+
+const lastChapter = novel.totalChapters;
+const rating = 4.5;
+const genres = ['FANTASY'];
 ---
 
-<Layout title={`${novel.title} - AstroNovel`} description={novel.description}>
-  <main class="container">
-    <a href="/" class="back-home">
-      ← Back to Home
+<Layout title={`${novel.title} - RuangBaca`} description={novel.description}>
+
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-container-margin h-16">
+  <div class="flex items-center gap-4">
+    <a href="/" class="active:scale-95 transition-transform hover:opacity-80">
+      <span class="material-symbols-outlined text-primary">arrow_back</span>
     </a>
-    
-    <div class="hero">
-      <div class="cover">
-        <img src={novel.coverImage} alt={`${novel.title} cover`} />
+    <h1 class="font-headline-md text-primary truncate max-w-[200px]">{novel.title}</h1>
+  </div>
+  <div class="flex items-center gap-2">
+    <button class="active:scale-95 transition-transform hover:opacity-80" id="delete-btn" data-slug={slug} data-title={novel.title} data-chapters={novel.totalChapters}>
+      <span class="material-symbols-outlined text-primary">delete</span>
+    </button>
+    <button class="active:scale-95 transition-transform hover:opacity-80">
+      <span class="material-symbols-outlined text-primary">share</span>
+    </button>
+  </div>
+</header>
+
+<main class="pt-16 pb-12">
+
+  <!-- Hero Section -->
+  <section class="relative w-full h-[320px] overflow-hidden flex items-end">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-background/60 z-10"></div>
+      <img class="w-full h-full object-cover scale-110 opacity-40 blur-md" src={novel.coverImage} alt="" />
+    </div>
+    <div class="relative z-20 w-full px-container-margin pb-6 flex gap-md">
+      <div class="shrink-0 shadow-2xl">
+        <img class="w-[110px] h-[160px] object-cover rounded-xl border border-outline-variant/30" src={novel.coverImage} alt={`${novel.title} cover`} />
       </div>
-      
-      <div class="info">
-        <h1>{novel.title}</h1>
-        <p class="author">by {novel.author}</p>
-        <div class="meta">
-          <span>{novel.volumes.length} volumes</span>
-          <span>•</span>
-          <span>{novel.totalChapters} chapters</span>
-        </div>
-        <p class="description">{novel.description}</p>
-        
-        <div class="actions">
-          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5&chapter=1`} class="btn btn-primary">
-            Start from Beginning
-          </a>
-          <a href={`/novels/${slug}/read?start=1&mode=chapters&size=5&chapter=1`} class="btn btn-secondary" id="continue-btn">
-            Continue Reading
-          </a>
-          <button class="btn btn-danger" id="delete-btn" data-slug={slug} data-title={novel.title} data-chapters={novel.totalChapters}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="3 6 5 6 21 6"></polyline>
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            </svg>
-            Delete Novel
-          </button>
+      <div class="flex flex-col justify-end gap-xs overflow-hidden">
+        <h2 class="font-bold text-[20px] leading-tight text-on-surface line-clamp-2">{novel.title}</h2>
+        <p class="text-on-surface-variant text-sm">Author: {novel.author}</p>
+        <div class="flex flex-wrap gap-xs mt-1">
+          {genres.map((genre) => (
+            <span class="bg-surface-variant text-on-surface-variant text-[10px] font-label-caps px-2 py-1 rounded-full border border-outline-variant/20">{genre}</span>
+          ))}
         </div>
       </div>
     </div>
-    
-    <ChapterList chapters={allChapters} novelSlug={slug} />
+  </section>
 
-    <dialog id="delete-modal" class="modal">
-      <div class="modal-content">
-        <div id="modal-confirm">
-          <h2>Delete Novel</h2>
-          <p class="modal-info">
-            <strong id="modal-title"></strong><br>
-            <span id="modal-chapters"></span> chapters
-          </p>
-          <p class="modal-warning">
-            This action cannot be undone. The novel will be permanently removed after running the CLI command.
-          </p>
-          <label for="confirm-input" class="modal-label">
-            Type the novel title to confirm:
-          </label>
-          <input
-            type="text"
-            id="confirm-input"
-            class="modal-input"
-            placeholder="Novel title"
-            autocomplete="off"
-          >
-          <div class="modal-actions">
-            <button class="btn btn-secondary" id="modal-cancel">Cancel</button>
-            <button class="btn btn-danger" id="modal-delete" disabled>Delete</button>
-          </div>
-        </div>
+  <!-- Synopsis -->
+  <section class="px-container-margin mt-6">
+    <div class="text-on-surface-variant text-sm leading-relaxed line-clamp-3" id="synopsis-text">
+      {novel.description}
+    </div>
+    <button class="mt-2 text-primary font-bold text-sm flex items-center gap-1" id="read-more-btn" onclick="toggleSynopsis()">
+      Read More
+      <span class="material-symbols-outlined text-sm" id="read-more-icon">expand_more</span>
+    </button>
+  </section>
 
-        <div id="modal-loading" style="display: none;">
-          <div class="spinner"></div>
-          <p>Preparing deletion command...</p>
-        </div>
+  <!-- Stats Bar -->
+  <section class="flex items-center justify-around py-md border-b border-outline-variant/10 bg-surface-container-low mx-container-margin rounded-2xl mt-6">
+    <div class="flex flex-col items-center">
+      <div class="flex items-center gap-1 text-on-surface">
+        <span class="material-symbols-outlined text-primary text-sm">visibility</span>
+        <span class="font-bold">-</span>
+      </div>
+      <span class="text-[10px] text-on-surface-variant font-label-caps">VIEWS</span>
+    </div>
+    <div class="w-[1px] h-8 bg-outline-variant/20"></div>
+    <div class="flex flex-col items-center">
+      <div class="flex items-center gap-1 text-on-surface">
+        <span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+        <span class="font-bold">{rating}</span>
+      </div>
+      <span class="text-[10px] text-on-surface-variant font-label-caps">RATING</span>
+    </div>
+    <div class="w-[1px] h-8 bg-outline-variant/20"></div>
+    <div class="flex flex-col items-center">
+      <div class="flex items-center gap-1 text-on-surface">
+        <span class="material-symbols-outlined text-primary text-sm">menu_book</span>
+        <span class="font-bold">{novel.totalChapters}</span>
+      </div>
+      <span class="text-[10px] text-on-surface-variant font-label-caps">CHAPTERS</span>
+    </div>
+  </section>
 
-        <div id="modal-result" style="display: none;">
-          <h2>Run This Command</h2>
-          <p class="modal-info">
-            Copy and run this command in your terminal to permanently delete the novel:
-          </p>
-          <div class="command-block">
-            <code id="command-text"></code>
-            <button class="copy-btn" id="copy-btn">Copy</button>
-          </div>
-          <p class="modal-files">
-            <strong>Files to remove:</strong>
-            <span id="file-count"></span>
-          </p>
-          <div class="modal-actions">
-            <button class="btn btn-secondary" id="modal-close">Close</button>
-          </div>
-        </div>
+  <!-- Start Reading Button -->
+  <section class="px-container-margin mt-6">
+    <a href={`/novels/${slug}/read?chapter=1`} class="w-full bg-primary text-on-primary font-bold py-4 rounded-xl active:scale-95 transition-transform shadow-lg shadow-primary/20 text-center block">
+      {lastChapter > 1 ? `Continue Reading - Ch. ${lastChapter}` : `Start Reading`}
+    </a>
+  </section>
 
-        <div id="modal-error" style="display: none;">
-          <h2>Error</h2>
-          <p id="error-message" class="modal-error-text"></p>
-          <p class="modal-fallback">
-            You can run this command directly:
-          </p>
-          <div class="command-block">
-            <code id="fallback-command"></code>
-            <button class="copy-btn" id="fallback-copy-btn">Copy</button>
-          </div>
-          <div class="modal-actions">
-            <button class="btn btn-secondary" id="modal-error-close">Close</button>
-          </div>
+  <!-- Chapters -->
+  <ChapterList chapters={allChapters} novelSlug={slug} />
+
+  <!-- Delete Modal -->
+  <dialog id="delete-modal" class="border-none rounded-xl p-0 max-w-[500px] w-[90%] bg-surface-container text-on-surface shadow-2xl">
+    <div class="p-8">
+      <div id="modal-confirm">
+        <h2 class="text-headline-md text-on-surface mb-4">Delete Novel</h2>
+        <p class="text-on-surface-variant mb-4">
+          <strong id="modal-title" class="text-on-surface"></strong><br />
+          <span id="modal-chapters"></span> chapters
+        </p>
+        <p class="text-error text-sm mb-4">This action cannot be undone.</p>
+        <label for="confirm-input" class="text-on-surface-variant text-sm block mb-2">Type the novel title to confirm:</label>
+        <input type="text" id="confirm-input" class="w-full bg-surface-container-high border border-outline-variant/30 rounded-lg px-4 py-3 text-on-surface outline-none focus:border-primary" placeholder="Novel title" autocomplete="off" />
+        <div class="flex gap-3 mt-6">
+          <button class="flex-1 bg-surface-variant text-on-surface-variant py-3 rounded-lg font-bold" id="modal-cancel">Cancel</button>
+          <button class="flex-1 bg-error text-on-error py-3 rounded-lg font-bold disabled:opacity-50 disabled:cursor-not-allowed" id="modal-delete" disabled>Delete</button>
         </div>
       </div>
-    </dialog>
-  </main>
-</Layout>
+      <div id="modal-loading" style="display: none;">
+        <p class="text-on-surface-variant text-center">Preparing deletion...</p>
+      </div>
+      <div id="modal-result" style="display: none;">
+        <h2 class="text-headline-md text-on-surface mb-4">Run This Command</h2>
+        <p class="text-on-surface-variant mb-4">Copy and run in your terminal:</p>
+        <div class="bg-surface-container-high rounded-lg p-4 flex items-center justify-between">
+          <code id="command-text" class="text-primary text-sm"></code>
+          <button class="text-primary text-sm font-bold ml-4" id="copy-btn">Copy</button>
+        </div>
+        <p class="text-on-surface-variant text-sm mt-3"><span id="file-count"></span> files</p>
+        <div class="flex mt-6">
+          <button class="flex-1 bg-surface-variant text-on-surface-variant py-3 rounded-lg font-bold" id="modal-close">Close</button>
+        </div>
+      </div>
+      <div id="modal-error" style="display: none;">
+        <h2 class="text-headline-md text-error mb-4">Error</h2>
+        <p id="error-message" class="text-error text-sm mb-4"></p>
+        <p class="text-on-surface-variant text-sm mb-4">You can run this directly:</p>
+        <div class="bg-surface-container-high rounded-lg p-4 flex items-center justify-between">
+          <code id="fallback-command" class="text-primary text-sm"></code>
+          <button class="text-primary text-sm font-bold ml-4" id="fallback-copy-btn">Copy</button>
+        </div>
+        <div class="flex mt-6">
+          <button class="flex-1 bg-surface-variant text-on-surface-variant py-3 rounded-lg font-bold" id="modal-error-close">Close</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
-<style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+  <script type="application/json" id="delete-modal-data" set:html={JSON.stringify({
+    slug,
+    title: novel.title,
+    chapters: novel.totalChapters
+  })}></script>
 
-  .back-home {
-    display: inline-flex;
-    align-items: center;
-    padding: 8px 16px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-primary);
-    font-weight: 500;
-    transition: background-color 0.2s, transform 0.2s;
-  }
+</main>
 
-  .back-home:hover {
-    background: var(--bg-secondary);
-    transform: translateX(-4px);
-  }
-
-  .hero {
-    display: flex;
-    gap: 32px;
-    padding: 32px;
-    background: var(--bg-secondary);
-    border-radius: 12px;
-    margin-bottom: 40px;
-  }
-
-  .cover {
-    flex-shrink: 0;
-    width: 200px;
-    height: 280px;
-    border-radius: 8px;
+<style is:global>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-  }
-
-  .cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .info {
-    flex: 1;
-  }
-
-  .info h1 {
-    font-size: 2em;
-    margin-bottom: 8px;
-  }
-
-  .author {
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-  }
-
-  .meta {
-    display: flex;
-    gap: 8px;
-    color: var(--text-secondary);
-    font-size: 0.9em;
-    margin-bottom: 16px;
-  }
-
-  .description {
-    line-height: 1.6;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-  }
-
-  .actions {
-    display: flex;
-    gap: 12px;
-  }
-
-  .btn {
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: background-color 0.2s, transform 0.2s;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: white;
-  }
-
-  .btn-primary:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--accent);
-    border: 2px solid var(--accent);
-  }
-
-  .btn-secondary:hover {
-    background: var(--accent);
-    color: white;
-    transform: translateY(-2px);
-  }
-
-  .btn-danger {
-    background: #dc2626;
-    color: white;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .btn-danger:hover {
-    background: #b91c1c;
-    transform: translateY(-2px);
-  }
-
-  .btn-danger:disabled {
-    background: var(--border);
-    color: var(--text-secondary);
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .modal {
-    border: none;
-    border-radius: 12px;
-    padding: 0;
-    max-width: 500px;
-    width: 90%;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  }
-
-  .modal::backdrop {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-  }
-
-  .modal-content {
-    padding: 32px;
-  }
-
-  .modal-content h2 {
-    margin: 0 0 16px 0;
-    font-size: 1.5em;
-  }
-
-  .modal-info {
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    line-height: 1.6;
-  }
-
-  .modal-warning {
-    background: #fef3c7;
-    border-left: 4px solid #f59e0b;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    color: #92400e;
-    font-size: 0.9em;
-  }
-
-  .modal-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 0.9em;
-  }
-
-  .modal-input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 1em;
-    margin-bottom: 20px;
-    transition: border-color 0.2s;
-  }
-
-  .modal-input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    margin-top: 24px;
-  }
-
-  .modal-actions .btn {
-    min-width: 100px;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 16px;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-
-  #modal-loading {
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .command-block {
-    background: var(--bg-primary);
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    margin: 16px 0;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .command-block code {
-    flex: 1;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-    color: var(--accent);
-    word-break: break-all;
-  }
-
-  .copy-btn {
-    padding: 8px 16px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    white-space: nowrap;
-  }
-
-  .copy-btn:hover {
-    background: var(--accent-hover);
-  }
-
-  .copy-btn.copied {
-    background: #10b981;
-  }
-
-  .modal-files {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-  }
-
-  .modal-error-text {
-    color: #dc2626;
-    margin-bottom: 16px;
-  }
-
-  .modal-fallback {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-  }
-
-  @media (max-width: 768px) {
-    .container {
-      padding: 20px 16px;
-    }
-
-    .back-home {
-      padding: 10px 14px;
-      font-size: 0.9em;
-      margin-bottom: 16px;
-    }
-
-    .hero {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px 16px;
-      gap: 20px;
-    }
-
-    .cover {
-      width: 160px;
-      height: 224px;
-    }
-
-    .info h1 {
-      font-size: 1.5em;
-    }
-
-    .description {
-      font-size: 0.95em;
-      text-align: left;
-    }
-
-    .actions {
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px 20px;
-      font-size: 0.95em;
-      min-height: 48px;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .container {
-      padding: 16px 12px;
-    }
-
-    .back-home {
-      padding: 8px 12px;
-      font-size: 0.85em;
-      margin-bottom: 12px;
-    }
-
-    .hero {
-      padding: 16px 12px;
-    }
-
-    .cover {
-      width: 140px;
-      height: 196px;
-    }
-
-    .info h1 {
-      font-size: 1.3em;
-    }
-
-    .meta {
-      font-size: 0.85em;
-    }
-
-    .modal-content {
-      padding: 24px 20px;
-    }
-
-    .modal-actions {
-      flex-direction: column-reverse;
-    }
-
-    .modal-actions .btn {
-      width: 100%;
-    }
-
-    .command-block {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .copy-btn {
-      width: 100%;
-    }
   }
 </style>
 
 <script>
-  const continueBtn = document.getElementById('continue-btn') as HTMLAnchorElement | null;
-  if (continueBtn) {
-    const slug = window.location.pathname.split('/')[2];
-    const progressKey = `novel-progress:${slug}`;
-    const progress = localStorage.getItem(progressKey);
-
-    if (progress) {
-      try {
-        const progressData = JSON.parse(progress);
-        const { lastChapter } = progressData;
-        // Prefer per-novel preferences from progress, fall back to global preferences
-        let globalPrefs = { batchMode: 'chapters', batchSize: 5 };
-        try {
-          const rawPrefs = localStorage.getItem('reader-preferences');
-          if (rawPrefs) {
-            globalPrefs = JSON.parse(rawPrefs);
-          }
-        } catch (e) {
-          console.warn('[NovelDetail] Failed to parse reader preferences, using defaults');
-        }
-        const batchMode = progressData.batchMode ?? globalPrefs.batchMode;
-        const batchSize = progressData.batchSize ?? globalPrefs.batchSize;
-        continueBtn.href = `/novels/${slug}/read?start=${lastChapter}&mode=${batchMode}&size=${batchSize}&chapter=${lastChapter}`;
-        continueBtn.textContent = `Continue Reading (Ch. ${lastChapter})`;
-      } catch (e) {
-        console.warn('[NovelDetail] Failed to parse progress data:', e);
-      }
+  function toggleSynopsis() {
+    const text = document.getElementById('synopsis-text');
+    const btn = document.getElementById('read-more-btn');
+    if (text!.classList.contains('line-clamp-3')) {
+      text!.classList.remove('line-clamp-3');
+      btn!.innerHTML = 'Show Less <span class="material-symbols-outlined text-sm" id="read-more-icon">expand_less</span>';
+    } else {
+      text!.classList.add('line-clamp-3');
+      btn!.innerHTML = 'Read More <span class="material-symbols-outlined text-sm" id="read-more-icon">expand_more</span>';
     }
-  }
-
-  // Delete modal logic
-  const deleteBtn = document.getElementById('delete-btn') as HTMLButtonElement | null;
-  const modal = document.getElementById('delete-modal') as HTMLDialogElement | null;
-
-  if (deleteBtn && modal) {
-    const novelSlug = deleteBtn.dataset.slug!;
-    const novelTitle = deleteBtn.dataset.title!;
-    const novelChapters = deleteBtn.dataset.chapters!;
-
-    const modalTitle = document.getElementById('modal-title')!;
-    const modalChapters = document.getElementById('modal-chapters')!;
-    const confirmInput = document.getElementById('confirm-input') as HTMLInputElement;
-    const modalDelete = document.getElementById('modal-delete') as HTMLButtonElement;
-    const modalCancel = document.getElementById('modal-cancel') as HTMLButtonElement;
-
-    const modalConfirm = document.getElementById('modal-confirm')!;
-    const modalLoading = document.getElementById('modal-loading')!;
-    const modalResult = document.getElementById('modal-result')!;
-    const modalError = document.getElementById('modal-error')!;
-
-    const commandText = document.getElementById('command-text')!;
-    const fileCount = document.getElementById('file-count')!;
-    const copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
-    const modalClose = document.getElementById('modal-close') as HTMLButtonElement;
-
-    const errorMessage = document.getElementById('error-message')!;
-    const fallbackCommand = document.getElementById('fallback-command')!;
-    const fallbackCopyBtn = document.getElementById('fallback-copy-btn') as HTMLButtonElement;
-    const modalErrorClose = document.getElementById('modal-error-close') as HTMLButtonElement;
-
-    function showState(state: 'confirm' | 'loading' | 'result' | 'error') {
-      modalConfirm.style.display = state === 'confirm' ? 'block' : 'none';
-      modalLoading.style.display = state === 'loading' ? 'block' : 'none';
-      modalResult.style.display = state === 'result' ? 'block' : 'none';
-      modalError.style.display = state === 'error' ? 'block' : 'none';
-    }
-
-    function resetModal() {
-      confirmInput.value = '';
-      modalDelete.disabled = true;
-      showState('confirm');
-    }
-
-    deleteBtn.addEventListener('click', () => {
-      modalTitle.textContent = novelTitle;
-      modalChapters.textContent = novelChapters;
-      resetModal();
-      modal.showModal();
-    });
-
-    confirmInput.addEventListener('input', () => {
-      modalDelete.disabled = confirmInput.value !== novelTitle;
-    });
-
-    modalCancel.addEventListener('click', () => {
-      modal.close();
-    });
-
-    modalClose.addEventListener('click', () => {
-      modal.close();
-    });
-
-    modalErrorClose.addEventListener('click', () => {
-      modal.close();
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.close();
-      }
-    });
-
-    async function copyToClipboard(text: string, btn: HTMLButtonElement) {
-      try {
-        await navigator.clipboard.writeText(text);
-        const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.classList.remove('copied');
-        }, 2000);
-      } catch (err) {
-        console.error('[DeleteModal] Failed to copy:', err);
-      }
-    }
-
-    copyBtn.addEventListener('click', () => {
-      copyToClipboard(commandText.textContent!, copyBtn);
-    });
-
-    fallbackCopyBtn.addEventListener('click', () => {
-      copyToClipboard(fallbackCommand.textContent!, fallbackCopyBtn);
-    });
-
-    modalDelete.addEventListener('click', async () => {
-      showState('loading');
-
-      try {
-        const response = await fetch(`/api/novels/${novelSlug}/delete`, {
-          method: 'DELETE',
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Failed to prepare deletion');
-        }
-
-        // Validate command format to prevent XSS from compromised API
-        const expectedCmd = `npm run delete-novel ${novelSlug}`;
-        if (data.command !== expectedCmd) {
-          throw new Error('Invalid server response');
-        }
-        commandText.textContent = data.command;
-        fileCount.textContent = `${data.files.length} files`;
-        showState('result');
-      } catch (err: unknown) {
-        const message = err instanceof Error ? err.message : 'Unknown error';
-        errorMessage.textContent = message;
-        fallbackCommand.textContent = `npm run delete-novel ${novelSlug}`;
-        showState('error');
-      }
-    });
   }
 </script>
+
+<script>
+  const dataEl = document.getElementById('delete-modal-data');
+  const { slug: novelSlug, title: novelTitle, chapters: novelChapters } = dataEl ? JSON.parse(dataEl.textContent || '{}') : { slug: '', title: '', chapters: 0 };
+
+  const modal = document.getElementById('delete-modal') as HTMLDialogElement;
+  const deleteBtn = document.getElementById('delete-btn')!;
+  const confirmInput = document.getElementById('confirm-input') as HTMLInputElement;
+  const modalTitle = document.getElementById('modal-title')!;
+  const modalChapters = document.getElementById('modal-chapters')!;
+  const modalDelete = document.getElementById('modal-delete') as HTMLButtonElement;
+  const modalCancel = document.getElementById('modal-cancel')!;
+  const modalClose = document.getElementById('modal-close')!;
+  const commandText = document.getElementById('command-text')!;
+  const fileCount = document.getElementById('file-count')!;
+  const copyBtn = document.getElementById('copy-btn') as HTMLButtonElement;
+  const modalLoading = document.getElementById('modal-loading')!;
+  const modalResult = document.getElementById('modal-result')!;
+  const modalConfirm = document.getElementById('modal-confirm')!;
+  const modalError = document.getElementById('modal-error')!;
+  const errorMessage = document.getElementById('error-message')!;
+  const fallbackCommand = document.getElementById('fallback-command')!;
+  const fallbackCopyBtn = document.getElementById('fallback-copy-btn') as HTMLButtonElement;
+  const modalErrorClose = document.getElementById('modal-error-close')!;
+
+  function showState(state: 'confirm' | 'loading' | 'result' | 'error') {
+    (modalConfirm as HTMLElement).style.display = state === 'confirm' ? 'block' : 'none';
+    (modalLoading as HTMLElement).style.display = state === 'loading' ? 'block' : 'none';
+    (modalResult as HTMLElement).style.display = state === 'result' ? 'block' : 'none';
+    (modalError as HTMLElement).style.display = state === 'error' ? 'block' : 'none';
+  }
+
+  function resetModal() {
+    confirmInput.value = '';
+    modalDelete.disabled = true;
+    showState('confirm');
+  }
+
+  deleteBtn.addEventListener('click', () => {
+    modalTitle.textContent = novelTitle;
+    modalChapters.textContent = String(novelChapters);
+    resetModal();
+    modal.showModal();
+  });
+
+  confirmInput.addEventListener('input', () => {
+    modalDelete.disabled = confirmInput.value !== novelTitle;
+  });
+
+  modalCancel.addEventListener('click', () => { modal.close(); });
+  modalClose.addEventListener('click', () => { modal.close(); });
+  modalErrorClose.addEventListener('click', () => { modal.close(); });
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+
+  async function copyToClipboard(text: string, btn: HTMLButtonElement) {
+    try {
+      await navigator.clipboard.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    } catch (err) { console.error('[DeleteModal] Copy failed:', err); }
+  }
+
+  copyBtn.addEventListener('click', () => { copyToClipboard(commandText.textContent!, copyBtn); });
+  fallbackCopyBtn.addEventListener('click', () => { copyToClipboard(fallbackCommand.textContent!, fallbackCopyBtn); });
+
+  modalDelete.addEventListener('click', async () => {
+    showState('loading');
+    try {
+      const response = await fetch(`/api/novels/${novelSlug}/delete`, { method: 'DELETE' });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed');
+      const expected = `npm run delete-novel ${novelSlug}`;
+      if (data.command !== expected) throw new Error('Invalid response');
+      commandText.textContent = data.command;
+      fileCount.textContent = `${data.files.length} files`;
+      showState('result');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      errorMessage.textContent = msg;
+      fallbackCommand.textContent = `npm run delete-novel ${novelSlug}`;
+      showState('error');
+    }
+  });
+</script>
+
+</Layout>

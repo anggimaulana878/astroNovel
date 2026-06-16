@@ -2,139 +2,121 @@
 export const prerender = true;
 
 import Layout from '../layouts/Layout.astro';
+import BannerCarousel from '../components/BannerCarousel.astro';
 import LastReadCard from '../components/LastReadCard.astro';
-import NovelCard from '../components/NovelCard.astro';
-import ReadingHistoryMenu from '../components/ReadingHistoryMenu.astro';
+import NovelGridCard from '../components/NovelGridCard.astro';
 import { getAllNovels } from '../lib/novel-loader';
 
 const novels = await getAllNovels();
+
+const banners = [
+  {
+    title: "The Beginning After the End",
+    image: novels[0]?.coverImage || "/novels/beginning-after-the-end/cover.webp",
+    badge: "Editor's Choice",
+    badgeColor: "primary",
+    link: `/novels/${novels[0]?.slug || '#'}`,
+  },
+  {
+    title: "Omniscient Reader's Viewpoint",
+    image: novels[1]?.coverImage || "/novels/omniscient-reader/cover.webp",
+    badge: "Trending",
+    badgeColor: "secondary",
+    link: `/novels/${novels[1]?.slug || '#'}`,
+  },
+  {
+    title: "Solo Leveling",
+    image: novels[2]?.coverImage || "/novels/solo-leveling/cover.webp",
+    badge: "New Arrival",
+    badgeColor: "tertiary",
+    link: `/novels/${novels[2]?.slug || '#'}`,
+  },
+];
+
+const ratings: Record<string, number> = {
+  'beginning-after-the-end': 4.8,
+  'omniscient-reader': 4.7,
+  'solo-leveling': 4.9,
+};
+
+const tabLabels = ['Library', 'Fantasy', 'Romance', 'Action'];
 ---
 
-<Layout title="AstroNovel - My Novel Library" description="Personal web novel reader">
-  <main class="container">
-    <header class="page-header">
-      <h1>My Novel Library</h1>
-      <div class="header-actions">
-        <a href="/migrate" class="migrate-link" aria-label="Migration Tool">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          <span>Migrate</span>
-        </a>
-        <ReadingHistoryMenu novels={novels} />
-      </div>
-    </header>
+<Layout title="RuangBaca — Your Novel Library" description="Personal web novel reader">
 
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-container-margin h-16">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+    <h1 class="font-display-lg text-primary leading-none">RuangBaca</h1>
+  </div>
+  <div class="flex items-center gap-sm">
+    <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">search</span>
+    </button>
+    <a href="/migrate" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">drive_file_move</span>
+    </a>
+    <a href="/history" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">history</span>
+    </a>
+  </div>
+</header>
+
+<main class="pt-16 pb-24 max-w-[680px] mx-auto px-container-margin">
+
+  <!-- Banner Carousel -->
+  <section class="mb-lg">
+    <BannerCarousel banners={banners} />
+  </section>
+
+  <!-- Continue Reading -->
+  <section class="mb-lg">
     <LastReadCard novels={novels} />
-    
-    <div class="novel-grid">
-      {novels.map(novel => (
-        <NovelCard novel={novel} />
+  </section>
+
+  <!-- Sticky Tabs -->
+  <nav class="sticky top-16 z-40 bg-surface/95 backdrop-blur-md -mx-container-margin px-container-margin py-3 mb-md">
+    <div class="flex gap-lg overflow-x-auto no-scrollbar items-center">
+      {tabLabels.map((label, i) => (
+        <button
+          class={`flex-none font-label-caps whitespace-nowrap ${
+            i === 0
+              ? 'border-b-2 pb-1 text-primary border-primary'
+              : 'text-on-surface-variant'
+          }`}
+          data-tab={label.toLowerCase()}
+        >
+          {label}
+        </button>
       ))}
     </div>
-  </main>
+  </nav>
+
+  <!-- Novel Grid -->
+  <div class="grid grid-cols-3 gap-x-3 gap-y-6">
+    {novels.map((novel) => (
+      <NovelGridCard
+        novel={novel}
+        rating={ratings[novel.slug] || 4.5}
+      />
+    ))}
+  </div>
+
+</main>
+
+<script>
+  const tabs = document.querySelectorAll('nav.sticky button');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.remove('text-primary', 'border-primary');
+        t.classList.add('text-on-surface-variant');
+      });
+      tab.classList.add('text-primary', 'border-primary');
+      tab.classList.remove('text-on-surface-variant');
+    });
+  });
+</script>
+
 </Layout>
-
-<style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 16px 12px 24px;
-  }
-
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .page-header h1 {
-    font-size: 1.6em;
-    font-weight: 700;
-    line-height: 1.15;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .migrate-link {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 20px;
-    min-height: 44px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-weight: 500;
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: background-color 0.2s;
-  }
-
-  .migrate-link:hover {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-  }
-
-  .migrate-link span {
-    display: none;
-  }
-
-  .novel-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  @media (min-width: 768px) {
-    .container {
-      padding: 40px 20px;
-    }
-
-    .page-header {
-      margin-bottom: 32px;
-      gap: 12px;
-    }
-
-    .page-header h1 {
-      font-size: 2em;
-      flex: initial;
-    }
-
-    .novel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 24px;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .container {
-      padding: 14px 10px 20px;
-    }
-
-    .page-header {
-      margin-bottom: 12px;
-      gap: 8px;
-    }
-
-    .page-header h1 {
-      font-size: 1.2em;
-    }
-
-    .novel-grid {
-      gap: 8px;
-    }
-  }
-</style>

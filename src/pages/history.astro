@@ -1,0 +1,299 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import { getAllNovels } from '../lib/novel-loader';
+
+const novels = await getAllNovels();
+---
+
+<Layout title="Reading History — RuangBaca" description="Continue your pending adventures">
+
+<style is:global>
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 24px;
+    bottom: -24px;
+    width: 2px;
+    background: #2D2D30;
+  }
+  .timeline-item:last-child .timeline-line::before {
+    display: none;
+  }
+  .glass-header {
+    background: rgba(19, 19, 21, 0.8);
+    backdrop-filter: blur(12px);
+  }
+</style>
+
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-container-margin h-16 border-b border-outline-variant/20 glass-header">
+  <div class="max-w-[680px] mx-auto w-full flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="/" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 active:scale-95 transition-all mr-1 no-underline">arrow_back</a>
+      <span class="material-symbols-outlined text-primary">menu_book</span>
+      <h1 class="font-display-lg font-bold text-primary">RuangBaca</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 active:scale-95 transition-all">search</button>
+      <button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 active:scale-95 transition-all">more_vert</button>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 max-w-[680px] mx-auto px-container-margin mb-8">
+  <header class="mb-8">
+    <h2 class="font-headline-md text-on-surface mb-2">Reading History</h2>
+    <p class="text-on-surface-variant text-caption">Continue your pending adventures.</p>
+  </header>
+
+  <!-- Loading state -->
+  <div id="history-loading" class="flex flex-col items-center justify-center py-16 text-on-surface-variant">
+    <span class="material-symbols-outlined text-4xl mb-2 opacity-50 animate-pulse">hourglass_empty</span>
+    <span class="text-caption">Loading...</span>
+  </div>
+
+  <!-- Empty state -->
+  <div id="history-empty" class="hidden flex-col items-center justify-center py-16 text-on-surface-variant">
+    <span class="material-symbols-outlined text-5xl mb-3 opacity-50">auto_stories</span>
+    <h3 class="font-title-sm text-on-surface mb-1">No reading history yet</h3>
+    <p class="text-caption">Start reading any novel to build your history.</p>
+    <a href="/" class="mt-6 bg-primary text-on-primary-fixed px-5 py-3 rounded-full flex items-center gap-2 font-label-caps active:scale-95 transition-transform no-underline">
+      <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">explore</span>
+      <span>Browse Library</span>
+    </a>
+  </div>
+
+  <!-- Timeline -->
+  <div id="history-timeline" class="hidden space-y-10"></div>
+
+  <script
+    type="application/json"
+    id="history-novel-seeds"
+    set:html={JSON.stringify(novels.map((n) => ({
+      slug: n.slug,
+      title: n.title,
+      coverImage: n.coverImage,
+      totalChapters: n.totalChapters,
+    })))}
+  ></script>
+</main>
+
+<script>
+  interface NovelSeed {
+    slug: string;
+    title: string;
+    coverImage: string;
+    totalChapters: number;
+  }
+
+  interface NovelProgress {
+    slug: string;
+    lastChapter: number;
+    lastUpdated: number;
+    batchMode?: 'chapters' | 'words';
+    batchSize?: number;
+  }
+
+  interface HistoryItem {
+    slug: string;
+    title: string;
+    coverImage: string;
+    lastChapter: number;
+    totalChapters: number;
+    lastUpdated: number;
+    batchMode?: 'chapters' | 'words';
+    batchSize?: number;
+    isFinished: boolean;
+  }
+
+  type GroupKey = 'TODAY' | 'YESTERDAY' | 'LAST WEEK' | 'OLDER';
+
+  function parseSeeds(): NovelSeed[] {
+    const el = document.getElementById('history-novel-seeds');
+    if (!el?.textContent) return [];
+    try {
+      const parsed = JSON.parse(el.textContent);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function collectHistory(seeds: NovelSeed[]): HistoryItem[] {
+    const seedMap = new Map(seeds.map((s) => [s.slug, s]));
+    const items: HistoryItem[] = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+
+      let slug: string | null = null;
+      if (key.startsWith('novel-progress:')) {
+        slug = key.substring('novel-progress:'.length);
+      } else if (key.startsWith('novel-progress-')) {
+        slug = key.substring('novel-progress-'.length);
+      }
+      if (!slug) continue;
+
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) continue;
+
+        const progress = JSON.parse(raw) as NovelProgress;
+        if (
+          typeof progress.lastChapter !== 'number' ||
+          typeof progress.lastUpdated !== 'number' ||
+          progress.lastChapter < 1
+        ) {
+          continue;
+        }
+
+        const seed = seedMap.get(slug);
+        if (!seed) continue;
+
+        items.push({
+          slug: seed.slug,
+          title: seed.title,
+          coverImage: seed.coverImage,
+          totalChapters: seed.totalChapters,
+          lastChapter: progress.lastChapter,
+          lastUpdated: progress.lastUpdated,
+          batchMode: progress.batchMode,
+          batchSize: progress.batchSize,
+          isFinished: progress.lastChapter >= seed.totalChapters,
+        });
+      } catch {
+        continue;
+      }
+    }
+
+    return items.sort((a, b) => b.lastUpdated - a.lastUpdated);
+  }
+
+  function groupByDate(items: HistoryItem[]): Map<GroupKey, HistoryItem[]> {
+    const groups = new Map<GroupKey, HistoryItem[]>();
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const yesterday = today - 86400000;
+    const lastWeek = today - 7 * 86400000;
+
+    for (const item of items) {
+      let key: GroupKey;
+      if (item.lastUpdated >= today) key = 'TODAY';
+      else if (item.lastUpdated >= yesterday) key = 'YESTERDAY';
+      else if (item.lastUpdated >= lastWeek) key = 'LAST WEEK';
+      else key = 'OLDER';
+
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(item);
+    }
+    return groups;
+  }
+
+  function escapeHtml(s: string): string {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+  function buildResumeUrl(item: HistoryItem): string {
+    const mode = item.batchMode ?? 'chapters';
+    const size = item.batchSize ?? 5;
+    return `/novels/${item.slug}/read?start=${item.lastChapter}&mode=${mode}&size=${size}`;
+  }
+
+  function renderItem(item: HistoryItem, isActiveGroup: boolean): string {
+    const progress = Math.min(100, Math.round((item.lastChapter / item.totalChapters) * 100));
+    const opacity = isActiveGroup ? '' : item.isFinished ? 'opacity-80' : 'opacity-70';
+    const grayscale = item.isFinished ? 'grayscale-[0.5]' : '';
+    const lastLabel = item.isFinished ? 'Finished' : 'Last';
+    const buttonHtml = item.isFinished
+      ? `<button class="absolute right-4 p-2 text-on-surface-variant hover:text-primary transition-colors">
+           <span class="material-symbols-outlined text-[20px]">replay</span>
+         </button>`
+      : `<button class="absolute right-4 p-2 ${isActiveGroup ? 'bg-secondary-container' : 'bg-secondary-container/50'} text-on-secondary-container rounded-full shadow-lg ${isActiveGroup ? 'opacity-100 md:opacity-0 md:group-hover:opacity-100' : ''} transition-opacity">
+           <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+         </button>`;
+
+    return `
+      <a href="${buildResumeUrl(item)}" class="block no-underline">
+        <div class="relative timeline-item flex items-center gap-4 bg-surface-container-low p-3 rounded-xl border border-outline-variant/20 group hover:bg-surface-container transition-colors ${opacity}">
+          <div class="w-[45px] h-[65px] flex-shrink-0 rounded-lg overflow-hidden relative ${grayscale}">
+            <img class="w-full h-full object-cover" src="${escapeHtml(item.coverImage)}" alt="${escapeHtml(item.title)} cover" />
+          </div>
+          <div class="flex-grow min-w-0">
+            <h4 class="font-title-sm text-on-surface truncate pr-8">${escapeHtml(item.title)}</h4>
+            <p class="text-caption text-on-surface-variant mb-2">${lastLabel}: Chapter ${item.lastChapter}</p>
+            <div class="h-1 w-full bg-surface-variant rounded-full overflow-hidden">
+              <div class="h-full bg-primary" style="width: ${progress}%"></div>
+            </div>
+          </div>
+          ${buttonHtml}
+        </div>
+      </a>
+    `;
+  }
+
+  function renderSection(label: GroupKey, items: HistoryItem[], isActive: boolean): string {
+    const dotClass = isActive
+      ? 'w-4 h-4 rounded-full bg-primary ring-4 ring-primary/20'
+      : 'w-4 h-4 rounded-full border-2 border-outline-variant';
+    const labelClass = isActive ? 'text-primary' : 'text-on-surface-variant';
+
+    return `
+      <section>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="${dotClass}"></div>
+          <h3 class="font-label-caps tracking-widest ${labelClass}">${label}</h3>
+        </div>
+        <div class="space-y-4">
+          ${items.map((item) => renderItem(item, isActive)).join('')}
+        </div>
+      </section>
+    `;
+  }
+
+  function render() {
+    const loading = document.getElementById('history-loading')!;
+    const empty = document.getElementById('history-empty')!;
+    const timeline = document.getElementById('history-timeline')!;
+
+    const seeds = parseSeeds();
+    const items = collectHistory(seeds);
+
+    loading.classList.add('hidden');
+
+    if (items.length === 0) {
+      empty.classList.remove('hidden');
+      empty.classList.add('flex');
+      return;
+    }
+
+    const groups = groupByDate(items);
+    const order: GroupKey[] = ['TODAY', 'YESTERDAY', 'LAST WEEK', 'OLDER'];
+    const html = order
+      .filter((k) => groups.has(k))
+      .map((k, i) => renderSection(k, groups.get(k)!, i === 0))
+      .join('');
+
+    timeline.innerHTML = html;
+    timeline.classList.remove('hidden');
+
+    // Click feedback
+    document.querySelectorAll('.timeline-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        (item as HTMLElement).style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          (item as HTMLElement).style.transform = 'scale(1)';
+        }, 100);
+      });
+    });
+  }
+
+  render();
+</script>
+
+</Layout>

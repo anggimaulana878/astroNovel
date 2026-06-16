@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-tertiary-fixed": "#2c1700",
+          "on-tertiary-container": "#3f2300",
+          "secondary-fixed-dim": "#d2bbff",
+          "inverse-primary": "#6d3bd7",
+          "on-primary-fixed": "#23005c",
+          "error-container": "#93000a",
+          "on-error": "#690005",
+          "on-secondary-fixed": "#25005a",
+          "on-primary": "#3c0091",
+          "primary-fixed": "#e9ddff",
+          "tertiary-fixed": "#ffdcbb",
+          "on-tertiary": "#482900",
+          "on-surface-variant": "#cbc3d7",
+          "surface-tint": "#d0bcff",
+          "inverse-on-surface": "#303032",
+          "surface-container-high": "#2a2a2c",
+          "on-surface": "#e5e1e4",
+          "on-secondary": "#3f008e",
+          "on-primary-container": "#340080",
+          "secondary": "#d2bbff",
+          "surface-variant": "#353437",
+          "surface-container-lowest": "#0e0e10",
+          "on-secondary-container": "#c9aeff",
+          "primary-fixed-dim": "#d0bcff",
+          "secondary-container": "#6001d1",
+          "tertiary-container": "#ca801e",
+          "surface-container-low": "#1b1b1d",
+          "on-tertiary-fixed-variant": "#673d00",
+          "on-background": "#e5e1e4",
+          "error": "#ffb4ab",
+          "on-primary-fixed-variant": "#5516be",
+          "outline": "#958ea0",
+          "inverse-surface": "#e5e1e4",
+          "secondary-fixed": "#eaddff",
+          "background": "#131315",
+          "on-error-container": "#ffdad6",
+          "surface-container": "#201f21",
+          "outline-variant": "#494454",
+          "tertiary-fixed-dim": "#ffb869",
+          "surface": "#131315",
+          "tertiary": "#ffb869",
+          "surface-container-highest": "#353437",
+          "surface-bright": "#39393b",
+          "on-secondary-fixed-variant": "#5a00c6",
+          "surface-dim": "#131315",
+          "primary": "#d0bcff",
+          "primary-container": "#a078ff"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        spacing: {
+          "sm": "8px",
+          "unit": "8px",
+          "md": "16px",
+          "xs": "4px",
+          "lg": "24px",
+          "container-margin": "16px",
+          "gutter": "12px",
+          "xl": "40px"
+        },
+        fontFamily: {
+          "display-lg": ["Inter"],
+          "reader-body": ["Merriweather"],
+          "headline-md": ["Inter"],
+          "title-sm": ["Inter"],
+          "label-caps": ["Inter"],
+          "reader-body-mobile": ["Merriweather"],
+          "ui-body": ["Inter"],
+          "caption": ["Inter"]
+        },
+        fontSize: {
+          "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "reader-body": ["18px", {"lineHeight": "32px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "title-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+          "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+          "reader-body-mobile": ["16px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "ui-body": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body {
+    background-color: #121214;
+    color: #e5e1e4;
+    -webkit-tap-highlight-color: transparent;
+    min-height: max(884px, 100dvh);
+  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .banner-mask { mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+</style>
+<title>RuangBaca — Preview</title>
+</head>
+<body class="font-ui-body text-ui-body">
+
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 flex items-center justify-between px-container-margin h-16">
+  <div class="flex items-center gap-2">
+    <span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+    <h1 class="font-display-lg text-primary leading-none">RuangBaca</h1>
+  </div>
+  <div class="flex items-center gap-sm">
+    <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">search</span>
+    </button>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">drive_file_move</span>
+    </button>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors">
+      <span class="material-symbols-outlined text-on-surface-variant text-[22px]">history</span>
+    </button>
+  </div>
+</header>
+
+<main class="pt-16 pb-24 max-w-[680px] mx-auto px-container-margin">
+
+  <!-- Banner Carousel -->
+  <section class="mb-lg">
+    <div class="flex overflow-x-auto gap-md no-scrollbar snap-x banner-mask py-2">
+      <div class="flex-none w-[280px] h-[150px] relative rounded-xl overflow-hidden snap-center group">
+        <img alt="Banner 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdX7gDEL3UjjEQQqWiIrJnhen_i4C9LH4wEjhRFaJuWo1pv3ImN-P8zrrNMlIuW_1tWehwriK1sja9PWEmYaF3JPSajpUx7Fe1eD_5OvjzIvNyhW1JRYFV_U1ndI9Kt14pCJahnl8ZO0KJzo5LVc4B4Pu1PshFJDWlWTGH6wEzGS3t3CLeeqrZl4ulABK5Z9yK8gsYRBqy6C7yqnQfCCLp3GUAatMZSIniIYtZuM4EMWNvDZS1Fjxq04oV-Atl984mfsbWNIhMyfhg"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+          <span class="bg-primary text-on-primary-fixed text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full w-fit mb-1">Editor's Choice</span>
+          <p class="font-title-sm text-white truncate">The Silent Archive</p>
+        </div>
+      </div>
+      <div class="flex-none w-[280px] h-[150px] relative rounded-xl overflow-hidden snap-center group">
+        <img alt="Banner 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0pEqMxFUGjR9LkyHOab4dVBANogcRB2xu_D2maNehcVzLmcYAhooLmVYQpY-qNmFMB0z9WQG2pf5kJN7dVefM6HbbLRy8PlU5Vqii40PvA2VaJwCibUQ4weTkMNlavKApJD3Ty7-92p_nWtfn7X_fbKkhgd8RS4LOo_24DNa4EKXCihWcInihXmQVkomDTM2r2FZkFS3vd_TklxDONGqSc1kYCmUnGiybjJV-yA9-r6_31hHYrbcYvTAcLLQsCbeSqBlW1EFF9wNs"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+          <span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full w-fit mb-1">Trending</span>
+          <p class="font-title-sm text-white truncate">Neon Echoes</p>
+        </div>
+      </div>
+      <div class="flex-none w-[280px] h-[150px] relative rounded-xl overflow-hidden snap-center group">
+        <img alt="Banner 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu44yMgEpEH2THISlm2BPyPjlA-ox7Z_6opuuRTsZHJtM0gDUBOAdZuXSDbZq26XPedMpsQ2iYxy1LABOsjEse0ZJhgq-DdptzRjIeixs9r_dnf4m7yc77rNUnbll1iqwalEM5xe8w4x5RN1cElRjA-QawnGmJT_Xr83eSkwdnoujnCbepXMER8PRW0p4UtzFYyl_alPcNXY4QfZTItzhn5INq-LjrPMCkMXo3IfY806CJCHw9FQ8KbLsU-sUEWCmaO_48Ghx8xss9z"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+          <span class="bg-tertiary-container text-on-tertiary-container text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full w-fit mb-1">New Arrival</span>
+          <p class="font-title-sm text-white truncate">Midnight at Morridge</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Continue Reading -->
+  <section class="mb-lg">
+    <h2 class="font-label-caps text-on-surface-variant mb-md uppercase tracking-wider">Continue Reading</h2>
+    <div class="bg-surface-container rounded-xl p-md flex items-center gap-md border border-outline-variant/20">
+      <div class="w-16 h-20 flex-none rounded-md overflow-hidden">
+        <img alt="Cover" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjYAwSeMypKtzHByeuKMLGdpgcS8QzOAn4ANhcj-KHkzCn2HQtRMUt6u0tJrsfSh-GqhoefS4foxpio1zhypPRrjo6lYKah5OG2avRXy33BNOADKTz5aEKcKqJgPF-ZshD0xW-HQGVzki2rWbMwng2lB_UQUwOB33GZ5xsi8dko3b-lr-luUJi9YUe3OcQ4LpmZiFvGeEs45CGX2Idizeh08FkzR647o69AHt9u_8pn9kH-rD99oQd_ALoJOCVCVrb0RlfY_Kca9dM"/>
+      </div>
+      <div class="flex-1 min-w-0">
+        <h3 class="font-title-sm text-on-surface truncate">The Alchemist's Shadow</h3>
+        <p class="text-caption text-on-surface-variant">Chapter 42</p>
+      </div>
+      <button class="bg-primary text-on-primary-fixed px-4 py-2 rounded-full flex items-center gap-2 active:scale-95 transition-transform flex-shrink-0">
+        <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+        <span class="font-label-caps">Resume</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Sticky Tabs -->
+  <nav class="sticky top-16 z-40 bg-surface/95 backdrop-blur-md -mx-container-margin px-container-margin py-3 mb-md">
+    <div class="flex gap-lg overflow-x-auto no-scrollbar items-center">
+      <button class="flex-none font-label-caps border-b-2 pb-1 text-primary border-primary">Library</button>
+      <button class="flex-none font-label-caps text-on-surface-variant">Fantasy</button>
+      <button class="flex-none font-label-caps text-on-surface-variant">Romance</button>
+      <button class="flex-none font-label-caps text-on-surface-variant">Action</button>
+    </div>
+  </nav>
+
+  <!-- Novel Grid -->
+  <div class="grid grid-cols-3 gap-x-3 gap-y-6">
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 1" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjYAwSeMypKtzHByeuKMLGdpgcS8QzOAn4ANhcj-KHkzCn2HQtRMUt6u0tJrsfSh-GqhoefS4foxpio1zhypPRrjo6lYKah5OG2avRXy33BNOADKTz5aEKcKqJgPF-ZshD0xW-HQGVzki2rWbMwng2lB_UQUwOB33GZ5xsi8dko3b-lr-luUJi9YUe3OcQ4LpmZiFvGeEs45CGX2Idizeh08FkzR647o69AHt9u_8pn9kH-rD99oQd_ALoJOCVCVrb0RlfY_Kca9dM"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.8</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">The Time Keeper</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">Aria Stark • Ch. 124</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 2" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDca7bnl-8uPb-vYsrDXR6kUbxrAUhGpMt5JpDJWPGFZ4TFxzeydreceuQnDDIOe-U8mO6M8NXLgBw3w-x0Q7Sq5eVdy63Ki4mV9A6kUGhFVuBAKXC90hseZL0Kj61ry3WuF5cr5kNTdPJlAVnSfNUTzLz1MiiSLnnn6Xf2keSeJjd3gXpFxsXhnJ-uhu-A6axQjBbnUNeXgaS3DQnzu9M6dyF-5MfU0b8xy-pZYOBZwiIjFEHOrkKCaN32UnlIdoITFxMunTaEDUx3"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.9</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">Labyrinth of Lies</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">Kevin J. • Ch. 89</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 3" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1CKrrXMbrQ0zm8T9pwlLTvuC1NiXfaNbR2psOy3qsrzTOpRN7rcklG6TgMNbgb3cJj_HmjEpFXkC2lwhWrnwN-XK83CVE_bnSMQgPIbUId7W3uVG4naGccCejEXd7Q-PrzWpCzZ3sWxXHZAoP7gt7-lIrg8SPGQYPzSq1fw0xvV4ZXCKzRpdfVl6Ve-28ycy2r6G7gbaOjSTjBFYgrSlUmbrkeHizQ4SH58cFcUPecyffQXwNOb6yQuiGALJ_1QWN8du_dazVhZOG"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.5</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">Star Behind the Window</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">S. Alana • Ch. 210</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 4" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApI8dtQ1eoX6ajs8zzX562YBiD2B4RPY1Uo8YafULyfbMjDqDety2so1d7dh6A3xey6imyRqN8YPpkXT0N7fd8Y2uoN2BQ0rSdN549LZBXqtpN37JMr148ZDdUSEMVg7vWKCMGLhDHdGQg0yKTi2TILbCeo8t6Gm_wiuRSpF5A5q8sNv5MEj8nrXRFlUrb0X0FH5wkhT8osNbq5BG9p5Tt55HYC-GwowDXNNFW_MyTMah7xg4zL_16B99effkboqC-q9Roj1bx2rp1"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.7</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">The Last Cup of Coffee</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">Haikal R. • Ch. 45</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 5" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiitAuHLCNb2u2IEG0-ZWGfwFIAgs3EsR1Rg5MwRRydftynmImYixNlSw2KX8z42d2gm7fP3g2lyq91l540tvy_ciOU9uIpgEiyaNfXrZ3TxGowETbhacYKJgPz8yCECm95BmLzd5uogar_jz5LUMHskPawZ5mxOhLUSxzfDNTH5bq0veKHTErHkz5p6vbTi17oqgVCszyaZXv32LUBsz9jrnaJ_s39QxhxHuIR_6GlcD2zw_TtdwK-rbzZ835m-URACCNrcbaB2C-"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.8</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">The Wanderer's Moon</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">Elena M. • Ch. 12</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 group cursor-pointer">
+      <div class="relative aspect-[3/4] rounded-xl overflow-hidden bg-surface-container-high transition-transform duration-300 group-hover:scale-[1.02]">
+        <img alt="Novel 6" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUTnNCQSrKWmiDDyVqFEI_gx84JYRACWuMbTG4wDAApqwHXgYAXZpVodkezCKctg4-g3dgA6L0gPT2d4eX17rt96VApRJO9969Qn2LuOhZOFi3obpQke36ctvEH4YmZRL4mg4-nk37BZk3atpUQJ-eEc-zhwg-y3Or_X6UgdgMO5wEUP8_mQOFtYiW5pZEzeTEov9D1ZGC85Pisxb88LG5p1Sdzby-lyKTwbu1bspqKxg-8U2-aAXmJiyuFuHBYuin7jHWOtAQQsM8"/>
+        <div class="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="text-[10px] font-bold text-white">4.6</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-[14px] font-semibold leading-tight text-on-surface line-clamp-2">System Breach</h3>
+        <p class="text-[12px] text-[#8A8A93] mt-1">Zero One • Ch. 332</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Bottom Navigation Bar -->
+<script>
+  const tabs = document.querySelectorAll('nav.sticky button');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('text-primary', 'border-primary');
+        t.classList.add('text-on-surface-variant');
+      });
+      tab.classList.add('text-primary', 'border-primary');
+      tab.classList.remove('text-on-surface-variant');
+    });
+  });
+
+  const bannerScroll = document.querySelector('.snap-x');
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  bannerScroll.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - bannerScroll.offsetLeft;
+    scrollLeft = bannerScroll.scrollLeft;
+  });
+  bannerScroll.addEventListener('mouseleave', () => { isDown = false; });
+  bannerScroll.addEventListener('mouseup', () => { isDown = false; });
+  bannerScroll.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - bannerScroll.offsetLeft;
+    const walk = (x - startX) * 2;
+    bannerScroll.scrollLeft = scrollLeft - walk;
+  });
+</script>
+</body>
+</html>

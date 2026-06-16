@@ -13,201 +13,94 @@ for (let i = 0; i < chapters.length; i += 100) {
   const start = i + 1;
   const end = Math.min(i + 100, chapters.length);
   chapterGroups.push({
-    label: `${start}-${end}`,
+    label: `${start} - ${end}`,
     chapters: chapters.slice(i, i + 100)
+  });
+}
+
+const reversedChapters = [...chapters].reverse();
+const reversedGroups: { label: string; chapters: Chapter[] }[] = [];
+for (let i = 0; i < reversedChapters.length; i += 100) {
+  const start = reversedChapters.length - i;
+  const end = Math.max(reversedChapters.length - i - 99, 1);
+  reversedGroups.push({
+    label: `${end} - ${start}`,
+    chapters: reversedChapters.slice(i, i + 100)
   });
 }
 ---
 
-<div class="chapter-list">
-  <h3>Chapters</h3>
-  
-  <div class="tabs">
+<section class="mt-8 border-t border-outline-variant/10">
+  <div class="px-container-margin py-4">
+    <h3 class="font-bold text-on-surface text-lg">Chapters</h3>
+  </div>
+
+  <div class="flex overflow-x-auto no-scrollbar border-b border-outline-variant/10">
     {chapterGroups.map((group, index) => (
-      <button 
-        class={`tab ${index === 0 ? 'active' : ''}`}
+      <button
+        class={`flex-none px-6 py-3 text-center font-bold whitespace-nowrap transition-all ${
+          index === 0
+            ? 'text-primary border-b-2 border-primary'
+            : 'text-on-surface-variant hover:text-on-surface'
+        }`}
         data-tab={index}
+        id={`btn-batch-${index}`}
       >
         {group.label}
       </button>
     ))}
   </div>
-  
-  <div class="tab-content">
-    {chapterGroups.map((group, index) => (
-      <div class={`tab-panel ${index === 0 ? 'active' : ''}`} data-panel={index}>
-        <div class="chapter-grid">
-          {group.chapters.map(chapter => (
-            <a 
-              href={`/novels/${novelSlug}/read?start=${chapter.id}&mode=chapters&size=5&chapter=${chapter.id}`}
-              class="chapter-item"
-              title={`${chapter.id} - ${chapter.title}`}
+
+  <div class="animate-in fade-in duration-300" id="chapters-container">
+    <div class="flex justify-between items-center px-container-margin py-3 bg-surface-container-lowest">
+      <span class="text-[10px] font-label-caps text-on-surface-variant" id="chapter-count-text">
+        SHOWING {chapterGroups[0]?.chapters.length || 0} CHAPTERS ({chapterGroups[0]?.label || ''})
+      </span>
+    </div>
+
+    <div class="divide-y divide-outline-variant/10" id="chapters-list">
+      {chapterGroups.map((group, index) => (
+        <div class={`tab-panel ${index === 0 ? '' : 'hidden'}`} data-panel={index}>
+          {group.chapters.map((chapter) => (
+            <a
+              href={`/novels/${novelSlug}/read?chapter=${chapter.id}`}
+              class="flex items-center justify-between px-container-margin py-4 hover:bg-surface-variant/30 active:bg-surface-variant/50 transition-colors"
             >
-              <span class="chapter-compact">{chapter.id} - {chapter.title}</span>
+              <div class="flex flex-col">
+                <span class="font-bold text-on-surface">Chapter {chapter.id}: {chapter.title}</span>
+                <span class="text-[10px] text-on-surface-variant mt-1">{chapter.body ? `${Math.round(chapter.body.length / 5)} words` : ''}</span>
+              </div>
+              <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
             </a>
           ))}
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
-</div>
-
-<style>
-  .chapter-list {
-    margin-top: 32px;
-  }
-
-  .chapter-list h3 {
-    font-size: 1.5em;
-    margin-bottom: 16px;
-  }
-
-  .tabs {
-    display: flex;
-    gap: 8px;
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 16px;
-    overflow-x: auto;
-  }
-
-  .tab {
-    padding: 8px 16px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-primary);
-    font-size: 0.9em;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .tab.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  .tab:hover:not(.active) {
-    background: var(--bg-secondary);
-  }
-
-  .tab-panel {
-    display: none;
-  }
-
-  .tab-panel.active {
-    display: block;
-  }
-
-  .chapter-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-  }
-
-  .chapter-item {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 10px 12px;
-    background: var(--bg-primary);
-    transition: background-color 0.2s, transform 0.2s;
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-  }
-
-  .chapter-item:hover {
-    background: var(--bg-secondary);
-    transform: translateY(-2px);
-  }
-
-  .chapter-compact {
-    font-size: 0.9em;
-    color: var(--text-primary);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
-    .chapter-list {
-      margin-top: 24px;
-    }
-
-    .chapter-list h3 {
-      font-size: 1.3em;
-      margin-bottom: 12px;
-    }
-
-    .tabs {
-      gap: 6px;
-      padding-bottom: 6px;
-      margin-bottom: 12px;
-    }
-
-    .tab {
-      padding: 10px 14px;
-      font-size: 0.85em;
-      min-width: 80px;
-      min-height: 44px;
-      flex-shrink: 0;
-    }
-
-    .chapter-grid {
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
-
-    .chapter-item {
-      padding: 12px 14px;
-      min-height: 48px;
-    }
-
-    .chapter-compact {
-      font-size: 0.85em;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: unset;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .chapter-grid {
-      grid-template-columns: 1fr;
-      gap: 6px;
-    }
-
-    .chapter-item {
-      padding: 10px 12px;
-      min-height: 44px;
-    }
-
-    .chapter-compact {
-      font-size: 0.8em;
-      white-space: normal;
-      overflow: visible;
-      text-overflow: unset;
-    }
-
-    .tab {
-      padding: 10px 12px;
-      font-size: 0.8em;
-      min-width: 70px;
-    }
-  }
-</style>
+</section>
 
 <script>
-  document.querySelectorAll('.tab').forEach(tab => {
+  document.querySelectorAll('[data-tab]').forEach(tab => {
     tab.addEventListener('click', () => {
       const tabIndex = tab.getAttribute('data-tab');
-      
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      
-      tab.classList.add('active');
-      document.querySelector(`[data-panel="${tabIndex}"]`)?.classList.add('active');
+      const countText = document.getElementById('chapter-count-text');
+      const container = document.getElementById('chapters-container');
+
+      document.querySelectorAll('[data-tab]').forEach(t => {
+        t.classList.remove('text-primary', 'border-b-2', 'border-primary');
+        t.classList.add('text-on-surface-variant');
+      });
+      tab.classList.add('text-primary', 'border-b-2', 'border-primary');
+      tab.classList.remove('text-on-surface-variant');
+
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.querySelector(`[data-panel="${tabIndex}"]`)?.classList.remove('hidden');
+
+      const label = tab.textContent?.trim() || '';
+      const panels = document.querySelectorAll('.tab-panel');
+      const panel = panels[Number(tabIndex)];
+      const count = panel?.querySelectorAll('a').length || 0;
+      if (countText) countText.textContent = `SHOWING ${count} CHAPTERS (${label})`;
     });
   });
 </script>

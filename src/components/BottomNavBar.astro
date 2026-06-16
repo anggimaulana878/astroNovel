@@ -1,0 +1,54 @@
+---
+interface NavItem {
+  icon: string;
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items?: NavItem[];
+  activeIndex?: number;
+}
+
+const {
+  items = [
+    { icon: 'menu_book', label: 'Library', href: '/' },
+    { icon: 'search', label: 'Search', href: '#' },
+    { icon: 'history', label: 'History', href: '#' },
+  ],
+  activeIndex = 0,
+} = Astro.props;
+---
+
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl border-t border-outline-variant/20">
+  <div class="flex items-center justify-around h-16 pb-[env(safe-area-inset-bottom)] max-w-lg mx-auto">
+    {items.map((item: NavItem, index: number) => (
+      <a
+        href={item.href || '#'}
+        class={`nav-tab flex flex-col items-center justify-center flex-1 py-1 transition-all duration-200 active:scale-95 ${
+          index === activeIndex
+            ? 'text-primary'
+            : 'text-on-surface-variant'
+        }`}
+        data-index={index}
+      >
+        <span class="material-symbols-outlined text-2xl">{item.icon}</span>
+        <span class="text-caption mt-0.5 font-medium">{item.label}</span>
+      </a>
+    ))}
+  </div>
+</nav>
+
+<script>
+  const tabs = document.querySelectorAll('.nav-tab');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => {
+        t.classList.remove('text-primary');
+        t.classList.add('text-on-surface-variant');
+      });
+      tab.classList.remove('text-on-surface-variant');
+      tab.classList.add('text-primary');
+    });
+  });
+</script>
